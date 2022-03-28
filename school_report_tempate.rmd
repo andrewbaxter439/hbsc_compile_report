@@ -7,7 +7,7 @@ params:
   school: 
     label: 'School'
     input: select
-    value: 37000217
+    value: 37000259
     choices: [37000078, 37000259, 37000105, 37000094, 37000217, 37000232, 37000250, 37000130, 37000001, 37000149]
 ---
 
@@ -48,6 +48,16 @@ Percentage who eat fruit every day
 ```{r fruits}
 
 bar_by_gender(fruits, "Every day")
+
+```
+
+# Smoking in last 30 days
+
+% who have smoked in last 30 days
+
+```{r smok30d_2}
+
+bar_by_gender(smok30d_2)
 
 ```
 

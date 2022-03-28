@@ -3,13 +3,8 @@ bar_by_gender <- function(var, .count_var = "Yes", .data = school_dat) {
   require(scales)
   
   var <- enquo(var)
-  
-  # .data %>% 
-  #   select(sex, AGECAT, !!var) %>% 
   .data %>%
     group_by(!!var, sex) %>% 
-    # mutate(denom = n()) %>% 
-    # group_by(!!sym(exposure$variable), !!sym(outcome$variable)) %>% 
     count() %>% 
     group_by(sex) %>% 
     mutate(denom = sum(n),
@@ -42,6 +37,7 @@ bar_by_gender <- function(var, .count_var = "Yes", .data = school_dat) {
     ) 
   
 }
+
 
 
 # school_dat %>%
