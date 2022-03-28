@@ -1,0 +1,53 @@
+---
+title: "`r params$school` report"
+author: "Andy Baxter"
+date: "25/03/2022"
+output: word_document
+params:
+  school: 
+    label: 'School'
+    input: select
+    value: 37000217
+    choices: [37000078, 37000259, 37000105, 37000094, 37000217, 37000232, 37000250, 37000130, 37000001, 37000149]
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE)
+library(readr)
+library(scales)
+source("R/import and clean data.R")
+source("R/functions.R")
+
+primary_colour <-  "#2e3192"
+secondary_colour <- "#016bb2"
+main_colour <- "#333333"
+global_girls_colour <- "#2F3191"
+global_boys_colour <- "#2AAAE1"
+global_good_colour <- "#8d96a3"
+global_excel_colour <- "#00798c" 
+
+school_dat <- influences_data[influences_data$ClassID == params$school,]
+```
+
+# HBSC report update for [`r params$school`]
+
+## Eating breakfast on weekdays
+
+How often do you usually have breakfast (more than a glass of milk or fruit juice)?
+
+```{r breakfastwd}
+
+bar_by_gender(breakfastwd)
+
+```
+
+## Eat fruit every day
+
+Percentage who eat fruit every day
+
+```{r fruits}
+
+bar_by_gender(fruits, "Every day")
+
+```
+
