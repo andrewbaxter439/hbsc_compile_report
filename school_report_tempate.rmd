@@ -1,8 +1,10 @@
 ---
 title: "`r params$school` report"
-author: "Andy Baxter"
-date: "25/03/2022"
-output: word_document
+#author: "Andy Baxter"
+#date: "25/03/2022"
+output:
+  word_document:
+      reference_docx: outline.docx
 params:
   school: 
     label: 'School'
@@ -12,7 +14,7 @@ params:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, message = FALSE)
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, fig.width = 6.2, fig.height = 4.1)
 library(readr)
 library(scales)
 source("R/import and clean data.R")
@@ -29,7 +31,35 @@ global_excel_colour <- "#00798c"
 school_dat <- influences_data[influences_data$ClassID == params$school,]
 ```
 
+
+
+<!-- ![](images/SHINE_logo.png){width=100%} -->
+
+
+```{r, out.width=1200}
+knitr::include_graphics('images/SHINE_logo.png')
+```
+
+
 # HBSC report update for [`r params$school`]
+## Generated `r date()`
+
+
+<br>
+
+```{r, out.width=300}
+knitr::include_graphics('images/hbsc_logo.png')
+```
+
+
+```{r, out.width=1200}
+knitr::include_graphics('images/SPHSU_logo.png')
+```
+
+<!-- ![](images/hbsc_logo.png){width=20%} -->
+<!-- ![](images/SPHSU_logo.png){width=100%} -->
+
+\newpage
 
 ## Eating breakfast on weekdays
 
