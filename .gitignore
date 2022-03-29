@@ -3,5 +3,5 @@
 .RData
 .Ruserdata
 *.docx
-!template.docx
+!outline.docx
 /data/
