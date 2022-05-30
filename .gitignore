@@ -4,4 +4,8 @@
 .Ruserdata
 *.docx
 !outline.docx
+!/templates/*.docx
 /data/
+/bookdown
+test*
+Final dataset for reports - Shortcut.lnk
