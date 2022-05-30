@@ -71,7 +71,7 @@ bar_by_cat <- function(var,
     p1 <- df_sex |>
       mutate(prop = numerator / denom) |>
       ggplot(aes(sex, prop, fill = sex)) +
-      geom_bar(stat = "identity") +
+      geom_bar_t(stat = "identity") +
       scale_fill_hbsc() +
       scale_y_continuous("%", labels = percent, limits = c(0, 1))
     
@@ -82,7 +82,7 @@ bar_by_cat <- function(var,
     p1 <- df_sex |>
       summarise(prop = sum(numerator) / sum(denom)) |>
       ggplot(aes("All pupils", prop)) +
-      geom_bar(stat = "identity") +
+      geom_bar_t(stat = "identity") +
       scale_fill_hbsc() +
       scale_y_continuous("%", labels = percent, limits = c(0, 1))
     
@@ -108,7 +108,7 @@ bar_by_cat <- function(var,
     p2 <- df_school |> 
       summarise(prop = sum(numerator) / sum(denom)) |>
       ggplot(aes(grade, prop, fill = grade)) +
-    geom_bar(stat = "identity") +
+    geom_bar_t(stat = "identity") +
     scale_fill_hbsc() +
     scale_y_continuous("%", labels = percent, limits = c(0, 1), position = "right")
   } else {
@@ -121,3 +121,20 @@ bar_by_cat <- function(var,
 # test
 # bar_by_cat(health, c("Good", "Excellent"))
 
+
+# customising graphs ------------------------------------------------------
+
+#' scale_fill_hbsc to globalise fill colours
+
+scale_fill_hbsc <- \(x) scale_fill_manual(values = c(
+  "Girls" = global_girls_colour,
+  "Boys" = global_boys_colour,
+  "S2" = global_s2_colour,
+  "S4" = global_s4_colour
+))
+
+#' Thinner geom_bar
+
+geom_bar_t <- function (..., width = 0.5) {
+  geom_bar(..., width = width)
+}

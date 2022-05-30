@@ -62,12 +62,7 @@ global_s4_colour <- "#C5E0B4"
 global_good_colour <- "#8d96a3"
 global_excel_colour <- "#00798c" 
 
-scale_fill_hbsc <- \(x) scale_fill_manual(values = c(
-  "Girls" = global_girls_colour,
-  "Boys" = global_boys_colour,
-  "S2" = global_s2_colour,
-  "S4" = global_s4_colour
-))
+
 
 theme_set(theme_minimal() +
             theme(text = element_text(colour = main_colour, size = 18),
@@ -431,24 +426,3 @@ Pupils were asked whether they thought they were underweight, overweight or neit
 | <https://youngminds.org.uk/>          |                                                                                                                                                                                                                                                             |
 +---------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
-# redundant code
-
-## Eat fruit every day
-
-Percentage who eat fruit every day
-
-```{r fruits}
-
-bar_by_gender(fruits, "Every day")
-
-```
-
-# Smoking in last 30 days
-
-\% who have smoked in last 30 days
-
-```{r smok30d_2}
-
-bar_by_gender(smok30d_2)
-
-```
