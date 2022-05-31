@@ -4,7 +4,7 @@ output:
   officedown::rdocx_document:
       # toc: yes
       # toc_depth: 2
-    reference_docx: templates/pilot_secondary_v2.docx
+    reference_docx: templates/pilot_secondary_format.docx
     tables:
       style: Table Grid
       layout: autofit
@@ -23,7 +23,7 @@ params:
   school: 
     label: 'School'
     input: select
-    value: "S2046"
+    value: "S4022"
     choices: ["S4003", "S4010", "S4014", "S4019", "S4021", "S4026", "S4028", 
 "S4029", "S4033", "S4035", "S4040", "S4047", "S4049", "S4055", 
 "S4056", "S4061", "S4062", "S4063", "S4064", "S4069", "S4070", 
@@ -32,17 +32,21 @@ params:
 "S2026", "S2029", "S2034", "S2035", "S2040", "S2041", "S2045", 
 "S2046", "S2049", "S2051", "S2054", "S2055", "S2059", "S2060", 
 "S2062", "S2064", "S2069", "S2070", "S2072", "S2074", "S2078", 
-"S2083", "P7003", "P7006", "P7008", "P7010", "P7013", "P7019", 
-"P7024", "P7025", "P7028", "P7030", "P7031", "P7036", "P7040", 
-"P7048", "P7050", "P7052", "P7053", "P7055", "P7059", "P7062", 
-"P7063", "P7066", "P7071", "P7072", "P7073", "P7015", "P7026", 
-"P7045", "P7061", "S2010", "S2022", "S2024", "S2028", "S2033", 
+"S2083", "S2010", "S2022", "S2024", "S2028", "S2033", 
 "S2047", "S2058", "S2076", "S2084", "S4008", "S4013", "S4022", 
 "S4034", "S4051", "S4058", "S4059", "S4075"]
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, message = FALSE, fig.width = 6.2, fig.height = 4.1)
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE,
+  fig.width = 6.2,
+  fig.height = 4.1,
+  fig.topcaption = TRUE,
+  fig.cap.style = "Caption",
+  tab.cap.style = "Caption"
+)
 library(readr)
 library(scales)
 library(flextable)
@@ -105,6 +109,7 @@ school_dat <- hbsc2022[hbsc2022$school_id == params$school,] |>
 ![](images/SPHSU_logo.png){width="2.3958333333333335in" height="0.4125in"}![](images/st_as_logo.jpg){width="1.3854166666666667in" height="0.39861111111111114in"}
 
 \newpage
+# Overview
 
 ###### Contents    
 `r officer::block_toc(level = 2, style = NULL, separator = ";")`
@@ -112,8 +117,6 @@ school_dat <- hbsc2022[hbsc2022$school_id == params$school,] |>
 ###### Acknowledgements
 
 This survey was conducted as part of the Health Behaviour in School-aged Children (HBSC) Scotland study, led by the MRC/CSO Social and Public Health Sciences Unit, University of Glasgow in collaboration with the School of Medicine, University of St Andrews. The HBSC study is funded by Public Health Scotland. The HBSC Scotland research team includes Dr Jo Inchley, Dorothy Currie, Dr Judith Brown, Judith Mabelis and Dr Malachi Willis. We would like to thank all the pupils who took part in the survey and the teachers who supported the pilot.
-
-\newpage
 
 # Introduction
 
@@ -157,22 +160,12 @@ As well as the data, we have included notes and research evidence along with sug
 
 Pupils in S2 and S4 classes in your school took part in the survey during November and December 2021. Table 1 shows the number of pupils participating by year group and gender. One pupil did not provide their year group and three pupils did not provide their gender.
 
-Table 1: Overview of survey respondents
-
-```{r tab.cap="economics table", tab.id = "mytab", tab.cap.style = "Table Caption"}
-school_dat |> count(sex, AGECAT) |> 
-  pivot_wider(names_from = AGECAT, values_from = n) |> 
+```{r tab.cap="Overview of survey respondents", tab.id = "mytab", tab.cap.style = "Caption"}
+school_dat |> count(sex, grade) |> 
+  filter(if_all(everything(), ~! is.na(.x))) |> 
+  pivot_wider(names_from = grade, values_from = n) |> 
   flextable()
 ```
-
-And another table
-
-|           | **S2** | **S4** |
-|-----------|:-------|:-------|
-| **Girls** | 10     | 13     |
-| **Boys**  | 19     | 8      |
-
-\newpage
 
 # Your school’s survey results
 
@@ -202,9 +195,7 @@ The quality of sleep is just as important as amount of sleep for improving wellb
 
 Pupils were asked to rate their own health. This figure the proportion of pupils reporting their health to be either 'excellent' or 'good'.
 
-Figure 1: % pupils who report good or excellent health
-
-```{r good_excel_health}
+```{r good_excel_health, fig.cap="% pupils who report good or excellent health", fig.cap.style="Caption"}
 
 bar_by_cat(health, c("Good", "Excellent"))
 
@@ -215,9 +206,21 @@ bar_by_cat(health, c("Good", "Excellent"))
 
 Pupils were asked 'In the last 6 months how often have you had the following...?' and presented with a list of eight physical and psychological symptoms: headache, stomach-ache, backache, dizziness, feeling low, feeling nervous, feeling irritable and sleep difficulties. We looked at the proportion of young people who experienced this symptom, once a week or more and the results are shown for all pupils combined.
 
-Figure 2: % pupils who report this type of health complaint once a week or more
+```{r mulciple_health, fig.cap="% pupils who report this type of health complaint once a week or more", fig.cap.style = "Caption"}
+bar_multiple_vars(
+  list(
+    headache =   "Headache",
+    stomachache =   "Stomach-ache",
+    backache =   "Backache",
+    dizzy =   "Dizziness",
+    feellow =   "Feeling low",
+    nervous =   "Feeling nervous",
+    irritable =   "Feeling irritable",
+    sleepdificulty =   "Sleep difficulties"
+  )
+)
+```
 
-[$$CHART$$]{.chart}
 
 Figure 3 shows the percentage of pupils who report two or more health complaints, once a week or more.
 
@@ -297,9 +300,12 @@ In terms of promoting wellbeing, positive relationships with family, friends and
 
 Pupils were asked about their life satisfaction, using the 'Cantril Ladder'. This shows a ladder with rungs numbered from 0 ('worst possible life') to 10 ('best possible life'). Pupils were asked to mark where on the ladder they feel they stand at the moment. Here we show the proportion of pupils who report high life satisfaction (gave a rating of 6 or more out of 10).
 
-**Figure 8: % pupils who report high life satisfaction (6 or more out of 10)**
+**Figure 8: **
 
-[$$CHART$$]{.chart}
+```{r high_life, fig.cap="% pupils who report high life satisfaction (6 or more out of 10)"}
+bar_by_cat(lifesat, c("6", "7", "8", "9", "10 Best possible life"))
+```
+
 
 ### Feeling left out
 
@@ -307,23 +313,31 @@ Pupils were asked "how often do you feel left out of things?". This figure shows
 
 **Figure 9: % pupils who feel often or always left out**
 
-[$$CHART$$]{.chart}
+```{r left_out, fig.cap="% pupils who feel often or always left out"}
+bar_by_cat(leftout, c("Often", "Always"))
+```
 
 ### Confidence
 
 Pupils were asked 'how often do you feel confident in yourself?'. Here we show the proportion of pupils who responded that they 'often' or 'always' feel confident.
 
-**Figure 10: % pupils who feel often or always confident**
+**Figure 10: **
 
-[$$CHART$$]{.chart}
+```{r confident, fig.cap="% pupils who feel often or always confident"}
+bar_by_cat(confidence, c("Often", "Always"))
+```
+
 
 ### Happiness
 
 To gauge levels of happiness, pupils were asked "In general, how do you feel about your life at present?" Here we show those pupils that feel happy ('very' or 'quite') with their life.
 
-**Figure 11: % pupils who feel happy with life**
+**Figure 11: **
 
-[$$CHART$$]{.chart}
+```{r happy, fig.cap="% pupils who feel happy with life"}
+bar_by_cat(happiness, c("I feel quite happy", "I feel very happy"), .censor = FALSE)
+```
+
 
 ### Loneliness
 
@@ -426,3 +440,1037 @@ Pupils were asked whether they thought they were underweight, overweight or neit
 | <https://youngminds.org.uk/>          |                                                                                                                                                                                                                                                             |
 +---------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
+## Eating habits
+
+This chapter presents data about eating habits. It includes the
+following measures:
+
+-   Eating habits
+
+-   Breakfast
+
+-   Family meals
+
+Unhealthy eating has been found to be one of the biggest contributors to
+poor adolescent wellbeing.^26^ Healthy dietary behaviours can prevent
+obesity, eating disorders and tooth decay, and may help prevent coronary
+heart disease, cancer and stroke in adulthood.^27,28^ Skipping breakfast
+is common among young people, especially older adolescents and girls,
+and is linked with health-compromising behaviours.^29^ Research shows
+that regularly eating breakfast is linked to better quality of diet in
+school-aged children^30-32^ and is linked to lower BMI and
+bodyweight.^30,32,33^ Family meals promote positive family
+interactions.^34^ Regular family meals are associated with healthier
+diets in children and adolescents, may reduce the risk of
+obesity,^35,36^and are also linked to better mental health, lower levels
+of depression, stress, suicidal thoughts, and risk behaviours.^37-39^
+
+### Eating habits 
+
+Pupils were asked how many days a week they consumed various types of
+food and drink. The figures show the percentage of pupils who consumed
+each type of food or drink at least once a day.
+
+**Figure 17: % pupils who consume food/drink daily, by gender**
+
+[\[CHART\]]{.chart}
+
+**Figure 18: % pupils who consume food/drink daily, by year group**
+
+[\[CHART\]]{.chart}
+
+### Breakfast
+
+Pupils were asked how often they usually have breakfast on weekdays
+("more than a glass of milk or fruit juice"). Here we show the
+percentage of pupils who report eating breakfast every day on weekdays.
+
+**Figure 19: % pupils who eat breakfast every weekday**
+
+[\[CHART\]]{.chart}
+
+### Family meals
+
+Pupils were asked "how often do you and your family usually have meals
+together?". Here we show the percentage who responded that they have a
+family meal most days or every day.
+
+**Figure 20: % pupils who eat a meal with family most days or everyday**
+
+[\[CHART\]]{.chart}
+
+### Who can help?
+
++----------------------------------+----------------------------------+
+| Organisation                     | Description                      |
++==================================+==================================+
+| Beat (eating disorders)          | Beat help people with eating     |
+|                                  | disorders and provide support    |
+| <https://                        | for those with emotional         |
+| www.beateatingdisorders.org.uk/> | overeating and difficulties with |
+|                                  | food, weight and shape. They     |
+|                                  | provide support services such as |
+|                                  | helplines, website, self help    |
+|                                  | and support groups and online    |
+|                                  | support.                         |
++----------------------------------+----------------------------------+
+| Resources for Schools from the   | Food - a fact of life provides a |
+| British Nutrition Foundation     | wealth of free resources about   |
+|                                  | healthy eating, cooking, food    |
+| <htt                             | and farming for children and     |
+| p://www.foodafactoflife.org.uk/> | young people aged 3 to 18 years. |
+|                                  | The resources are progressive to |
+|                                  | support the curriculum           |
+|                                  | throughout the UK. All resources |
+|                                  | are designed to ensure that      |
+|                                  | consistent and up-to-date        |
+|                                  | messages are delivered.          |
++----------------------------------+----------------------------------+
+| Eco Schools Scotland -- Food and | Resources, information and       |
+| the Environment Topic            | projects that can be implemented |
+|                                  | in schools to help school-aged   |
+| <https://www.keepscotlan         | children learn about the         |
+| dbeautiful.org/education-and-lea | production of food, making       |
+| rning/food-and-the-environment/> | healthy choices and considering  |
+|                                  | the impact of food production on |
+|                                  | the environment                  |
++----------------------------------+----------------------------------+
+
+
+
+## Physical activity and leisure time
+
+This chapter presents data about physical activity and leisure time activities. The chapter includes the following measures:
+
+-   Moderate-to-vigorous physical activity
+
+-   Vigorous exercise in leisure time
+
+-   Participation in organised leisure activities
+
+-   Feeling safe in neighbourhood
+
+-   Spending time in green space
+
+The World Health Organisation recommends that children should
+participate in at least 60 minutes of moderate-to-vigorous activity
+every day.^40^ The WHO guidelines also state that vigorous intensity
+physical activities, including those to strengthen muscle and bone,
+should be included on at least 3 days per week.^1^ As well as protecting
+from physical health conditions, physical activity also contributes to
+higher life satisfaction and improved mental wellbeing.^41-44^ Organised
+leisure-time activities are linked to healthy youth development ^45^ and
+are an important aspect in the positive social and psychological
+development of young people.^46^ Links have been found between
+participation in organised activities and higher school wellbeing and
+better school performance. ^47^ In addition, a recent international
+study demonstrated that involvement in organised activities was
+associated with improved subjective wellbeing regardless of age, gender
+and other socio-economic factors.^48^
+
+### Physical activity 
+
+Pupils were asked two questions about the amount of physical activity
+they usually engage in each week. The first asked, in the previous 7
+days, how many days they spent 60 minutes or more in physical activity
+which increased their heart rate and made them out of breath some of the
+time.
+
+We present in Figure 21 the percentage of pupils who participated in
+moderate-to-vigorous activity for at least 60 minutes every day.
+
+### Leisure time physical activity 
+
+Pupils were also asked about how often they take part in vigorous
+exercise in their free time. Vigorous exercise is defined as any
+activity which makes you get out of breath and sweat.
+
+Figure 22 shows the percentage of pupils who reported doing vigorous
+exercise at least 4 times a week in their leisure time.
+
+**Figure 21: % pupils who do 60 minutes of moderate-to-vigorous physical
+activity every day**
+
+[\[CHART\]]{.chart}
+
+**Figure 22: % pupils who do vigorous exercise at least 4 times per week
+in their leisure time**
+
+[\[CHART\]]{.chart}
+
+### Participation in organised leisure activities 
+
+Pupils were asked how often they took part in different types of
+organised leisure activities such as team sports (e.g. football,
+netball), organised individual sports (e.g. tennis, gymnastics,
+swimming), artistic activities (e.g. art and music school, playing a
+musical instrument), children's and youth organisations (e.g. Scouts or
+Guides), club in a leisure centre or at school (e.g. board games,
+model-making, language or debating club), or religious activities (e.g.
+going to church, mosque, synagogue). Figure 23 shows the percentage of
+young people who take part in at least one organised activity every
+week.
+
+**Figure 23: % pupils who do at least one organised activity at least
+once a week**
+
+[\[CHART\]]{.chart}
+
+Figures 24 and 25 shows the types of activities that young people
+undertake, at least once a week.
+
+**Figure 24: % pupils who do this type of activity at least once a week,
+by gender**
+
+[\[CHART\]]{.chart}
+
+**Figure 25: % pupils who do this type of activity at least once a week,
+by year group**
+
+[\[CHART\]]{.chart}
+
+### Green space 
+
+Pupils were asked to think about how often they went to green space
+(e.g., parks, woods, playing fields) during the summer months. Here we
+present the percentage of pupils who report spending time in greenspace
+at least once per week.
+
+**Figure 26: % pupils who use green space at least once per week in the
+summer**
+
+[\[CHART\]]{.chart}
+
+
+
+### Feeling safe in neighbourhood
+
+Pupils were asked how often they feel safe in their neighbourhood. Here
+we present the percentage of pupils who report feeling safe 'all' or
+'most of the time'.
+
+**Figure 27: % of pupils who feel safe all or most of the time in
+neighbourhood**
+
+[\[CHART\]]{.chart}
+
+### Who can help?
+
++----------------------------------+----------------------------------+
+| Organisation                     | Description                      |
++==================================+==================================+
+| Sustrans                         | Resources supporting children    |
+|                                  | and families to become more      |
+| <https://www.sustran             | active through providing         |
+| s.org.uk/our-blog/projects/?loca | information about walking and    |
+| tion=Scotland&topic=Schools&p=1> | cycling routes locally.          |
+|                                  | Information for schools about    |
+|                                  | national campaigns and           |
+|                                  | activities.                      |
++----------------------------------+----------------------------------+
+| Sport Scotland - schools         | Resources and information for    |
+|                                  | schools on how to promote        |
+| <https:                          | physical activity for young      |
+| //sportscotland.org.uk/schools/> | people.                          |
++----------------------------------+----------------------------------+
+| Play Scotland                    | Scotland provide a range of      |
+|                                  | resources and ideas for keeping  |
+| <https://www.playscotland.org>   | children active through play     |
+|                                  | both indoors and outdoors.       |
++----------------------------------+----------------------------------+
+
+
+## Experience of bullying
+
+This chapter reports the following measures relating to bullying and
+discrimination:
+
+-   Bullying at school-perpetration and victim
+
+-   Experience of different types bullying behaviour
+
+-   Cyberbullying victimisation
+
+Being a victim of bullying at school can have a serious impact on young
+people and is linked to loneliness, depression and low self-esteem in
+adulthood. Victims of bullying may experience a range of problem
+behaviours, psychological and psychosomatic issues, anxiety, depression
+and even suicide.^49-54^ The link between being bullied and poor mental
+health is strongest in late adolescence.^55^
+
+Cyberbullying is defined as intentional behaviour aimed at harming
+another person or persons through computers, cell phones, and other
+electronic devices, and perceived as distressing by the victim.^56^
+Cyberbullying is on the increase, with some studies reporting
+victimisation rates as high as 53%.^57^ The risk of being bullied online
+is higher for socially vulnerable adolescents suffering social anxiety
+or social isolation, and this group are also less capable of defending
+themselves online.^58^
+
+A review of different types of bullying intervention programmes has
+identified key features which are most effective: Intensive programmes
+(20 hours plus), parent meetings, teacher training, clear disciplinary
+practices and improved playground supervision. ^59^ NHS Scotland has
+produced an evidence review on what works to prevent and reduce school
+bullying.^60^
+
+### Bullying at school - bullying perpetration and victimisation
+
+Pupils were asked how often they had bullied someone else at school in
+the past couple of months, at school and been a victim of bullying.
+
+Figure 28 presents the percentage of pupils who bullied others at least
+once or twice over the past couple of months. Figure 29 presents the
+percentage of pupils who report being bullied at least once or twice
+over the past couple of months.
+
+**Figure 28: % pupils who report bullying others at school in past
+couple of months**
+
+[\[CHART\]]{.chart}
+
+**Figure 29: % pupils who report being bullied at school in past couple
+of months**
+
+[\[CHART\]]{.chart}
+
+### Experience of types of bullying behaviour
+
+Pupils were asked how often they had experienced various types of
+bullying behaviour. We looked at the percentage of pupils across the
+school (combining years and gender) who had experienced each type of
+bullying at least 2 or 3 times in the past couple of months. The most
+common types of bullying behaviour experienced by pupils at your school
+were:
+
+-   Other pupils made sexual jokes or gestures to them- 18%
+
+-   Being called names, made fun of or teased- 16%
+
+-   Received mean comments about weight- 14%
+
+-   Other pupils told lies or spread rumours about them --12%
+
+-   Being left out, excluded or ignored -- 10%
+
+### Cyberbullying: perpetration and victimisation
+
+Pupils were also asked how often they had cyberbullied someone else in
+the past couple of months and how often they had been a victim of
+cyberbullying. Figure 30 presents the percentage of pupils who report
+cyberbullying others at least once or twice over past couple of months.
+
+Overall, 12% of all pupils surveyed, indicated that they had been a
+victim of cyberbullying at least once or twice over past couple of
+months over the past couple of months (not shown in figure).
+
+**Figure 30: % pupils reporting cyberbullying others in past couple of
+months**
+
+[\[CHART\]]{.chart}
+
+### Who can help?
+
++----------------------------------+----------------------------------+
+| Organisation                     | Description                      |
++==================================+==================================+
+| Respectme                        | Respectme envisage a respecting, |
+|                                  | just, equal and inclusive        |
+| [www.respectme.org.              | Scotland in which all children   |
+| uk](http://www.respectme.org.uk) | and young people can live free   |
+|                                  | from bullying and harassment and |
+|                                  | are encouraged to reach their    |
+|                                  | full potential. Their work is    |
+|                                  | driven by a focus on children's  |
+|                                  | rights.                          |
++----------------------------------+----------------------------------+
+| The Children and Young People's  | Protecting and promoting the     |
+| Commissioner Scotland            | human rights of children and     |
+| [www.cypcs.                      | young people.                    |
+| org.uk](http://www.cypcs.org.uk) |                                  |
++----------------------------------+----------------------------------+
+| UNICEF - Rights Respecting       | A framework and resources for    |
+|                                  | use in schools to teach children |
+| <https://www.unicef              | about rights.                    |
+| .org.uk/rights-respecting-school |                                  |
+| s/resources/teaching-resources/> |                                  |
++----------------------------------+----------------------------------+
+
+
+
+## Substance use
+
+This chapter presents the following measures relating to substance use:
+
+-   Alcohol
+
+-   Smoking
+
+-   Vaping
+
+-   Cannabis (S4 only)
+
+The use of smoking, alcohol and drugs by school pupils and the impact on
+their health is a key area of concern, though data from HBSC and the
+Schools Adolescent Lifestyle and Substance Use Survey (SALSUS) surveys
+show encouraging downward trends in tobacco and alcohol use among
+Scottish adolescents. Data from the international HBSC study showed that
+adolescents across a large part of Europe are drinking less than they
+used to.^60^
+
+Nonetheless, frequent and excessive drinking is associated with a range
+of problems such as future alcohol and drug use, academic problems,
+risky sexual behaviour, and various physical and emotional
+problems.^61-65^ Similarly, early drug use is predictive of dropping out
+of school, unsafe sex and delinquent behaviours.^66^
+
+School environment factors have been shown to be crucial in reducing
+smoking amongst pupils. Research has shown that exposure to teachers
+smoking on school grounds is linked to higher smoking among older
+adolescents.^67^ A zero-tolerance approach to smoking in school, both
+for pupils and staff, has been found to be effective in reducing tobacco
+use in adolescents.^68^ Identifying with media messages and peer
+pressure are shown to be risk factors for substance use in adolescence.
+The ability to think critically about media messages and good parental
+influences have both been shown to reduce substance use.^69^
+
+### Lifetime substance use
+
+Pupils were asked if they had ever (in their lifetime):
+
+-   been drunk
+
+-   smoked tobacco
+
+-   vaped
+
+-   used cannabis (S4 only)
+
+Figure 31 shows the proportion of pupils who have ever been drunk,
+smoked tobacco or vaped. A very small number of pupils reported ever
+using cannabis and this is not shown in the figure.
+
+**Figure 31:** **% pupils who reported substance use in their lifetime
+(all)**
+
+[\[CHART\]]{.chart}
+
+### Who can help?
+
++----------------------------------+----------------------------------+
+| Organisation                     | Description                      |
++==================================+==================================+
+| Alcohol Focus Scotland           | AFS want to reduce the impact of |
+|                                  | alcohol on individuals,          |
+| <https://www                     | families, communities and        |
+| .alcohol-focus-scotland.org.uk/> | Scotland as a whole, through the |
+|                                  | implementation of effective      |
+|                                  | alcohol control policies and     |
+|                                  | legislation. Searching the       |
+|                                  | 'resource' section brings up     |
+|                                  | fact sheets about adolescent     |
+|                                  | drinking.                        |
++----------------------------------+----------------------------------+
+| ADEPIS (The Alcohol and Drug     | The Alcohol and Drug Education   |
+| Education and Prevention         | and Prevention Information       |
+| Information Service)             | Service (ADEPIS) was established |
+|                                  | by the prevention charity Mentor |
+| <http://mentor-adepis.o          | UK to share information and      |
+| rg/planningeffective-education/> | resources with schools and       |
+|                                  | practitioners working in drug    |
+|                                  | and alcohol prevention.          |
++----------------------------------+----------------------------------+
+| Talk to Frank                    | Talk to Frank offers a           |
+|                                  | comprehensive set of information |
+| <https://www.talktofrank.com/>   | on drugs, alcohol and tobacco,   |
+|                                  | including where to get help,     |
+|                                  | support centres and helplines    |
++----------------------------------+----------------------------------+
+| ASH Scotland - Children, young   | Action on Smoking and Health     |
+| people and families              | (ASH) Scotland is the            |
+|                                  | independent Scottish charity     |
+| <https://www.a                   | taking action to reduce the harm |
+| shscotland.org.uk/what-we-do/chi | caused by tobacco. Their vision  |
+| ldren-young-people-and-tobacco/> | is that everyone has the right   |
+|                                  | to good health and to live free  |
+|                                  | from the harm and inequality     |
+|                                  | caused by smoking.               |
++----------------------------------+----------------------------------+
+| Drink wise age well              | Support centre based in Glasgow. |
+|                                  | Information and advice for those |
+| <h                               | affected by harmful alcohol      |
+| ttps://drinkwiseagewell.org.uk/> | intake. (Primarily aimed at      |
+|                                  | adults, but may be useful for    |
+|                                  | adolescents and their carers     |
+|                                  | too).                            |
++----------------------------------+----------------------------------+
+
+## Electronic Media Use
+
+This chapter reports data relating to electronic media use. It includes
+the following measures:
+
+-   Technology in bedroom
+
+-   Screen time use
+
+-   Contact with close friends
+
+-   Problematic social media use
+
+-   Gaming
+
+Although some studies have suggested that screen time and electronic
+media may be linked to poor mental wellbeing, the evidence is not yet
+clear that screen time causes poor mental wellbeing. A 2019 review of
+research into the impact of the use of television, computers, videos,
+mobile phones and other screen time found strong links between screen
+time and obesity, lack of exercise, depression and poor diet. However,
+only weak links were found between screen time and behavioural problems,
+low self-esteem, poor wellbeing, low educational attainment, and
+anxiety.^70^
+
+Several studies have suggested that use of social media may have a
+positive effect on self-esteem, friendship closeness, social competence
+and empathy,^71,72^ though other studies have found that online social
+interactions are only beneficial when communicating with existing
+friends, rather than relationships with strangers which have been
+created online.^72,73^
+
+There are concerns that socially vulnerable adolescents may use online
+interaction to compensate for a lack of real-life interactions, which
+may put them at greater risk of developing unhealthy, compulsive use of
+social media.^74^ The \#Sleepyteens project in Scotland found that
+children who were very emotionally invested in social media and used it
+the most had poorer sleep quality, lower self-esteem, and higher levels
+of anxiety and depression.^75^ Compulsive social media use has been
+linked to depression, poor sleep quality, low life satisfaction, anxiety
+and aggressive behaviour.^76-79^
+
+The Royal College of Paediatrics and Child Health have produced guides
+for parents to help negotiate the right amount of screen time for their
+own children.^80^
+
+### Technology in bedroom
+
+Here we present the percentage of pupils who have a smartphone which
+they keep in their bedroom at night and those that have a TV in their
+bedroom.
+
+**Figure 32 : % of pupils with smartphone in their bedroom at night**
+
+[\[CHART\]]{.chart}
+
+**Figure 33: % of pupils with TV in their bedroom**
+
+[\[CHART\]]{.chart}
+
+### Contact with close friends
+
+Pupils were asked to think about 'online contact' and 'online
+communication', defined as 'sending and receiving text messages,
+emoticons, and photo, video or audio messages through instant messaging,
+social networking sites or video calling (e.g. Zoom)'. Then they were
+asked to report how frequently they keep in online contact with people
+in their life. The figure shows the percentage of pupils who are in
+online contact with close friends either several times a day or almost
+all the time during the day.
+
+**Figure 34: Pupils reporting online contact with close friends several
+times/almost all the time during the day**
+
+[\[CHART\]]{.chart}
+
+### Screen time
+
+Pupils were asked to estimate how many hours a day in their free time
+they spend: watching TV/DVDs/videos; playing games on a
+computer/console/tablet/phone; and using electronic devices for other
+purposes such as homework, email, messaging, surfing the internet or
+social media. Here we present the mean number of hours spent on each
+type of activity.
+
+**Figure 35 : Mean time (hours) pupils spend per day using a screen, by
+gender**
+
+[\[CHART\]]{.chart}
+
+**Figure 36: Mean time (hours) pupils spend per day using a screen, by
+year group**
+
+[\[CHART\]]{.chart}
+
+### Problematic social media use
+
+We used the Social Media Disorder (SMD) Scale to measure 'problematic'
+social media use. This scale examines a number of different aspects of
+social media use, for example, whether young people are preoccupied with
+social media, lose interest in other activities due to social media,
+have arguments with others due to their social media use or use social
+media to cope with unpleasant experiences.
+
+In your school, 8% of all pupils surveyed scored as problematic social
+media users.
+
+### Gaming
+
+Pupils were asked to think about all the games that they play on a
+smartphone, tablet, laptop, PC, Mac or console (e.g. PlayStation, Wii,
+Xbox) then report how often they play games. Here we present the
+percentage of pupils who gamed at least 4 times a week.
+
+**Figure 37: % pupils who played computer games at least 4 times a
+week**
+
+[\[CHART\]]{.chart}
+
+Pupils who gamed each week were asked to complete the Internet Gaming
+Disorder (IGD) Scale which distinguishes between 'normative' and
+'problematic' gaming. Overall, 11% of all pupils who game reported
+problematic gaming and this was more common amongst boys than girls.
+
+### Who can help?
+
++----------------------------------+----------------------------------+
+| Organisation                     | Description                      |
++==================================+==================================+
+| Royal College of Paediatrics and | The RCPCH has provided a set of  |
+| Child Health (RCPCH)             | factsheets and guidance to       |
+|                                  | better help parents negotiate    |
+| <https://www.rcpch.ac.u          | setting limits on screen time    |
+| k/resources/health-impacts-scree | with their children.             |
+| n-time-guide-clinicians-parents> |                                  |
++----------------------------------+----------------------------------+
+| Childnet International           | Childnet International's website |
+|                                  | aims to help make the internet a |
+| [www.childn                      | safe place for children and      |
+| et.com](http://www.childnet.com) | young people and provides        |
+|                                  | up-to-date information about     |
+|                                  | mobiles, gaming, downloading,    |
+|                                  | social networking and more.      |
++----------------------------------+----------------------------------+
+| UK Safer Internet Centre         | UK Safer Internet Centre         |
+|                                  | provides online safety tips,     |
+| [www.saferinternet.org.uk](      | advice and resources to help     |
+| http://www.saferinternet.org.uk) | children and young people stay   |
+|                                  | safe online.                     |
++----------------------------------+----------------------------------+
+| Scottish Government              | Summary of Scottish Government's |
+|                                  | national action plan and links   |
+| <https:                          | to other organisations and       |
+| //www.gov.scot/publications/nati | resources                        |
+| onal-action-plan-internet-safety |                                  |
+| -children-young-people/pages/9/> |                                  |
++----------------------------------+----------------------------------+
+| Thinkuknow                       | The Thinkuknow site provides a   |
+|                                  | range of free education          |
+| [www.thinkuknow.co.              | resources and advice targeted at |
+| uk](http://www.thinkuknow.co.uk) | specific age groups, parents and |
+|                                  | those working with children,     |
+|                                  | around keeping children safe     |
+|                                  | online. (Part of CEOP)           |
++----------------------------------+----------------------------------+
+| Child Exploitation and Online    | Help making a report if you are  |
+| Protection (CEOP) reporting      | worried about online sexual      |
+|                                  | abuse or the way someone has     |
+| <https://ww                      | been communicating online with a |
+| w.ceop.police.uk/safety-centre/> | child.                           |
++----------------------------------+----------------------------------+
+
+## Impact of COVID-19 pandemic
+
+This chapter is about the COVID-19 pandemic and contains the following
+measures:
+
+-   Perceived impact of COVID 19 pandemic on different aspects of life
+
+In March 2020, the World Health Organisation (WHO) declared COVID-19 a
+pandemic. The pandemic and its associated health protection measures
+such as lockdowns, school closures, home learning and social distancing
+have had a significant impact on day-to-day life.
+
+A review carried out by Public Health Scotland^81^ looked at the
+possible positive and adverse consequences of the first lockdown on
+young people's development. In terms of family relationships, it found
+that young people may have experienced 'stressors' including parental
+mental wellbeing, changing family financial situations and limited
+access to services. However, most young people (aged 12-14 years old)
+enjoyed spending time with their family during lockdown.
+
+Another important aspect impacted by the pandemic is mental health and
+wellbeing. Feelings of loneliness (particularly amongst girls) increased
+during the first lockdown ^82^. Girls have also been more likely to
+report lower levels of mental wellbeing and higher levels of anxiety
+than boys. ^81-83^ Older adolescents also reported feeling concerned
+about the impact of lockdown on their education and future careers.^81^
+
+It is argued that many existing health issues have been exacerbated by
+the pandemic and that inequalities have also deepened; there is an
+urgent need to address these issues and provide support to young people
+who may have been disproportionately affected by the pandemic.
+
+### Impact of COVID-19
+
+Young people were asked about their experiences of COVID-19 and its
+associated restrictions. Pupils were asked to say how they felt various
+aspects of their life had been impacted by the COVID-19 pandemic
+choosing from the options: very negative/ quite negative/ neutral, no
+impact/quite positive and very positive.
+
+The figures below show the percentage of pupils who reported either a
+negative (very/quite) or a positive (very/quite) impact on that aspect
+of their life. Results are shown for girls, boys, S2 and S4 in separate
+figures.
+
+
+
+**Figure 38: Perceived impact of the COVID-19 pandemic on GIRLS**
+
+[\[CHART\]]{.chart}
+
+**Figure 39: Perceived impact of the COVID-19 pandemic on BOYS**
+
+[\[CHART\]]{.chart}
+
+**Figure 40: Perceived impact of the COVID-19 pandemic on S2 pupils**
+
+[\[CHART\]]{.chart}
+
+**Figure 41: Perceived impact of the COVID-19 pandemic on S4 pupils**
+
+[\[CHART\]]{.chart}
+
+## Social Relationships and Support
+
+This chapter is about social relationships and support, and includes the
+following measures:
+
+-   Family communication
+
+-   Family support
+
+-   Peer support
+
+-   Trusted adult
+
+Supportive family relationships are vital for adolescent development,
+socialisation, health and
+
+wellbeing. ^84,\ 85^ Good support leads to improved mental health and
+better educational outcomes. ^86,87^ Family support reduces risky health
+behaviours in adolescents^88^ and provides a buffer against adverse life
+events and bullying, especially for girls. ^89^ Developing such
+resilience and reducing distress in childhood are crucial to promoting
+mental wellbeing and reducing health-harming behaviours. ^90^ Family
+communication is also important for health, wellbeing and life
+satisfaction. ^91^ Studies have shown that family communication is
+important for reducing risk behaviours such as illegal substance use,
+smoking, drinking, early sexual behaviour and suicidal behaviour.
+^92-93^
+
+Another important source of support is that offered by peers, which is
+also linked to better health in adolescents. ^94^ Support from
+classmates has a positive effect on mental wellbeing by helping to boost
+self-efficacy and building a sense of school community.^95^
+
+The negative effects of adverse childhood experiences on mental and
+physical health across the lifespan can be reduced by having the support
+of a trusted adult in childhood.^96^ A review by NHS Scotland
+demonstrates the importance of having an adult that young people trust
+and can talk to, with young people reporting this adult can help with
+educational attainment, optimism, self-efficacy and reducing
+internalising symptoms (depression and anxiety).^97^
+
+### Family communication
+
+Pupils were asked how easy they find it to communicate with a parental
+figure.
+
+Figure 42 presents the percentage of pupils who say they find it easy or
+very easy to talk to their mother (includes step-mother).
+
+Figure 43 presents the percentage of pupils who say they find it easy or
+very easy to talk to their father (includes step-father).
+
+**Figure 42: % pupils who say it's *easy or very easy* to speak to
+mother figure**
+
+[\[CHART\]]{.chart}
+
+**Figure 43: % pupils who say it's *easy or very easy* to speak to the
+father figure**
+
+[\[CHART\]]{.chart}
+
+### Family support
+
+The HBSC survey includes the Family Support Scale. This consists of four
+questions about how much support the young person feels they get from
+their family, for example, listening to their problems and help with
+decision making. The figure shows the percentage of pupils who reported
+high family support.
+
+**Figure 44: % pupils who report high family support**
+
+[\[CHART\]]{.chart}
+
+### Peer Support
+
+The Peer Support Scale include four questions about support received
+from friends, for example, how easy young people find it to talk to
+friends about their problems and the extent to which they can count on
+their friends and their friends try to help them. The figure shows the
+percentage of pupils who report high peer support.
+
+**Figure 45: % pupils who report high peer support**
+
+[\[CHART\]]{.chart}
+
+### Trusted adult
+
+Pupils were asked 'do you have an adult in your life who you can trust
+and talk to about any personal problems?' with response options
+including Yes always/Yes, sometimes/ No. The figure shows the percentage
+of pupils who report 'always' having a trusted adult to talk to.
+
+**Figure 46: % pupils who *always* have a trusted adult to talk to**
+
+[\[CHART\]]{.chart}
+
+### Who can help?
+
++----------------------------------+----------------------------------+
+| Organisation                     | Description                      |
++==================================+==================================+
+| Parenting Across Scotland        | Parenting across Scotland is a   |
+|                                  | partnership of charities which   |
+| <https://www.parentingacross     | offers support to children and   |
+| scotland.org/info-for-families/> | families in Scotland.            |
++----------------------------------+----------------------------------+
+| <https://www.parentclub.scot/>   | The Scottish Government website  |
+|                                  | for parents covering everything  |
+|                                  | from online safety, food and     |
+|                                  | eating to raising a teenager.    |
++----------------------------------+----------------------------------+
+| Children1st                      | Parenting First helps families   |
+|                                  | in Scotland to put children      |
+| <https://www.childr              | first, with practical advice and |
+| en1st.org.uk/help-for-families/> | with support in difficult times. |
++----------------------------------+----------------------------------+
+| One parent Families Scotland     | A free helpline providing        |
+|                                  | impartial and confidential       |
+| <https://opfs.org.uk/>           | advice to single-parent          |
+|                                  | families.                        |
++----------------------------------+----------------------------------+
+| Carerstrust Scotland             | Carers Trust Scotland is the     |
+|                                  | largest provider of support      |
+| [ww                              | services for carers in Scotland. |
+| w.carers.org/country/carers-trus |                                  |
+| t-scotland](http://www.carers.or |                                  |
+| g/country/carers-trust-scotland) |                                  |
++----------------------------------+----------------------------------+
+| LGBT Youth Scotland              | LGBT Youth Scotland provides     |
+|                                  | advice and support for young     |
+| <https://www.lgbtyouth.org.uk>   | people and their families around |
+|                                  | LGBTI+ issues, as well as        |
+|                                  | guidance for schools on making   |
+|                                  | schools more LGBTI+ inclusive.   |
++----------------------------------+----------------------------------+
+
+
+
+##  School Environment
+
+This chapter reports data relating to the school environment and
+includes these measures:
+
+-   Liking school
+
+-   Schoolwork pressure
+
+-   Teacher and pupil support
+
+The school environment has many effects on pupil wellbeing and a
+positive school experience can bring many benefits in terms of both
+health and education. Students who feel they are able to handle their
+work, have good teacher support and are satisfied with school are more
+likely to report high life satisfaction^98^. Good teacher support is
+linked to better mental health and lower use of alcohol, cigarettes and
+cannabis,^99-102^ and the positive link between teacher support and
+emotional wellbeing has been shown to be strong regardless of pupil
+demographics or perceived school performance.^103^ High classmate
+support is also linked to improved mental health,^104^ lower
+drunkenness, and for males is linked to lower rates of smoking.^105^
+
+In contrast, high levels of school pressure are associated with higher
+levels of risky behaviour and poorer mental health.^106-108^ For young
+adolescents in high-stress school environments, increased academic
+expectations can lead to them having higher stress levels and poorer
+academic performance as they get older.^109^ Low school satisfaction is
+linked to health behaviours such as smoking, alcohol and cannabis use,
+and gambling,^111,112^ as well as poorer self-rated health and increased
+physical and psychological symptoms.^113,\ 114^
+
+### Liking school
+
+Pupils were asked how much they like school at present. The figure shows
+the percentage of pupils who say they like school 'a lot' or 'a bit'.
+
+**Figure 47: % pupils who like school *a lot* or *a bit***
+
+[\[CHART\]]{.chart}
+
+### Schoolwork pressure
+
+Pupils were asked how pressured they feel about the schoolwork they have
+to do. This figure shows the percentage of pupils who feel 'some' or 'a
+lot' of pressure from schoolwork.
+
+**Figure 48: % pupils who feel *some* or *a lot* of pressure from
+schoolwork**
+
+[\[CHART\]]{.chart}
+
+### Teacher and pupil support
+
+Pupils were asked to say how much they feel their teachers accept and
+care about them as a person, and how much they trust their teachers.
+They were also asked to say how much other pupils accept them, how kind
+and helpful they are and whether the pupils in their classes enjoy being
+together. Below we show the percentage of pupils who report high levels
+of support from teachers and from classmates.
+
+**Figure 49 : % pupils who report *high* teacher support**
+
+[\[CHART\]]{.chart}
+
+**Figure 50 : % pupils who report *high* classmate support**
+
+[\[CHART\]]{.chart}
+
+### Who can help?
+
++----------------------------------+----------------------------------+
+| Organisation                     | Description                      |
++==================================+==================================+
+| NHS Inform Scotland -Coping with | Information for parents/carers   |
+| exam stress                      | on how to support children when  |
+|                                  | they are coping with exam        |
+| <https://www.nhsinform.scot      | stress.                          |
+| /healthy-living/mental-wellbeing |                                  |
+| /stress/coping-with-exam-stress> |                                  |
++----------------------------------+----------------------------------+
+| Young Scot-Advice on dealing     | Advice and information on coping |
+| with exam stress                 | with exam stress for young       |
+|                                  | people.                          |
+| <https://young.sco               |                                  |
+| t/get-informed/national/how-you- |                                  |
+| can-survive-the-stress-of-exams> |                                  |
++----------------------------------+----------------------------------+
+| Eco Schools Scotland -- School   | Research by Learning Through     |
+| Grounds                          |                                  |
+|                                  | Landscapes finds that well       |
+| <https://www.keepscotl           | designed school                  |
+| andbeautiful.org/education-and-l |                                  |
+| earning/eco-schools/green-flag-a | grounds can improve behaviour,   |
+| ward/ten-topics/school-grounds/> | reduce bullying and cut          |
+|                                  | vandalism. Improving your        |
+|                                  | school's outdoor space enhances  |
+|                                  | pupils' self-esteem and improves |
+|                                  | both attainment and attitudes    |
+|                                  | towards learning. Eco Schools    |
+|                                  | offer practical advice to        |
+|                                  | schools on how to make the most  |
+|                                  | of their school grounds to       |
+|                                  | support student wellbeing.       |
++----------------------------------+----------------------------------+
+| Mental Health Foundation         | Campaign for schools to take     |
+|                                  | action on Mental Health. Links   |
+| campaign-"Mental Health in       | to                               |
+| Schools: Make it Count"          |                                  |
+|                                  | resources and guidance.          |
+| <https://www.mentalhea           |                                  |
+| lth.org.uk/projects/peer-educati |                                  |
+| on-projectpep/schools-resources> |                                  |
++----------------------------------+----------------------------------+
+
+
+
+# Challenge Questions 
+
+The aim of these challenge questions is to support interpretation of the
+data report so that it can be shared confidently among the key
+stakeholders in the school community. It is hoped that the discussions
+and whole-school collaborations in response to the data report will
+support improvements in pupil wellbeing.
+
+#### Approaching the data: Consider the context:
+
+-   How confident are staff, parents and pupils at interpreting health
+    and wellbeing data?
+
+-   If using more than one data source to track and monitor health and
+    wellbeing in your school, are they compatible and do staff
+    confidently understand the purpose of each data source? I.e. is one
+    diagnostic; for identifying individuals struggling and another one
+    to provide evidence of the pupil wellbeing context in order to
+    understand the environment in which individual pupils operate?
+
+-   Is there an already established meeting cycle in which to discuss
+    this data with the relevant key stakeholders? Or is a new group
+    required?
+
+-   Will a smaller group be responsible for working on the whole report
+    in order to pull out the key themes for already established working
+    groups in the school or will the whole report be shared with
+    everyone fully?
+
+-   How representative are the data of the school roll, or the year
+    group(s) surveyed?
+
+-   Have you considered the number of pupils taking part? If a small
+    number of pupils participate, a small difference in numbers can
+    translate to large differences in percentages. For example, if you
+    survey 10 pupils, 1 pupil's response will account for 10%.
+
+#### Reflecting on the data:
+
+-   To what extent do the data provide evidence of key issues for your
+    school or reveal specific priorities? Are there areas of success to
+    celebrate as well as areas of concern for focus?
+
+-   Are there any results that surprise you? Are there any results that
+    confirm what you know?
+
+-   Have you considered the gender split in the data to identify
+    different HWB strategies for different groups?
+
+-   Are there particular patterns in your school's data? For example, is
+    one gender group tending to score more negatively across a number of
+    measures?
+
+#### Working together:
+
+-   Have you shared the HBSC data with the wider school community to
+    include staff, pupils and parents to underpin a whole-school
+    approach to HWB?
+
+```{=html}
+<!-- -->
+```
+-   Remember, pupils may be best placed to explain and interpret the
+    data they provided.
+
+```{=html}
+<!-- -->
+```
+-   When considering the HBSC data, do a committee of stakeholders from
+    different parts of the school community take part in identifying HWB
+    priorities to take forward?
+
+***We also recommend you also consult the Scottish Government guidance
+\"Mental health and wellbeing: whole school approach: Framework\".***
+
+[***https://www.gov.scot/publications/whole-school-approach-mental-health-wellbeing/***](https://www.gov.scot/publications/whole-school-approach-mental-health-wellbeing/)
+
+# References 

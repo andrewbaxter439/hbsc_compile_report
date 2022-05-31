@@ -3,7 +3,7 @@
 library(haven)
 library(tidyverse)
 
-hbsc2022 <- read_spss("T:/projects/HBSC Scotland (308202-01)/2022 survey data/Final dataset for reports/Nat22 combined P7 S2 S4  Pre_easter v3.sav") |> 
+hbsc2022 <- read_spss(Sys.getenv("data_dir")) |> 
   mutate(across(where(is.labelled), as_factor),
          school_id = str_extract(School_filename, "^\\w*"))
 
