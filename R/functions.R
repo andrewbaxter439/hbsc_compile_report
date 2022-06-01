@@ -1,3 +1,5 @@
+# graphing prevalence of single var ---------------------------------------
+
 #' * chart should not be created if there are ≤3 students in the numerator of
 #' any variable.
 #' * only separate by sex if there are ≥7 girls AND ≥7 boys in the denominator
@@ -116,15 +118,7 @@ bar_by_cat <- function(var,
 #
 # # test
 #
-# bar_multiple_vars(
-#   headache,
-#   stomachache,
-#   backache,
-#   dizzy,
-#   feellow,
-#   nervous,
-#   irritable,
-#   sleepdificulty,
+# bar_multiple_vars(headache, stomachache, backache,dizzy,feellow,nervous,irritable,sleepdificulty,
 #   labels =   c(
 #     "Headache",
 #     "Stomach-ache",
@@ -153,32 +147,44 @@ bar_by_cat <- function(var,
 bar_multiple_vars <-
   function(varslist,
            success = c("More than once a week", "About every day"),
+           group = c("none", "grade", "sex"),
            .data = school_dat,
            .censor = TRUE) {
     
+    group <- match.arg(group)
+    
     .data |>
+    mutate(grouping = case_when(
+      group == "none" ~ "1",
+      group == "sex" ~ as.character(sex),
+      group == "grade" ~ as.character(grade)
+    )) |> 
+      group_by(grouping) |> 
       select(!!!syms(names(varslist))) |>
       summarise(across(everything(), ~ sum(.x %in% success)),
                 denom = n()) |>
-      pivot_longer(-denom, names_to = "var", values_to = "n") |>
+      pivot_longer(-c(grouping, denom), names_to = "var", values_to = "n") |> 
       rowwise() |>
       mutate(
         censored = if_else(n < 3 & .censor, 1, 0),
         labels = varslist[[var]][1],
         prop = n / denom,
-        prop = if_else(censored == 1, 0.5, prop)
+        prop = if_else(censored == 1, 0.5, prop),
+        grouping = factor(grouping, levels = c("Girls", "Boys", "S2", "S4", "1"))
       ) |>
-      ggplot(aes(fct_inorder(labels), prop, alpha = factor(censored), linetype = factor(censored))) +
-      geom_bar_t(stat = "identity", colour = primary_colour) +
-      scale_alpha_manual(values = c("1" = 0.2, "0" = 1)) +
-      scale_linetype_manual(values = c("1" = "dashed", "0" = "solid")) +
-      scale_x_discrete(guide = guide_axis(n.dodge = 2)) +
+      ggplot(aes(fct_inorder(labels), prop, alpha = factor(censored), linetype = factor(censored), fill = grouping, colour = grouping)) +
+      geom_bar_t(stat = "identity", position = position_dodge(width = 0.6)) +
+      scale_alpha_manual(values = c("1" = 0.2, "0" = 1), guide = guide_none()) +
+      scale_linetype_manual(values = c("1" = "dashed", "0" = "solid"), guide = guide_none()) +
+      scale_x_discrete(guide = guide_axis(angle = 45)) +
+      scale_fill_hbsc(aesthetics = c("fill", "colour"), name = "",  limits = force) +
+      theme(legend.position = if_else(group == "none", "none", "bottom")) +
       scale_y_continuous("%", labels = percent, limits = c(0, 1))
     
   }
 
 # test
-
+# 
 # bar_multiple_vars(
 #   list(
 #     headache =   "Headache",
@@ -189,20 +195,24 @@ bar_multiple_vars <-
 #     nervous =   "Feeling nervous",
 #     irritable =   "Feeling irritable",
 #     sleepdificulty =   "Sleep difficulties"
-#   )
+#   ),
+#   group = "sex",
+#   .censor = FALSE
 # )
 
 # customising graphs ------------------------------------------------------
 
 #' scale_fill_hbsc to globalise fill colours
 
-scale_fill_hbsc <- \(x) scale_fill_manual(
+scale_fill_hbsc <- function(x, ...) scale_fill_manual(
   values = c(
     "Girls" = global_girls_colour,
     "Boys" = global_boys_colour,
     "S2" = global_s2_colour,
-    "S4" = global_s4_colour
-  )
+    "S4" = global_s4_colour,
+    "1" = primary_colour
+  ),
+  ...
 )
 
 #' Thinner geom_bar

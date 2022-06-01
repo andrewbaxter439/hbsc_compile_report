@@ -181,3 +181,15 @@ bar_multiple_vars <- function(varslist = varslist, success = c("More than once a
 
 bar_multiple_vars(varslist = varslist)
 
+
+# all figures -------------------------------------------------------------
+
+all_text <- read_lines("templates/pilot_secondary.md")
+
+str_subset(all_text, "Figure \\d{1,2}.?:") |> 
+  str_extract("Figure .*[^\\*{2}]") |> 
+  str_split(":", simplify = TRUE) |> 
+  `colnames<-`(c("Figure", "Caption")) |> 
+  as_tibble() |> 
+  mutate(across(.fns = str_trim)) |> 
+  write_csv("templates/secondary figures.csv")

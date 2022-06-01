@@ -931,7 +931,7 @@ Figure 31 shows the proportion of pupils who have ever been drunk,
 smoked tobacco or vaped. A very small number of pupils reported ever
 using cannabis and this is not shown in the figure.
 
-**Figure 31:** **% pupils who reported substance use in their lifetime
+**Figure 31: % pupils who reported substance use in their lifetime
 (all)**
 
 [\[CHART\]]{.chart}
