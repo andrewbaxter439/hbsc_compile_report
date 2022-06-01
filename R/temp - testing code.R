@@ -130,22 +130,49 @@ cat_labels <-
   )
 
 
-bar_multiple_vars <- function(..., labels, success = c("More than once a week", "About every day"), .data = school_dat)
+# bar_multiple_vars <- function(..., labels, success = c("More than once a week", "About every day"), .data = school_dat)
   
-  vars <- enquos(...)
+  # vars <- enquos(...)
+
+cat_labels <-   list(
+  headache =   "Headache",
+  stomachache =   "Stomach-ache",
+  backache =   "Backache",
+  dizzy =   "Dizziness",
+  feellow =   "Feeling low",
+  nervous =   "Feeling nervous",
+  irritable =   "Feeling irritable",
+  sleepdificulty =   "Sleep difficulties"
+)
+
+# group = "grade"
 
 school_dat |> 
+  mutate(grouping = case_when(
+    group == "none" ~ "1",
+    group == "sex" ~ as.character(sex),
+    group == "grade" ~ as.character(grade)
+  )) |> 
+  group_by(grouping) |> 
   select(headache, stomachache, backache, dizzy, feellow, nervous, irritable, sleepdificulty) |> 
   summarise(across(everything(), ~ sum(.x %in% success)),
             denom = n()) |> 
-  pivot_longer(-denom, names_to = "var", values_to = "n") |> 
-  mutate(censor = if_else(n < 3, 1, 0),
-         labels = cat_labels,
-         prop = n/denom) |> 
-  ggplot(aes(fct_inorder(labels), prop)) +
-  geom_bar_t(stat = "identity") +
-  scale_fill_hbsc() +
-  scale_x_discrete(guide = guide_axis(n.dodge = 2)) +
+  pivot_longer(-c(grouping, denom), names_to = "var", values_to = "n") |> 
+  rowwise() |>
+  mutate(
+    censored = if_else(n < 3 & .censor, 1, 0),
+    labels = cat_labels[[var]][1],
+    prop = n / denom,
+    prop = if_else(censored == 1, 0.5, prop),
+    grouping = factor(grouping, levels = c("Girls", "Boys", "S2", "S4", "1"))
+  ) |>
+  ggplot(aes(fct_inorder(labels), prop, alpha = factor(censored), linetype = factor(censored), fill = grouping, colour = grouping)) +
+  geom_bar_t(stat = "identity", position = position_dodge(width = 0.6)) +
+  scale_alpha_manual(values = c("1" = 0.2, "0" = 1), guide = guide_none()) +
+  scale_linetype_manual(values = c("1" = "dashed", "0" = "solid"), guide = guide_none()) +
+  scale_x_discrete(guide = guide_axis(angle = 45)) +
+  scale_fill_hbsc(aesthetics = c("fill", "colour"), name = "",  limits = force) +
+  theme(legend.position = if_else(group == "none", "none", "bottom")) +
   scale_y_continuous("%", labels = percent, limits = c(0, 1))
 
 
@@ -193,3 +220,6 @@ str_subset(all_text, "Figure \\d{1,2}.?:") |>
   as_tibble() |> 
   mutate(across(.fns = str_trim)) |> 
   write_csv("templates/secondary figures.csv")
+
+
+# testing how to pass vector? ---------------------------------------------
