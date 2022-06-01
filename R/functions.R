@@ -1,47 +1,3 @@
-bar_by_gender <-
-  function(var,
-           .count_var = "Yes",
-           .data = school_dat) {
-    require(tidyverse)
-    require(scales)
-    
-    var <- enquo(var)
-    .data %>%
-      group_by(!!var, sex) %>%
-      count() %>%
-      group_by(sex) %>%
-      mutate(
-        denom = sum(n),
-        prop =  n / denom,
-        perc_label = paste0(round(100 * prop, 0),
-                            "%")
-      ) %>%
-      mutate(text_y = if_else(prop < 0.9, prop + 0.1, prop - 0.1)) %>%
-      filter(!!var == .count_var) %>%
-      ggplot(aes(sex, prop, fill = sex)) +
-      geom_bar(stat = "identity") +
-      scale_y_continuous(
-        "Percentage",
-        labels = percent_format(accuracy = 1),
-        breaks = c(0, 0.5, 1),
-        minor_breaks = seq(0, 1, 0.1),
-        limits = c(0, 1)
-      ) +
-      geom_text(aes(y = text_y, label = perc_label),
-                colour = "#121212",
-                size = 8) +
-      theme(
-        axis.title.y = element_text(angle = 0, vjust = 0.5),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        axis.title.y.left = element_text(angle = 90),
-        axis.text.x = element_text(hjust = 1)
-      ) +
-      scale_fill_manual(values = c("Girl" = global_girls_colour,
-                                   "Boy" = global_boys_colour))
-    
-  }
-
 #' * chart should not be created if there are ≤3 students in the numerator of
 #' any variable.
 #' * only separate by sex if there are ≥7 girls AND ≥7 boys in the denominator
@@ -51,7 +7,10 @@ bar_by_gender <-
 #' representing all students.
 #'
 #' @param var The name of the variable to graph by
-#' @param .data The school data
+#' @param success Character vector of responses to be counted as 'successes'
+#' @param .data Data file to use
+#' @param .censor Whether to censor low numbers (default as TRUE for final
+#'   output)
 
 
 bar_by_cat <- function(var,
@@ -180,6 +139,16 @@ bar_by_cat <- function(var,
 # )
 
 # v2 - varslist
+
+#' Graphing multiple variables as bars with percentage prevalence in each
+#' category.
+#'
+#' @param varslist A named list of variables to use and the corresponding axis
+#'   titles
+#' @param success Character vector of responses to be counted as 'successes'
+#' @param .data Data file to use
+#' @param .censor Whether to censor low numbers (default as TRUE for final
+#'   output)
 
 bar_multiple_vars <-
   function(varslist,

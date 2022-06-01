@@ -311,20 +311,16 @@ bar_by_cat(lifesat, c("6", "7", "8", "9", "10 Best possible life"))
 
 Pupils were asked "how often do you feel left out of things?". This figure shows the percentage of young people who say they 'often' or 'always' feel left out.
 
-**Figure 9: % pupils who feel often or always left out**
-
 ```{r left_out, fig.cap="% pupils who feel often or always left out"}
-bar_by_cat(leftout, c("Often", "Always"))
+bar_by_cat(leftout, c("Often", "Always"), .censor = FALSE)
 ```
 
 ### Confidence
 
 Pupils were asked 'how often do you feel confident in yourself?'. Here we show the proportion of pupils who responded that they 'often' or 'always' feel confident.
 
-**Figure 10: **
-
 ```{r confident, fig.cap="% pupils who feel often or always confident"}
-bar_by_cat(confidence, c("Often", "Always"))
+bar_by_cat(confidence, c("Often", "Always"), .censor = FALSE)
 ```
 
 
