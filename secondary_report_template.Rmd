@@ -182,7 +182,7 @@ Pupils in S2 and S4 classes in your school took part in the survey during Novemb
 school_dat |> count(sex, grade) |> 
   filter(if_all(everything(), ~! is.na(.x))) |> 
   pivot_wider(names_from = grade, values_from = n) |> 
-  flextable()
+  knitr::kable()
 ```
 
 # Your school's survey results
