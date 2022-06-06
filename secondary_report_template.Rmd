@@ -6,7 +6,7 @@ output:
       # toc_depth: 2
     reference_docx: templates/pilot_secondary_format.docx
     tables:
-      style: Table Grid
+      style: HBSCTable
       layout: autofit
       width: 1.0
       conditional:
@@ -16,9 +16,9 @@ output:
        last_column: false
        no_hband: false
        no_vband: true
-    lists:
-      ol.style: 'Number alignment: Left'
-      ul.style: List Paragraph
+    # lists:
+    #   ol.style: 'Number alignment: Left'
+    #   ul.style: List Paragraph
     page_margins:
       bottom: 1
       top: 1
@@ -121,6 +121,11 @@ Scotland Pilot Study 2021
 Health and Wellbeing survey results for
 
 [`r params$school`]
+:::
+
+::: {custom-style="Title"}
+
+`r if(!params$censor) {"NON-CENSORED VERSION -- FOR DEVELOPMENT ONLY"}`
 
 :::
 
@@ -165,11 +170,8 @@ As well as the data, we have included notes and research evidence along with sug
 ### Understanding the data in this report
 
 -   Generally, within the same figure, we provide results by gender (in blue) and also by year group (in green)
-
 -   Most data are presented as a cut-off, for example, two answers to a question are combined, such as feeling 'often' or 'always' confident.
-
 -   Some measures combine responses to a series of questions to create a mean score, for example, sleep quality, teacher support.
-
 -   Some of the same measures were also used in the 2018 HBSC Scotland survey. To see the 2018 Scotland HBSC national report: [Media_707475_smxx.pdf (gla.ac.uk)](https://www.gla.ac.uk/media/Media_707475_smxx.pdf)
 
 ![](images/example_graph.svg){width="7.138888888888889in" height="4.015526027996501in"}
@@ -178,10 +180,11 @@ As well as the data, we have included notes and research evidence along with sug
 
 Pupils in S2 and S4 classes in your school took part in the survey during November and December 2021. Table 1 shows the number of pupils participating by year group and gender. One pupil did not provide their year group and three pupils did not provide their gender.
 
-```{r tab.cap="Overview of survey respondents", tab.id = "mytab", tab.cap.style = "Caption"}
+```{r tab_n_pupils, tab.cap="Overview of survey respondents", tab.id = "n_pupils", tab.cap.style = "Caption"}
 school_dat |> count(sex, grade) |> 
   filter(if_all(everything(), ~! is.na(.x))) |> 
   pivot_wider(names_from = grade, values_from = n) |> 
+  rename(" " = sex) |> 
   knitr::kable()
 ```
 
@@ -192,11 +195,8 @@ school_dat |> count(sex, grade) |>
 This chapter reports data on general health and sleep. It includes the following measures:
 
 -   Self-reported health
-
 -   Health complaints
-
 -   Sleep duration
-
 -   Three dimensions of sleep quality (i) bedtime behaviours (ii) sleep efficiency (iii) better morning wakefulness
 
 General health is closely related to mental health, with stress and poor mental wellbeing sometimes causing physical symptoms. The HBSC measure of self-reported health captures a global view of health. This is close to the World Health Organisation definition of health as a resource for living which goes beyond simply the absence of disease or the presence of wellbeing.^1^
@@ -291,21 +291,13 @@ Figure 7: Pupils' mean sleep quality scores, by year group
 This chapter presents data on mental health and wellbeing, and includes the following measures:
 
 -   Life satisfaction
-
 -   Feeling left out
-
 -   Feeling confident
-
 -   Happiness with life
-
 -   Loneliness
-
 -   WHO 5 Wellbeing Index -Low mood
-
 -   Stress
-
 -   Anxiety
-
 -   Perception of bodyweight
 
 Mental wellbeing is one of the Scottish Government's six public health priorities and is defined as: "...feeling good and functioning effectively, maintaining positive relationships and living a life that has a sense of purpose".^12^ Mental health and wellbeing is therefore more than the absence of mental illness but also about emotional wellbeing and functioning well in everyday life. It incorporates many components -- both positive and negative - such as stress, anxiety, self-confidence, self-esteem, social isolation, body image, life satisfaction and happiness. Together these factors can have an effect on academic and social development ^13^, leading to longer-term impacts on health, employment and social outcomes in adult life. ^14-16^
@@ -348,8 +340,6 @@ bar_by_cat(confidence, c("Often", "Always"), .censor = params$censor)
 ### Happiness
 
 To gauge levels of happiness, pupils were asked "In general, how do you feel about your life at present?" Here we show those pupils that feel happy ('very' or 'quite') with their life.
-
-**Figure 11: **
 
 ```{r happy, fig.cap="% pupils who feel happy with life"}
 bar_by_cat(happiness, c("I feel quite happy", "I feel very happy"), .censor = params$censor)
@@ -463,9 +453,7 @@ This chapter presents data about eating habits. It includes the
 following measures:
 
 -   Eating habits
-
 -   Breakfast
-
 -   Family meals
 
 Unhealthy eating has been found to be one of the biggest contributors to
@@ -598,13 +586,9 @@ bar_by_cat(fmeal, c("Every day", "Most days"), .censor = TRUE)
 This chapter presents data about physical activity and leisure time activities. The chapter includes the following measures:
 
 -   Moderate-to-vigorous physical activity
-
 -   Vigorous exercise in leisure time
-
 -   Participation in organised leisure activities
-
 -   Feeling safe in neighbourhood
-
 -   Spending time in green space
 
 The World Health Organisation recommends that children should
@@ -858,11 +842,8 @@ months**
 This chapter presents the following measures relating to substance use:
 
 -   Alcohol
-
 -   Smoking
-
 -   Vaping
-
 -   Cannabis (S4 only)
 
 The use of smoking, alcohol and drugs by school pupils and the impact on
@@ -894,11 +875,8 @@ influences have both been shown to reduce substance use.^69^
 Pupils were asked if they had ever (in their lifetime):
 
 -   been drunk
-
 -   smoked tobacco
-
 -   vaped
-
 -   used cannabis (S4 only)
 
 Figure 31 shows the proportion of pupils who have ever been drunk,
@@ -966,13 +944,9 @@ This chapter reports data relating to electronic media use. It includes
 the following measures:
 
 -   Technology in bedroom
-
 -   Screen time use
-
 -   Contact with close friends
-
 -   Problematic social media use
-
 -   Gaming
 
 Although some studies have suggested that screen time and electronic
@@ -1209,17 +1183,12 @@ This chapter is about social relationships and support, and includes the
 following measures:
 
 -   Family communication
-
 -   Family support
-
 -   Peer support
-
 -   Trusted adult
 
 Supportive family relationships are vital for adolescent development,
-socialisation, health and
-
-wellbeing. ^84,\ 85^ Good support leads to improved mental health and
+socialisation, health and wellbeing. ^84,\ 85^ Good support leads to improved mental health and
 better educational outcomes. ^86,87^ Family support reduces risky health
 behaviours in adolescents^88^ and provides a buffer against adverse life
 events and bullying, especially for girls. ^89^ Developing such
@@ -1348,9 +1317,7 @@ This chapter reports data relating to the school environment and
 includes these measures:
 
 -   Liking school
-
 -   Schoolwork pressure
-
 -   Teacher and pupil support
 
 The school environment has many effects on pupil wellbeing and a
@@ -1518,15 +1485,9 @@ support improvements in pupil wellbeing.
     include staff, pupils and parents to underpin a whole-school
     approach to HWB?
 
-```{=html}
-<!-- -->
-```
 -   Remember, pupils may be best placed to explain and interpret the
     data they provided.
 
-```{=html}
-<!-- -->
-```
 -   When considering the HBSC data, do a committee of stakeholders from
     different parts of the school community take part in identifying HWB
     priorities to take forward?
