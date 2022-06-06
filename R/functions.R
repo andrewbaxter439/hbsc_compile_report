@@ -65,11 +65,12 @@ bar_by_cat <- function(var,
     group_by(grade) |>
     mutate(success = !!var %in% success) |>
     summarise(numerator = sum(success),
-              denom = n()) |>
+              denom = n(),
+              .groups = "keep") |>
     filter(!is.na(grade))
   
   if (length(df_school$grade) == 2 &
-      all(df_school$numerator >= 7)) {
+      (all(df_school$numerator >= 7) | .censor == FALSE)) {
     # * for secondary schools, only separate by year if there are ≥7 S2 AND ≥7 S4).
     
     p2 <- df_school |>
@@ -80,16 +81,24 @@ bar_by_cat <- function(var,
       scale_y_continuous("%",
                          labels = percent,
                          limits = c(0, 1),
-                         position = "right")
+                         position = "right") +
+      geom_text(aes(label = percent(prop, suffix="", accuracy = 1)),
+                vjust = 0, 
+                nudge_y = 0.05,
+                size = 6)
   } else {
     p2 <- NULL
   }
   
-  p1 + p2
+  p1  +
+    geom_text(aes(label = percent(prop, suffix="", accuracy = 1)),
+              vjust = 0, 
+              nudge_y = 0.05,
+              size = 6) + p2
 }
 
 # test
-# bar_by_cat(health, c("Good", "Excellent"))
+# bar_by_cat(health, c("Good", "Excellent"), .censor = FALSE)
 
 
 # graphing multiple vars --------------------------------------------------
@@ -179,7 +188,13 @@ bar_multiple_vars <-
       scale_x_discrete(guide = guide_axis(angle = 45)) +
       scale_fill_hbsc(aesthetics = c("fill", "colour"), name = "",  limits = force) +
       theme(legend.position = if_else(group == "none", "none", "bottom")) +
-      scale_y_continuous("%", labels = percent, limits = c(0, 1))
+      scale_y_continuous("%", labels = percent, limits = c(0, 1)) +
+      geom_text(aes(label = percent(prop, suffix="", accuracy = 1)),
+                vjust = -0.5, 
+                # nudge_y = 0.05,
+                colour = "black",
+                position = position_dodge(width = 0.6),
+                size = 4)
     
   }
 
@@ -199,6 +214,72 @@ bar_multiple_vars <-
 #   group = "sex",
 #   .censor = FALSE
 # )
+
+
+# covid concerns graphs ---------------------------------------------------
+
+bar_diverging <- function(category, .data = school_dat, ordervals = c(
+  "covidlife" = "Life as a whole",
+  "covidhealth" = "Health",
+  "covidfamrel" = "Family relations",
+  "covidfriendrel" = "Friendships",
+  "covidmh" = "Mental Health",
+  "covidsch" = "School performance",
+  "covidactivity" = "Physical activity",
+  "coviddiet" = "Diet",
+  "covidfuture" = "Future",
+  "covidfinance" = "Family finances"
+)) {
+  
+  global_girls_colour <- "#2F5597"
+  global_boys_colour <- "#DAE3F3"
+  global_s2_colour <- "#548235"
+  global_s4_colour <- "#C5E0B4"
+  
+  colours <- list(Girls = c(global_girls_colour, global_boys_colour),
+                  Boys = c(global_girls_colour, global_boys_colour),
+                  S2 = c(global_s2_colour, global_s4_colour),
+                  S4 = c(global_s2_colour, global_s4_colour),
+                  `S.` = c(global_s2_colour, global_s4_colour))
+  
+  .data |> 
+    select(sex, grade, starts_with("covid")) |>
+    pivot_longer(-c(sex, grade), names_to = "topic", values_to = "response") |> 
+    pivot_longer(c(sex, grade), names_to = "cat", values_to = "group") |> 
+    group_by(cat, group, topic) |> 
+    summarise(perc_pos = sum(response == "Positive", na.rm = TRUE)/n(),
+              perc_neg = -sum(response == "Negative", na.rm = TRUE)/n()) |> 
+    pivot_longer(starts_with("perc"), names_to = "dir", values_to = "value", names_prefix = "perc_") |> 
+    mutate(topic = factor(topic, levels = names(ordervals), labels = ordervals)) |> 
+    filter(group == str_match(group, category)) |> 
+    ggplot(aes(x = value, y = fct_rev(topic), fill = dir)) +
+    geom_vline(xintercept = 0) +
+    geom_col(width = 0.6) +
+    scale_fill_manual("",
+                      labels = c("Negative", "Positive"),
+                      values = colours[[category]]) +
+    theme(panel.grid.major.y = element_blank(),
+          panel.grid.major.x = element_line(),
+          axis.text.x = element_text(size = 10),
+          axis.text.y = element_text(size = 12),
+          legend.position = "top") +
+    ylab("") +
+    scale_x_continuous(breaks = seq(-1, 1, 0.2),
+                       limits = c(-1, 1),
+                       labels = percent(c(seq(1, 0, -0.2), seq(0.2, 1, 0.2))))  +
+    geom_text(aes(label = percent(abs(value), suffix="", accuracy = 1),
+                  x = value + 0.1*if_else(dir == "neg", -1, 1)),
+              size = 4)
+}
+
+# test
+
+# bar_diverging("Girls")
+# bar_diverging("Boys")
+# bar_diverging("S2")
+# bar_diverging("S4")
+# bar_diverging("S.")
+
 
 # customising graphs ------------------------------------------------------
 

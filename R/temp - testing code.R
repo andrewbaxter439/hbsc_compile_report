@@ -64,7 +64,9 @@ if (all(df_sex$numerator > 3) & all(df_sex$denom >= 7)) {
     ggplot(aes(sex, prop, fill = sex)) +
     geom_bar(stat = "identity") +
     scale_fill_hbsc() +
-    scale_y_continuous("%", labels = percent, limits = c(0, 1))
+    scale_y_continuous("%", labels = percent, limits = c(0, 1)) +
+    geom_text(aes(label = percent(prop, suffix="", accuracy = 1)),
+              vjust = 0,)
   
 } else if (all(df_sex$numerator > 3) & sum(df_sex$denom <= 14)) {
   # * if there are ≤14 students, the chart should only present a single column
@@ -223,3 +225,67 @@ str_subset(all_text, "Figure \\d{1,2}.?:") |>
 
 
 # testing how to pass vector? ---------------------------------------------
+
+
+# perceived impact - diverging bars ---------------------------------------
+
+category <- "Boys"
+
+ordervals <- c(
+  "covidlife" = "Life as a whole",
+  "covidhealth" = "Health",
+  "covidfamrel" = "Family relations",
+  "covidfriendrel" = "Friendships",
+  "covidmh" = "Mental Health",
+  "covidsch" = "School performance",
+  "covidactivity" = "Physical activity",
+  "coviddiet" = "Diet",
+  "covidfuture" = "Future",
+  "covidfinance" = "Family finances"
+)
+
+colours <- list(Girls = c(global_girls_colour, global_boys_colour),
+                Boys = c(global_girls_colour, global_boys_colour),
+                S2 = c(global_s2_colour, global_s4_colour),
+                S4 = c(global_s2_colour, global_s4_colour),
+                `S.` = c(global_s2_colour, global_s4_colour)
+                )
+
+school_dat |> 
+  select(sex, grade, starts_with("covid")) |>
+  pivot_longer(-c(sex, grade), names_to = "topic", values_to = "response") |> 
+  group_by(sex, grade, topic) |> 
+  summarise(perc_pos = sum(response == "Positive", na.rm = TRUE)/n(),
+            perc_neg = -sum(response == "Negative", na.rm = TRUE)/n()) |> 
+  pivot_longer(starts_with("perc"), names_to = "dir", values_to = "value", names_prefix = "perc_") |> 
+  pivot_longer(c(sex, grade), names_to = "cat", values_to = "group") |> 
+  mutate(topic = factor(topic, levels = names(ordervals), labels = ordervals)) |> 
+  filter(group == str_match(group, category)) |> 
+  ggplot(aes(x = value, y = fct_rev(topic), fill = dir)) +
+  geom_vline(xintercept = 0) +
+    geom_col(width = 0.6) +
+  scale_fill_manual("",
+                    labels = c("Negative", "Positive"),
+                    values = colours[[category]]) +
+  theme(panel.grid.major.y = element_blank(),
+        panel.grid.major.x = element_line(),
+        legend.position = "top") +
+  ylab("") +
+  scale_x_continuous(breaks = seq(-1, 1, 0.2),
+                     limits = c(-1, 1),
+                     labels = percent(c(seq(1, 0, -0.2), seq(0.2, 1, 0.2))))
+
+
+# adding labels -----------------------------------------------------------
+
+df_sex |>
+  mutate(prop = numerator / denom) |>
+  ggplot(aes(sex, prop, fill = sex)) +
+  geom_bar(stat = "identity") +
+  scale_fill_hbsc() +
+  scale_y_continuous("%", labels = percent, limits = c(0, 1)) +
+  geom_text(aes(label = percent(prop, suffix="", accuracy = 1)),
+            vjust = 0, 
+            nudge_y = 0.05,
+            size = 6)
+                     
