@@ -288,4 +288,82 @@ df_sex |>
             vjust = 0, 
             nudge_y = 0.05,
             size = 6)
+
+
+
+# mean bar by cat ---------------------------------------------------------
+
+
+df_sex <- .data |>
+  group_by(sex) |>
+  summarise(mean_var = mean(Schooldays_sleep_hrs)) |>
+  filter(!is.na(sex))
+
+max_var <- .data |> 
+  summarise(max_var = max(Schooldays_sleep_hrs)) |> 
+  pull(max_var)
+
+if ((all(df_sex$numerator > 3) & all(df_sex$denom >= 7)) | !.censor) {
+  # * chart should not be created if there are ≤3 students in the numerator of
+  #   any variable.
+  # * only separate by sex if there are ≥7 girls AND ≥7 boys in the denominator
+  #   of any variable
+  
+  p1 <- df_sex |>
+    ggplot(aes(sex, mean_var, fill = sex)) +
+    geom_bar_t(stat = "identity") +
+    scale_fill_hbsc() +
+    scale_y_continuous("Mean")
+  
+} else if (all(df_sex$numerator > 3) & sum(df_sex$denom <= 14)) {
+  # * if there are ≤14 students, the chart should only present a single column
+  #   representing all students.
+  
+  p1 <- df_sex |>
+    ggplot(aes("All pupils", mean_var)) +
+    geom_bar_t(stat = "identity") +
+    scale_fill_hbsc() +
+    scale_y_continuous("Mean", limits = c(0, max_var))
+  
+} else {
+  p1 <- ggplot() +
+    geom_text(aes(x = 1, y = 0.5, label = "Chart ommitted\ndue to low numbers"),
+              size = 12) +
+    scale_x_discrete(breaks = 1, labels = "") +
+    scale_y_continuous("Mean", breaks = 0:1, limits = c(0, max_var))
+  
+}
+
+df_school <- .data |>
+  group_by(grade) |>
+  summarise(mean_var = mean(Schooldays_sleep_hrs)) |>
+  filter(!is.na(grade))
+
+if (length(df_school$grade) == 2 &
+    (all(df_school$numerator >= 7) | .censor == FALSE)) {
+  # * for secondary schools, only separate by year if there are ≥7 S2 AND ≥7 S4).
+  
+  p2 <- df_school |>
+    ggplot(aes(grade, mean_var, fill = grade)) +
+    geom_bar_t(stat = "identity") +
+    scale_fill_hbsc() +
+    scale_y_continuous(" ",
+                       position = "right",
+                       limits = c(0, max_var)
+    ) +
+    theme(axis.ticks.y = element_line(colour = "white"),
+          axis.text.y = element_text(colour = "white")) +
+    geom_text(aes(label = round(mean_var, 1)),
+              vjust = 0, 
+              nudge_y = 0.05 * max_var,
+              size = 4)
+} else {
+  p2 <- NULL
+}
+
+p1  +
+  geom_text(aes(label = round(mean_var, 1)),
+            vjust = 0, 
+            nudge_y = 0.05 * max_var,
+            size = 4) + p2
                      

@@ -6,7 +6,7 @@ output:
       # toc_depth: 2
     reference_docx: templates/pilot_secondary_format.docx
     tables:
-      style: HBSCTable
+      style: Table
       layout: autofit
       width: 1.0
       conditional:
@@ -244,9 +244,11 @@ bar_multiple_vars(
 
 Figure 3 shows the percentage of pupils who report two or more health complaints, once a week or more.
 
-Figure 3: % pupils who report two or more health complaints once a week or more
+```{r multi_health, fig.cap="% pupils who report two or more health complaints once a week or more", fig.id = "fig_multi_health"}
 
-[$$CHART$$]{.chart}
+bar_by_cat(mhc_multi, "Yes", .censor = params$censor)
+
+```
 
 ### Sleep duration
 
@@ -254,13 +256,14 @@ Pupils were asked to estimate the time they usually go to bed and wake up on sch
 
 Current NHS recommendations are that children aged 12-17 years should aim for a minimum of 8-9 hours' sleep per night.
 
-Figure 4: Mean number of hours pupils sleep on a school night
+```{r}
+bar_mean_by_cat(Schooldays_sleep_hrs, .censor = params$censor, ylab = "Hours")
+```
 
-[$$CHART$$]{.chart}
+```{r weekend_sleep, fig.cap="Mean number of hours pupils sleep on weekends/holidays", fig.id="fig_weekend_sleep"}
+bar_mean_by_cat(Weekend_sleep_hrs, .censor = params$censor, ylab = "Hours")
+```
 
-Figure 5: Mean number of hours pupils sleep on weekends/holidays
-
-[$$CHART$$]{.chart}
 
 ### Sleep quality
 

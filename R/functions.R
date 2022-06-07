@@ -78,14 +78,17 @@ bar_by_cat <- function(var,
       ggplot(aes(grade, prop, fill = grade)) +
       geom_bar_t(stat = "identity") +
       scale_fill_hbsc() +
-      scale_y_continuous("%",
+      scale_y_continuous(" ",
                          labels = percent,
-                         limits = c(0, 1),
-                         position = "right") +
+                         position = "right",
+                         limits = c(0, 1)
+                         ) +
+      theme(axis.ticks.y = element_line(colour = "white"),
+            axis.text.y = element_text(colour = "white")) +
       geom_text(aes(label = percent(prop, suffix="", accuracy = 1)),
                 vjust = 0, 
                 nudge_y = 0.05,
-                size = 6)
+                size = 4)
   } else {
     p2 <- NULL
   }
@@ -94,12 +97,116 @@ bar_by_cat <- function(var,
     geom_text(aes(label = percent(prop, suffix="", accuracy = 1)),
               vjust = 0, 
               nudge_y = 0.05,
-              size = 6) + p2
+              size = 4) + p2
 }
 
-# test
-# bar_by_cat(health, c("Good", "Excellent"), .censor = FALSE)
+# graphing mean of single var ---------------------------------------
 
+#' * chart should not be created if there are ≤3 students in the numerator of
+#' any variable.
+#' * only separate by sex if there are ≥7 girls AND ≥7 boys in the denominator
+#' of any variable
+#' * for secondary schools, only separate by year if there are ≥7 S2 AND ≥7 S4).
+#' * if there are ≤14 students, the chart should only present a single column
+#' representing all students.
+#'
+#' @param var The name of the variable to graph by
+#' @param .data Data file to use
+#' @param .censor Whether to censor low numbers (default as TRUE for final
+#'   output)
+
+
+bar_mean_by_cat <- function(var,
+                       .data = school_dat,
+                       .censor = TRUE,
+                       ymax = max(.data[[as_name(var)]]),
+                       ylab = "Mean") {
+  var <- enquo(var)
+  require(rlang)
+  
+  rlang::eval_tidy(var, data = school_dat)
+  
+  df_sex <- .data |>
+    group_by(sex) |>
+    summarise(mean_var = mean(!!var),
+              denom = n()) |>
+    filter(!is.na(sex))
+  
+  # max_var <- .data |> 
+  #   summarise(max_var = max(!!var)) |> 
+  #   pull(max_var)
+  
+  if (all(df_sex$denom >= 7) | !.censor) {
+    # * chart should not be created if there are ≤3 students in the numerator of
+    #   any variable.
+    # * only separate by sex if there are ≥7 girls AND ≥7 boys in the denominator
+    #   of any variable
+    
+    p1 <- df_sex |>
+      ggplot(aes(sex, mean_var, fill = sex)) +
+      geom_bar_t(stat = "identity") +
+      scale_fill_hbsc() +
+      scale_y_continuous(ylab, limits = c(0, ymax))
+    
+  } else if (all(df_sex$denom > 3)) {
+    # * if there are ≤14 students, the chart should only present a single column
+    #   representing all students.
+    
+    p1 <- df_sex |>
+      ggplot(aes("All pupils", mean_var)) +
+      geom_bar_t(stat = "identity") +
+      scale_fill_hbsc() +
+      scale_y_continuous(ylab, limits = c(0, ymax))
+    
+  } else {
+    p1 <- ggplot() +
+      geom_text(aes(x = 1, y = 0.5, label = "Chart ommitted\ndue to low numbers"),
+                size = 12) +
+      scale_x_discrete(breaks = 1, labels = "") +
+      scale_y_continuous(ylab, breaks = 0:1, limits = c(0, ymax))
+    
+  }
+  
+  df_school <- .data |>
+    group_by(grade) |>
+    summarise(mean_var = mean(Schooldays_sleep_hrs),
+              denom = n()) |>
+    filter(!is.na(grade))
+  
+  if (length(df_school$grade) == 2 &
+      (all(df_school$denom >= 7) | .censor == FALSE)) {
+    # * for secondary schools, only separate by year if there are ≥7 S2 AND ≥7 S4).
+    
+    p2 <- df_school |>
+      ggplot(aes(grade, mean_var, fill = grade)) +
+      geom_bar_t(stat = "identity") +
+      scale_fill_hbsc() +
+      scale_y_continuous(" ",
+                         position = "right",
+                         limits = c(0, ymax)
+      ) +
+      theme(axis.ticks.y = element_line(colour = "white"),
+            axis.text.y = element_text(colour = "white")) +
+      geom_text(aes(label = round(mean_var, 1)),
+                vjust = 0, 
+                nudge_y = 0.05 * ymax,
+                size = 4)
+  } else {
+    p2 <- NULL
+  }
+  
+  p1  +
+    geom_text(aes(label = round(mean_var, 1)),
+              vjust = 0, 
+              nudge_y = 0.05 * ymax,
+              size = 4) + p2
+}
+
+
+
+# test
+
+# bar_mean_by_cat(Schooldays_sleep_hrs, .censor = FALSE)
 
 # graphing multiple vars --------------------------------------------------
 
