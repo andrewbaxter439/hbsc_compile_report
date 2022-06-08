@@ -106,7 +106,7 @@ multi_grades <- "S2" %in% school_dat$grade & "S4" %in% school_dat$grade
 
 ```
 
-![](images/hbsc_logo.jpg){width="8.728346456692913in" height="1.6220472440944882in"}
+<!--![](images/hbsc_logo.jpg){width="8.728346456692913in" height="1.6220472440944882in"} -->
 
 ::: {custom-style="Title"}
 
@@ -179,15 +179,18 @@ As well as the data, we have included notes and research evidence along with sug
 
 ### Your school's participation in the survey
 
+::: {custom-style="FigDesc"}
 Pupils in S2 and S4 classes in your school took part in the survey
 during spring Term 2022. Table 1 shows the number of pupils
 participating by year group and gender. *INSERT NUMBER* pupil(s) did not provide their year group and *INSERT NUMBER* pupil(s) did not provide their gender.
+:::
 
 ```{r tab_n_pupils, tab.cap="Overview of survey respondents", tab.id = "n_pupils", tab.cap.style = "Caption"}
 school_dat |> count(sex, grade) |> 
   filter(if_all(everything(), ~! is.na(.x))) |> 
   pivot_wider(names_from = grade, values_from = n) |> 
   rename(" " = sex) |> 
+  mutate(across(2:3, ~formatC(.x, width = 6))) |> 
   knitr::kable()
 ```
 
@@ -212,7 +215,9 @@ The quality of sleep is just as important as amount of sleep for improving wellb
 \newpage
 ### Self-reported health
 
+::: {custom-style="FigDesc"}
 Pupils were asked to rate their own health. This figure the proportion of pupils reporting their health to be either 'excellent' or 'good'.
+:::
 
 ```{r good_excel_health, fig.cap="% pupils who report good or excellent health", fig.cap.style="Caption"}
 
@@ -224,7 +229,9 @@ bar_by_cat(health, c("Good", "Excellent"),
 
 ### Multiple Health Complaints
 
+::: {custom-style="FigDesc"}
 Pupils were asked 'In the last 6 months how often have you had the following...?' and presented with a list of eight physical and psychological symptoms: headache, stomach-ache, backache, dizziness, feeling low, feeling nervous, feeling irritable and sleep difficulties. We looked at the proportion of young people who experienced this symptom, once a week or more.
+:::
 
 ```{r mulciple_health, fig.cap="% pupils who report this type of health complaint once a week or more", fig.cap.style = "Caption"}
 bar_multiple_vars(
@@ -243,7 +250,9 @@ bar_multiple_vars(
 ```
 
 
+::: {custom-style="FigDesc"}
 Figure 3 shows the percentage of pupils who report two or more health complaints, once a week or more.
+:::
 
 ```{r multi_health, fig.cap="% pupils who report two or more health complaints once a week or more", fig.id = "fig_multi_health"}
 
@@ -253,9 +262,11 @@ bar_by_cat(mhc_multi, "Yes", .censor = params$censor)
 
 ### Sleep duration
 
+::: {custom-style="FigDesc"}
 Pupils were asked to estimate the time they usually go to bed and wake up on schooldays and on weekends/holidays. From this we calculated the number of hours of sleep. The figures show the mean number of hours slept on a school night and then on a weekend or holiday.
 
 Current NHS recommendations are that children aged 12-17 years should aim for a minimum of 8-9 hours' sleep per night.
+:::
 
 ```{r}
 bar_mean_by_cat(Schooldays_sleep_hrs, .censor = params$censor, ylab = "Hours")
@@ -268,7 +279,9 @@ bar_mean_by_cat(Weekend_sleep_hrs, .censor = params$censor, ylab = "Hours")
 
 ### Sleep quality
 
+::: {custom-style="FigDesc"}
 Pupils were asked ten questions about sleep quality, covering three different aspects: (i) bedtime behaviours, (ii) sleep efficiency and (iii) morning wakefulness. For each aspect of sleep, scores range from 1 to 6. A higher score indicates better sleep quality in that aspect.
+:::
 
 ```{r mean_sleep_gender, fig.cap="Pupils' mean sleep quality scores, by gender"}
 bar_mean_multiple_vars(
@@ -341,7 +354,9 @@ In terms of promoting wellbeing, positive relationships with family, friends and
 
 ### Life satisfaction
 
+::: {custom-style="FigDesc"}
 Pupils were asked about their life satisfaction, using the 'Cantril Ladder'. This shows a ladder with rungs numbered from 0 ('worst possible life') to 10 ('best possible life'). Pupils were asked to mark where on the ladder they feel they stand at the moment. Here we show the proportion of pupils who report high life satisfaction (gave a rating of 6 or more out of 10).
+:::
 
 ```{r high_life, fig.cap="% pupils who report high life satisfaction (6 or more out of 10)"}
 bar_by_cat(lifesat, c("6", "7", "8", "9", "10 Best possible life"),
@@ -351,7 +366,9 @@ bar_by_cat(lifesat, c("6", "7", "8", "9", "10 Best possible life"),
 
 ### Feeling left out
 
+::: {custom-style="FigDesc"}
 Pupils were asked "how often do you feel left out of things?". This figure shows the percentage of young people who say they 'often' or 'always' feel left out.
+:::
 
 ```{r left_out, fig.cap="% pupils who feel often or always left out"}
 bar_by_cat(leftout, c("Often", "Always"), .censor = params$censor)
@@ -359,7 +376,9 @@ bar_by_cat(leftout, c("Often", "Always"), .censor = params$censor)
 
 ### Confidence
 
+::: {custom-style="FigDesc"}
 Pupils were asked 'how often do you feel confident in yourself?'. Here we show the proportion of pupils who responded that they 'often' or 'always' feel confident.
+:::
 
 ```{r confident, fig.cap="% pupils who feel often or always confident"}
 bar_by_cat(confidence, c("Often", "Always"), .censor = params$censor)
@@ -368,7 +387,9 @@ bar_by_cat(confidence, c("Often", "Always"), .censor = params$censor)
 
 ### Happiness
 
+::: {custom-style="FigDesc"}
 To gauge levels of happiness, pupils were asked "In general, how do you feel about your life at present?" Here we show those pupils that feel happy ('very' or 'quite') with their life.
+:::
 
 ```{r happy, fig.cap="% pupils who feel happy with life"}
 bar_by_cat(happiness, c("I feel quite happy", "I feel very happy"), .censor = params$censor)
@@ -380,16 +401,17 @@ bar_by_cat(happiness, c("I feel quite happy", "I feel very happy"), .censor = pa
 Pupils were asked how often they had felt lonely in the past 12 months. Here we show the percentage of pupils who report feeling lonely 'most' or 'all of the time'.
 
 
+::: {custom-style="FigDesc"}
 ```{r feel_lonely, fig.cap="% pupils who feel lonely most or all of the time"}
 bar_by_cat(Lonely_mostalways, "Lonely most or all of time", .censor = params$censor)
 ```
-
+:::
 
 ### WHO 5 Wellbeing Index
 
+::: {custom-style="FigDesc"}
 The WHO--5 Wellbeing Index is a five-item scale which provides a measure of emotional functioning. Items are summed to create a score ranging from 0 to 100. A score of 50 or less indicates low mood.
-
-**Figure 13: % pupils with low mood (WHO 5 Index)**
+:::
 
 ```{r}
 bar_by_cat(WHO_low, "Low mood/risk of depression", .censor = params$censor)
@@ -398,7 +420,9 @@ bar_by_cat(WHO_low, "Low mood/risk of depression", .censor = params$censor)
 
 ### Stress
 
+::: {custom-style="FigDesc"}
 The Cohen Perceived Stress Scale asks four questions about how pupils feel they are coping with problems and whether they feel in control of their life. The questions ask about experiences over the last month, and scores range from 0 (no stress) to 16 (high stress).
+:::
 
 ```{r mean_stress, fig.cap="Pupils' mean stress score"}
 bar_mean_by_cat(var = CohenPSS4, .censor = params$censor, ylab = "Score")
@@ -407,8 +431,9 @@ bar_mean_by_cat(var = CohenPSS4, .censor = params$censor, ylab = "Score")
 
 ### Anxiety
 
+::: {custom-style="FigDesc"}
 Pupils were asked to complete the Generalised Anxiety Disorder Scale. This asks seven questions about how often, over the past two weeks, pupils have been bothered by feelings such as feeling nervous, being unable to stop worrying, having trouble relaxing and feeling easily annoyed. The answers produce a score between 0 to 21. A score of 11 or more indicates moderate anxiety and a score of 17 or more indicates severe anxiety. Here we show the percentage of pupils who scored more than 11. Please note this should not be understood as a clinical diagnosis of anxiety.
-
+:::
 
 ```{r mod_severe_anxiety, fig.cap="% of pupils reporting moderate or severe anxiety"}
 bar_by_cat(var = gadclassification, success = "anxious", .censor = params$censor)
@@ -417,8 +442,9 @@ bar_by_cat(var = gadclassification, success = "anxious", .censor = params$censor
 
 ### Perception of bodyweight
 
+::: {custom-style="FigDesc"}
 Pupils were asked whether they thought they were underweight, overweight or neither under- nor overweight. This figure shows the proportion of young people who felt they were about the right weight, that is neither over- nor underweight.
-
+:::
 
 ```{r over_underweight, fig.cap="% pupils who think they are neither over- nor underweight"}
 bar_by_cat(var = aboutright, success = "Yes", .censor = params$censor)
@@ -521,10 +547,11 @@ Unhealthy eating has been found to be one of the biggest contributors to poor ad
 
 ### Eating habits 
 
+::: {custom-style="FigDesc"}
 Pupils were asked how many days a week they consumed various types of
 food and drink. The figures show the percentage of pupils who consumed
 each type of food or drink at least once a day.
-
+:::
 
 ```{r food_drink_gender, fig.cap="% pupils who consume food/drink daily, by gender"}
 bar_multiple_vars(
@@ -564,10 +591,11 @@ bar_multiple_vars(
 
 ### Breakfast
 
+::: {custom-style="FigDesc"}
 Pupils were asked how often they usually have breakfast on weekdays
 ("more than a glass of milk or fruit juice"). Here we show the
 percentage of pupils who report eating breakfast every day on weekdays.
-
+:::
 
 ```{r breakfase_wd, fig.cap="% pupils who eat breakfast every weekday"}
 
@@ -578,11 +606,11 @@ bar_by_cat(breakfastwd, success = "Five days", .censor = params$censor)
 
 ### Family meals
 
+::: {custom-style="FigDesc"}
 Pupils were asked "how often do you and your family usually have meals
 together?". Here we show the percentage who responded that they have a
 family meal most days or every day.
-
-**Figure 20: % pupils who eat a meal with family most days or everyday**
+:::
 
 ```{r family_meal, fig.cap="% pupils who eat a meal with family most days or everyday"}
 
@@ -946,49 +974,72 @@ Here we present the percentage of pupils who have a smartphone which
 they keep in their bedroom at night and those that have a TV in their
 bedroom.
 
-**Figure 32 : % of pupils with smartphone in their bedroom at night**
+```{r sphbed, fig.cap="% of pupils with smartphone in their bedroom at night"}
+bar_by_cat(var = smartphbed, success = " Has smartphone in bedroom", .censor = params$censor)
+```
 
-[\[CHART\]]{.chart}
 
 **Figure 33: % of pupils with TV in their bedroom**
 
-[\[CHART\]]{.chart}
+```{r}
+bar_by_cat(var = TVbed, success = " Has TV in bedroom", .censor = params$censor)
+```
+
 
 ### Contact with close friends
 
 Pupils were asked to think about 'online contact' and 'online communication', defined as 'sending and receiving text messages, emoticons, and photo, video or audio messages through instant messaging, social networking sites or video calling (e.g. Zoom)'. Then they were asked to report how frequently they keep in online contact with people in their life. The figure shows the percentage of pupils who are in online contact with close friends either several times a day or almost all the time during the day.
 
-**Figure 34: Pupils reporting online contact with close friends several times/almost all the time during the day**
-
-[\[CHART\]]{.chart}
+```{r online_contact, fig.cap="Pupils reporting online contact with close friends several times/almost all the time during the day"}
+bar_by_cat(var = emconhigh1, success = "Intense contact", .censor = params$censor)
+```
 
 ### Screen time
 
 Pupils were asked to estimate how many hours a day in their free time they spend: watching TV/DVDs/videos; playing games on a computer/console/tablet/phone; and using electronic devices for other purposes such as homework, email, messaging, surfing the internet or social media. Here we present the mean number of hours spent on each type of activity.
 
-**Figure 35 : Mean time (hours) pupils spend per day using a screen, by
-gender**
+```{r screen_use_sex, fig.cap="Mean time (hours) pupils spend per day using a screen, by gender"}
+bar_mean_multiple_vars(list(
+  sit_gamehr = "Gaming",
+  sit_socnethr = "Social media",
+  sit_watchhr = "Watching TV",
+  sit_browhr = "Browsing internet"
+),
+group = "sex",
+ylab = "Hours",
+.censor = params$censor)
+```
 
-[\[CHART\]]{.chart}
 
-**Figure 36: Mean time (hours) pupils spend per day using a screen, by
-year group**
 
-[\[CHART\]]{.chart}
+```{r screen_use_grade, fig.cap="Mean time (hours) pupils spend per day using a screen, by year group"}
+bar_mean_multiple_vars(list(
+  sit_gamehr = "Gaming",
+  sit_socnethr = "Social media",
+  sit_watchhr = "Watching TV",
+  sit_browhr = "Browsing internet"
+),
+group = "grade",
+ylab = "Hours",
+.censor = params$censor)
+```
 
 ### Problematic social media use
 
 We used the Social Media Disorder (SMD) Scale to measure 'problematic' social media use. This scale examines a number of different aspects of social media use, for example, whether young people are preoccupied with social media, lose interest in other activities due to social media, have arguments with others due to their social media use or use social media to cope with unpleasant experiences.
 
-In your school, *INSERT NUMBER*% of all pupils surveyed scored as problematic social media users.
+In your school, `r perc_success(EMC_Problem, "Problematic social media user")` of all pupils surveyed scored as problematic social media users.
 
 ### Gaming
 
+::: {custom-style="FigDesc"}
 Pupils were asked to think about all the games that they play on a smartphone, tablet, laptop, PC, Mac or console (e.g. PlayStation, Wii, Xbox) then report how often they play games. Here we present the percentage of pupils who gamed at least 4 times a week.
+:::
 
-**Figure 37: % pupils who played computer games at least 4 times a week**
+```{r gaming_4w, fig.cap="% pupils who played computer games at least 4 times a week"}
+bar_by_cat(var = game_4day, success = "Gaming at least 4 days a week", .censor = params$censor)
+```
 
-[\[CHART\]]{.chart}
 
 Pupils who gamed each week were asked to complete the Internet Gaming Disorder (IGD) Scale which distinguishes between 'normative' and 'problematic' gaming. Overall, 11% of all pupils who game reported problematic gaming and this was more common amongst boys than girls.
 
@@ -1057,10 +1108,11 @@ It is argued that many existing health issues have been exacerbated by the pande
 
 ### Impact of COVID-19
 
+::: {custom-style="FigDesc"}
 Young people were asked about their experiences of COVID-19 and its associated restrictions. Pupils were asked to say how they felt various aspects of their life had been impacted by the COVID-19 pandemic choosing from the options: very negative/ quite negative/ neutral, no impact/quite positive and very positive.
 
 The figures below show the percentage of pupils who reported either a negative (very/quite) or a positive (very/quite) impact on that aspect of their life. Figures 40 and 41 show the impact by gender. Figures 42 and 43 show the impact by school year.
-
+:::
 
 ```{r covid_girls, fig.cap="Perceived impact of the COVID-19 pandemic on GIRLS"}
 bar_diverging("Girls")
@@ -1104,46 +1156,54 @@ The negative effects of adverse childhood experiences on mental and physical hea
 
 ### Family communication
 
+::: {custom-style="FigDesc"}
 Pupils were asked how easy they find it to communicate with a parental
 figure.
 
 Figure 42 presents the percentage of pupils who say they find it easy or very easy to talk to their mother (includes step-mother).
 
 Figure 43 presents the percentage of pupils who say they find it easy or very easy to talk to their father (includes step-father).
+:::
 
-**Figure 42: % pupils who say it's *easy or very easy* to speak to
-mother figure**
+```{r easy_talk_m, fig.cap="% pupils who say it's easy or very easy to speak to mother figure"}
+bar_by_cat(var = easytalk_mfigure, success = "Easy to talk to mother or stepmother", .censor = params$censor)
+```
 
-[\[CHART\]]{.chart}
 
-**Figure 43: % pupils who say it's *easy or very easy* to speak to the
-father figure**
-
-[\[CHART\]]{.chart}
+```{r easy_talk_f, fig.cap="% pupils who say it's easy or very easy to speak to the father figure"}
+bar_by_cat(var = easytalk_Ffigure, success = "Easy to talk to father or stepfather", .censor = params$censor)
+```
 
 ### Family support
 
+::: {custom-style="FigDesc"}
 The HBSC survey includes the Family Support Scale. This consists of four questions about how much support the young person feels they get from their family, for example, listening to their problems and help with decision making. The figure shows the percentage of pupils who reported high family support.
+:::
 
-**Figure 44: % pupils who report high family support**
+```{r high_support, fig.cap="% pupils who report high family support"}
+bar_by_cat(var = Family_support_scale_binary, success = "High family support", .censor = params$censor)
+```
 
-[\[CHART\]]{.chart}
 
 ### Peer Support
 
+::: {custom-style="FigDesc"}
 The Peer Support Scale include four questions about support received from friends, for example, how easy young people find it to talk to friends about their problems and the extent to which they can count on their friends and their friends try to help them. The figure shows the percentage of pupils who report high peer support.
+:::
 
-**Figure 45: % pupils who report high peer support**
-
-[\[CHART\]]{.chart}
+```{r high_peer_support, fig.cap="% pupils who report high peer support"}
+bar_by_cat(var = Peer_support_scale_binary, success = "High Peer support", .censor = params$censor)
+```
 
 ### Trusted adult
 
+::: {custom-style="FigDesc"}
 Pupils were asked 'do you have an adult in your life who you can trust and talk to about any personal problems?' with response options including Yes always/Yes, sometimes/ No. The figure shows the percentage of pupils who report 'always' having a trusted adult to talk to.
+:::
 
-**Figure 46: % pupils who *always* have a trusted adult to talk to**
-
-[\[CHART\]]{.chart}
+```{r trusted_adult, fig.cap="% pupils who always have a trusted adult to talk to"}
+bar_by_cat(var = Trusted_adult, success = "Yes, I always do", .censor = params$censor)
+```
 
 ### Who can help?
 
@@ -1202,32 +1262,40 @@ In contrast, high levels of school pressure are associated with higher levels of
 
 ### Liking school
 
+::: {custom-style="FigDesc"}
 Pupils were asked how much they like school at present. The figure shows the percentage of pupils who say they like school 'a lot' or 'a bit'.
+:::
 
-**Figure 47: % pupils who like school *a lot* or *a bit***
+```{r like_school, fig.cap="% pupils who like school a lot or a bit"}
+bar_by_cat(var = likesch_bitlot, success = "Like school a bit or a lot", .censor = params$censor)
+```
 
-[\[CHART\]]{.chart}
+
 
 ### Schoolwork pressure
 
+::: {custom-style="FigDesc"}
 Pupils were asked how pressured they feel about the schoolwork they have to do. This figure shows the percentage of pupils who feel 'some' or 'a lot' of pressure from schoolwork.
+:::
 
-**Figure 48: % pupils who feel *some* or *a lot* of pressure from
-schoolwork**
-
-[\[CHART\]]{.chart}
+```{r pressure_school, fig.cap="% pupils who feel some or a lot of pressure from schoolwork"}
+bar_by_cat(var = school_stress, success = "some/a lot", .censor = params$censor)
+```
 
 ### Teacher and pupil support
 
+::: {custom-style="FigDesc"}
 Pupils were asked to say how much they feel their teachers accept and care about them as a person, and how much they trust their teachers. They were also asked to say how much other pupils accept them, how kind and helpful they are and whether the pupils in their classes enjoy being together. Below we show the percentage of pupils who report high levels of support from teachers and from classmates.
+:::
 
-**Figure 49 : % pupils who report *high* teacher support**
+```{r high_teacher_support, fig.cap="% pupils who report high teacher support"}
+bar_by_cat(var = Teacher_scale_cutoff, success = "High teacher support", .censor = params$censor)
+```
 
-[\[CHART\]]{.chart}
+```{r high_class_support, fig.cap="% pupils who report high classmate support"}
+bar_by_cat(var = stud_support_scale_cutoff, success = "High student support", .censor = params$censor)
+```
 
-**Figure 50 : % pupils who report *high* classmate support**
-
-[\[CHART\]]{.chart}
 
 ### Who can help?
 
@@ -1545,7 +1613,8 @@ support improvements in pupil wellbeing.
 
 48. Ko, C.-H., Yen, J.-Y., Chen, C.-S., Yeh, Y.-C., & Yen, C.-F. 
     (2009). Predictive Values of Psychiatric Symptoms for Internet   
-    Addiction in Adolescents: A 2-Year Prospective Study. *Archives of     Pediatrics & Adolescent Medicine*, 163(10), 937.
+    Addiction in Adolescents: A 2-Year Prospective Study.
+    *Archives of Pediatrics & Adolescent Medicine*, 163(10), 937.
 
 49. Royal College of Paediatrics and Child Health. (n.d.). The health
     impacts of screen time - a guide for clinicians and parents \|

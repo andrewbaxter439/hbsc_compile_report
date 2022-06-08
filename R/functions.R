@@ -435,6 +435,21 @@ bar_diverging <- function(category, .data = school_dat, ordervals = c(
 # bar_diverging("S.")
 
 
+
+# return percentage -------------------------------------------------------
+
+perc_success <- function(var, success, .data = school_dat) {
+  var <- enquo(var)
+  
+  .data |> 
+    summarise(perc = sum(!!var %in% success)/n()) |> 
+    mutate(perc = percent(perc, accuracy = 0.1)) |> 
+    pull(perc)
+  
+}
+
+# perc_success(EMC_Problem, "Problematic social media user")
+
 # customising graphs ------------------------------------------------------
 
 #' scale_fill_hbsc to globalise fill colours
