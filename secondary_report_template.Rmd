@@ -1,4 +1,3 @@
-#sfasf
 ---
 # title: "HEALTH BEHAVIOUR IN SCHOOL-AGED CHILDREN STUDY"
 output:
@@ -36,7 +35,7 @@ params:
   school: 
     label: 'School'
     input: select
-    value: "022"
+    value: "040"
     choices: ["003", "070", "075", "007", "008", "010", "013", 
 "014", "017", "019", "021", "022", "024", "026", "028", "029", 
 "033", "034", "035", "040", "041", "045", "046", "047", "049", 

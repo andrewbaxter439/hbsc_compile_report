@@ -119,7 +119,7 @@ bar_by_cat <- function(var,
 bar_mean_by_cat <- function(var,
                        .data = school_dat,
                        .censor = TRUE,
-                       ymax = max(.data[[rlang::as_name(var)]]),
+                       ymax = max(.data[[rlang::as_name(var)]], na.rm = TRUE),
                        ylab = "Mean") {
   require(rlang)
   var <- enquo(var)
@@ -316,6 +316,7 @@ bar_mean_multiple_vars <-
                 denom = n()) |>
       pivot_longer(-c(grouping, denom), names_to = "var", values_to = "mean") |> 
       rowwise() |>
+      filter(!is.na(grouping)) |> 
       mutate(
         censored = if_else(denom < 3 & .censor, 1, 0),
         labels = varslist[[var]][1],
@@ -348,7 +349,7 @@ bar_mean_multiple_vars <-
 #     SleepQual_FARS = "Sleep efficiency",
 #     SleepQual_RTW = "Morning wakefulness"
 #   ),
-#   group = "grade",
+#   group = "sex",
 #   .censor = FALSE,
 #   ymax = 20,
 #   ylab = "Score"
