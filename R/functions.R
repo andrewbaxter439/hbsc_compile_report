@@ -24,7 +24,7 @@ bar_by_cat <- function(var,
   df_sex <- .data |>
     group_by(sex) |>
     mutate(success = !!var %in% success) |>
-    summarise(numerator = sum(success),
+    summarise(numerator = sum(success, na.rm = TRUE),
               denom = n()) |>
     filter(!is.na(sex))
   
@@ -248,6 +248,7 @@ bar_multiple_vars <-
         prop = if_else(censored == 1, 0.5, prop),
         grouping = factor(grouping, levels = c("Girls", "Boys", "S2", "S4", "1"))
       ) |>
+      filter(!is.na(grouping)) |> 
       ggplot(aes(fct_inorder(labels), prop, alpha = factor(censored), linetype = factor(censored), fill = grouping, colour = grouping)) +
       geom_bar_t(stat = "identity", position = position_dodge(width = 0.6)) +
       scale_alpha_manual(values = c("1" = 0.2, "0" = 1), guide = guide_none()) +
@@ -268,16 +269,15 @@ bar_multiple_vars <-
 # test
 # 
 # bar_multiple_vars(
-#   list(
-#     headache =   "Headache",
-#     stomachache =   "Stomach-ache",
-#     backache =   "Backache",
-#     dizzy =   "Dizziness",
-#     feellow =   "Feeling low",
-#     nervous =   "Feeling nervous",
-#     irritable =   "Feeling irritable",
-#     sleepdificulty =   "Sleep difficulties"
+#   varslist = list(
+#     ls_teamsp_wk = "Team sports",
+#     ls_indsport_wk = "Individual sports",
+#     ls_arts_wk = "Artistic activities",
+#     ls_youth_wk = "Youth organisation",
+#     ls_club_wk = "Club activity",
+#     ls_relig_wk = "Religious activity"
 #   ),
+#   success = "At least weekly",
 #   group = "sex",
 #   .censor = FALSE
 # )
@@ -357,17 +357,17 @@ bar_mean_multiple_vars <-
 
 # test
 # 
-bar_mean_multiple_vars(
-  list(
-    SleepQual_GTB = "Bedtime behaviours",
-    SleepQual_FARS = "Sleep efficiency",
-    SleepQual_RTW = "Morning wakefulness"
-  ),
-  group = "sex",
-  .censor = FALSE,
-  ymax = 6,
-  ylab = "Score"
-)
+# bar_mean_multiple_vars(
+#   list(
+#     SleepQual_GTB = "Bedtime behaviours",
+#     SleepQual_FARS = "Sleep efficiency",
+#     SleepQual_RTW = "Morning wakefulness"
+#   ),
+#   group = "sex",
+#   .censor = FALSE,
+#   ymax = 6,
+#   ylab = "Score"
+# )
 
 
 # covid concerns graphs ---------------------------------------------------

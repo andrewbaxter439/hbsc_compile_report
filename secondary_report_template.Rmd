@@ -659,15 +659,15 @@ activity which makes you get out of breath and sweat.
 Figure 22 shows the percentage of pupils who reported doing vigorous
 exercise at least 4 times a week in their leisure time.
 
-**Figure 21: % pupils who do 60 minutes of moderate-to-vigorous physical
-activity every day**
+```{r activity_every_day, fig.cap="% pupils who do 60 minutes of moderate-to-vigorous physical activity every day"}
+bar_by_cat(var = MVPA7, success = "7 days of 60 mins MVPA a week", .censor = params$censor)
+```
 
-[\[CHART\]]{.chart}
 
-**Figure 22: % pupils who do vigorous exercise at least 4 times per week
-in their leisure time**
+```{r activity_four_times, fig.cap="% pupils who do vigorous exercise at least 4 times per week in their leisure time"}
+bar_by_cat(var = vigexfrq4, success = "4 times a week or more", .censor = params$censor)
+```
 
-[\[CHART\]]{.chart}
 
 ### Participation in organised leisure activities 
 
@@ -685,20 +685,49 @@ week.
 **Figure 23: % pupils who do at least one organised activity at least
 once a week**
 
-[\[CHART\]]{.chart}
+```{r organised_activity, fig.cap="% pupils who do at least one organised activity at least once a week"}
+bar_by_cat(var = Org_act_wkly, success = " At least one activity weekly", .censor = params$censor)
+```
+
 
 Figures 24 and 25 shows the types of activities that young people
 undertake, at least once a week.
 
-**Figure 24: % pupils who do this type of activity at least once a week,
-by gender**
+```{r activity_type, fig.cap="% pupils who do this type of activity at least once a week, by gender"}
+bar_multiple_vars(
+  varslist = list(
+    ls_teamsp_wk = "Team sports",
+    ls_indsport_wk = "Individual sports",
+    ls_arts_wk = "Artistic activities",
+    ls_youth_wk = "Youth organisation",
+    ls_club_wk = "Club activity",
+    ls_relig_wk = "Religious activity"
+  ),
+  success = "At least weekly",
+  group = "sex",
+  .censor = params$censor
+)
+```
 
-[\[CHART\]]{.chart}
 
-**Figure 25: % pupils who do this type of activity at least once a week,
-by year group**
 
-[\[CHART\]]{.chart}
+```{r activity_type_grade, fig.cap="% pupils who do this type of activity at least once a week, by year group"}
+bar_multiple_vars(
+  varslist = list(
+    ls_teamsp_wk = "Team sports",
+    ls_indsport_wk = "Individual sports",
+    ls_arts_wk = "Artistic activities",
+    ls_youth_wk = "Youth organisation",
+    ls_club_wk = "Club activity",
+    ls_relig_wk = "Religious activity"
+  ),
+  success = "At least weekly",
+  group = "grade",
+  .censor = params$censor
+)
+
+```
+
 
 ### Green space 
 
@@ -757,9 +786,7 @@ This chapter reports the following measures relating to bullying and
 discrimination:
 
 -   Bullying at school-perpetration and victim
-
 -   Experience of different types bullying behaviour
-
 -   Cyberbullying victimisation
 
 Being a victim of bullying at school can have a serious impact on young
@@ -795,15 +822,15 @@ once or twice over the past couple of months. Figure 29 presents the
 percentage of pupils who report being bullied at least once or twice
 over the past couple of months.
 
-**Figure 28: % pupils who report bullying others at school in past
-couple of months**
+```{r bully_others, fig.cap="% pupils who report bullying others at school in past couple of months"}
+bar_by_cat(var = bully_twice, success = "Yes", .censor = params$censor)
+```
 
-[\[CHART\]]{.chart}
 
-**Figure 29: % pupils who report being bullied at school in past couple
-of months**
+```{r bullied_self, fig.cap="% pupils who report being bullied at school in past couple of months"}
+bar_by_cat(var = bullied_twice, success = "Yes", .censor = params$censor)
+```
 
-[\[CHART\]]{.chart}
 
 ### Experience of types of bullying behaviour
 
@@ -815,13 +842,9 @@ common types of bullying behaviour experienced by pupils at your school
 were:
 
 -   Other pupils made sexual jokes or gestures to them- 18%
-
 -   Being called names, made fun of or teased- 16%
-
 -   Received mean comments about weight- 14%
-
 -   Other pupils told lies or spread rumours about them --12%
-
 -   Being left out, excluded or ignored -- 10%
 
 ### Cyberbullying: perpetration and victimisation
@@ -835,10 +858,10 @@ Overall, 12% of all pupils surveyed, indicated that they had been a
 victim of cyberbullying at least once or twice over past couple of
 months over the past couple of months (not shown in figure).
 
-**Figure 30: % pupils reporting cyberbullying others in past couple of
-months**
+```{r cyberbullying, fig.cap="% pupils reporting cyberbullying others in past couple of months"}
+bar_by_cat(var = Cbully_twice, success = "Yes", .censor = params$censor)
+```
 
-[\[CHART\]]{.chart}
 
 ### Who can help?
 
@@ -918,7 +941,17 @@ using cannabis and this is not shown in the figure.
 **Figure 31:** **% pupils who reported substance use in their lifetime
 (all)**
 
-[\[CHART\]]{.chart}
+```{r substance, fig.cap=""}
+bar_multiple_vars(list(
+  drunk1life = "Been drunk",
+  smokever = "Tried tobacco",
+  ecigever = "Tried vaping"
+),
+success = c("drunk once or more", "Tried smoking", "Tried e-cigarette"),
+.censor = params$censor
+)
+```
+
 
 ### Who can help?
 
