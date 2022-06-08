@@ -191,6 +191,7 @@ school_dat |> count(sex, grade) |>
   knitr::kable()
 ```
 
+\newpage
 ## General Health and Sleep
 
 This chapter reports data on general health and sleep. It includes the following measures:
@@ -202,7 +203,7 @@ This chapter reports data on general health and sleep. It includes the following
 
 General health is closely related to mental health, with stress and poor mental wellbeing sometimes causing physical symptoms. The HBSC measure of self-reported health captures a global view of health. This is close to the World Health Organisation definition of health as a resource for living which goes beyond simply the absence of disease or the presence of wellbeing.^1^
 
-Adolescents with poor self-rated health have been found to have more health complaints, lower life satisfaction, take part in less physical activity and find it harder to make friends.^2^ Subjective health is also related to wider aspects of young people's lives. For example, research in Norway found a close relationship between school-related stress and levels of support at school with headache, backache, abdominal pain and dizziness. ^3^
+Adolescents with poor self-rated health have been found to have more health complaints, lower life satisfaction, take part in less physical activity and find it harder to make friends.^2^ Subjective health is also related to wider aspects of young people's lives. For example, research in Norway found a close relationship between school-related stress and levels of support at school with headache, backache, abdominal pain and dizziness.^3^
 
 Sleep is a key contributor to adolescent wellbeing. Recent research has found that longer sleep duration is associated with better emotional regulation and a healthier body composition in children aged 0-17.^4^ Longer sleep duration is also associated with better academic attainment and overall wellbeing.^5^
 
