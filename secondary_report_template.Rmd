@@ -585,7 +585,7 @@ family meal most days or every day.
 
 ```{r family_meal, fig.cap="% pupils who eat a meal with family most days or everyday"}
 
-bar_by_cat(fmeal, c("Every day", "Most days"), .censor = TRUE)
+bar_by_cat(fmeal, c("Every day", "Most days"), .censor = params$censor)
 
 ```
 
