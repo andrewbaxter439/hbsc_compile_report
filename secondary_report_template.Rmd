@@ -269,13 +269,36 @@ bar_mean_by_cat(Weekend_sleep_hrs, .censor = params$censor, ylab = "Hours")
 
 Pupils were asked ten questions about sleep quality, covering three different aspects: (i) bedtime behaviours, (ii) sleep efficiency and (iii) morning wakefulness. For each aspect of sleep, scores range from 1 to 6. A higher score indicates better sleep quality in that aspect.
 
-Figure 6: Pupils' mean sleep quality scores, by gender
+```{r mean_sleep_gender, fig.cap="Pupils' mean sleep quality scores, by gender"}
+bar_mean_multiple_vars(
+  list(
+    SleepQual_GTB = "Bedtime behaviours",
+    SleepQual_FARS = "Sleep efficiency",
+    SleepQual_RTW = "Morning wakefulness"
+  ),
+  group = "sex",
+  .censor = params$censor,
+  ymax = 20,
+  ylab = "Score"
+)
+```
 
-[$$CHART$$]{.chart}
 
 Figure 7: Pupils' mean sleep quality scores, by year group
 
-[$$CHART$$]{.chart}
+```{r mean_sleep_grade, fig.cap="Pupils' mean sleep quality scores, by year group"}
+bar_mean_multiple_vars(
+  list(
+    SleepQual_GTB = "Bedtime behaviours",
+    SleepQual_FARS = "Sleep efficiency",
+    SleepQual_RTW = "Morning wakefulness"
+  ),
+  group = "grade",
+  .censor = params$censor,
+  ymax = 20,
+  ylab = "Score"
+)
+```
 
 ### Who can help?
 

@@ -119,10 +119,10 @@ bar_by_cat <- function(var,
 bar_mean_by_cat <- function(var,
                        .data = school_dat,
                        .censor = TRUE,
-                       ymax = max(.data[[as_name(var)]]),
+                       ymax = max(.data[[rlang::as_name(var)]]),
                        ylab = "Mean") {
-  var <- enquo(var)
   require(rlang)
+  var <- enquo(var)
   
   rlang::eval_tidy(var, data = school_dat)
   
@@ -210,46 +210,6 @@ bar_mean_by_cat <- function(var,
 
 # graphing multiple vars --------------------------------------------------
 
-
-# bar_multiple_vars <- function(..., labels, success = c("More than once a week", "About every day"), .data = school_dat) {
-#
-#
-#   vars <- enquos(...)
-#
-# .data |>
-#   select(!!!vars) |>
-#   summarise(across(everything(), ~ sum(.x %in% success)),
-#             denom = n()) |>
-#   pivot_longer(-denom, names_to = "var", values_to = "n") |>
-#   mutate(censor = if_else(n < 3, 1, 0),
-#          labels = cat_labels,
-#          prop = n/denom) |>
-#   ggplot(aes(fct_inorder(labels), prop)) +
-#   geom_bar_t(stat = "identity") +
-#   scale_fill_hbsc() +
-#   scale_x_discrete(guide = guide_axis(n.dodge = 2)) +
-#   scale_y_continuous("%", labels = percent, limits = c(0, 1))
-#
-# }
-#
-# # test
-#
-# bar_multiple_vars(headache, stomachache, backache,dizzy,feellow,nervous,irritable,sleepdificulty,
-#   labels =   c(
-#     "Headache",
-#     "Stomach-ache",
-#     "Backache",
-#     "Dizziness",
-#     "Feeling low",
-#     "Feeling nervous",
-#     "Feeling irritable",
-#     "Sleep difficulties"
-#   ),
-#   success = c("More than once a week", "About every day")
-# )
-
-# v2 - varslist
-
 #' Graphing multiple variables as bars with percentage prevalence in each
 #' category.
 #'
@@ -320,6 +280,78 @@ bar_multiple_vars <-
 #   ),
 #   group = "sex",
 #   .censor = FALSE
+# )
+
+# mean multiple vars --------------------------------------------------
+
+#' Graphing multiple variables as bars with percentage prevalence in each
+#' category.
+#'
+#' @param varslist A named list of variables to use and the corresponding axis
+#'   titles
+#' @param .data Data file to use
+#' @param .censor Whether to censor low numbers (default as TRUE for final
+#'   output)
+
+bar_mean_multiple_vars <-
+  function(varslist,
+           success = c("More than once a week", "About every day"),
+           group = c("none", "grade", "sex"),
+           .data = school_dat,
+           .censor = TRUE,
+           ymax,
+           ylab = "Mean") {
+    
+    group <- match.arg(group)
+    
+    clean_dat <- .data |>
+    mutate(grouping = case_when(
+      group == "none" ~ "1",
+      group == "sex" ~ as.character(sex),
+      group == "grade" ~ as.character(grade)
+    )) |> 
+      group_by(grouping) |> 
+      select(!!!syms(names(varslist))) |>
+      summarise(across(everything(), ~ mean(as.numeric(.x), na.rm = TRUE)),
+                denom = n()) |>
+      pivot_longer(-c(grouping, denom), names_to = "var", values_to = "mean") |> 
+      rowwise() |>
+      mutate(
+        censored = if_else(denom < 3 & .censor, 1, 0),
+        labels = varslist[[var]][1],
+        mean = if_else(censored == 1, ymax/2, mean),
+        grouping = factor(grouping, levels = c("Girls", "Boys", "S2", "S4", "1"))
+      )
+    
+      ggplot(clean_dat, aes(fct_inorder(labels), mean, alpha = factor(censored), linetype = factor(censored), fill = grouping, colour = grouping)) +
+      geom_bar_t(stat = "identity", position = position_dodge(width = 0.6)) +
+      scale_alpha_manual(values = c("1" = 0.2, "0" = 1), guide = guide_none()) +
+      scale_linetype_manual(values = c("1" = "dashed", "0" = "solid"), guide = guide_none()) +
+      scale_x_discrete(guide = guide_axis(angle = 45)) +
+      scale_fill_hbsc(aesthetics = c("fill", "colour"), name = "",  limits = force) +
+      theme(legend.position = if_else(group == "none", "none", "bottom")) +
+      scale_y_continuous(ylab, limits = c(0, ymax)) +
+      geom_text(aes(label = round(mean, 1)),
+                vjust = -0.5, 
+                # nudge_y = 0.05,
+                colour = "black",
+                position = position_dodge(width = 0.6),
+                size = 4)
+    
+  }
+
+# test
+# 
+# bar_mean_multiple_vars(
+#   list(
+#     SleepQual_GTB = "Bedtime behaviours",
+#     SleepQual_FARS = "Sleep efficiency",
+#     SleepQual_RTW = "Morning wakefulness"
+#   ),
+#   group = "grade",
+#   .censor = FALSE,
+#   ymax = 20,
+#   ylab = "Score"
 # )
 
 
