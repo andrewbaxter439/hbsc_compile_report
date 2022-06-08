@@ -585,7 +585,7 @@ family meal most days or every day.
 
 ```{r family_meal, fig.cap="% pupils who eat a meal with family most days or everyday"}
 
-bar_by_cat(fmeal, c("Every day", "Most days"), .censor = TRUE)
+bar_by_cat(fmeal, c("Every day", "Most days"), .censor = params$censor)
 
 ```
 
@@ -608,8 +608,8 @@ bar_by_cat(fmeal, c("Every day", "Most days"), .censor = TRUE)
 | Resources for Schools from the   | Food - a fact of life provides a |
 | British Nutrition Foundation     | wealth of free resources about   |
 |                                  | healthy eating, cooking, food    |
-| <htt                             | and farming for children and     |
-| p://www.foodafactoflife.org.uk/> | young people aged 3 to 18 years. |
+| <http://www.foodafactoflife.org.uk/>                             | and farming for children and     |
+|  | young people aged 3 to 18 years. |
 |                                  | The resources are progressive to |
 |                                  | support the curriculum           |
 |                                  | throughout the UK. All resources |
@@ -1151,8 +1151,8 @@ Pupils were asked 'do you have an adult in your life who you can trust and talk 
 +==================================+==================================+
 | Parenting Across Scotland        | Parenting across Scotland is a   |
 |                                  | partnership of charities which   |
-| <https://www.parentingacross     | offers support to children and   |
-| scotland.org/info-for-families/> | families in Scotland.            |
+| <https://www.parentingacrossscotland.org/info-for-families/>     | offers support to children and   |
+|  | families in Scotland.            |
 +----------------------------------+----------------------------------+
 | <https://www.parentclub.scot/>   | The Scottish Government website  |
 |                                  | for parents covering everything  |
