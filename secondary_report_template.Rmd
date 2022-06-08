@@ -250,7 +250,7 @@ bar_multiple_vars(
 
 
 ::: {custom-style="FigDesc"}
-Figure 3 shows the percentage of pupils who report two or more health complaints, once a week or more.
+The following figure shows the percentage of pupils who report two or more health complaints, once a week or more.
 :::
 
 ```{r multi_health, fig.cap="% pupils who report two or more health complaints once a week or more", fig.id = "fig_multi_health"}
@@ -526,6 +526,7 @@ bar_by_cat(var = aboutright, success = "Yes", .censor = params$censor)
 +----------------------------------+----------------------------------+
 
 *LINKS*
+
 - https://www.mind.org.uk/information-support/for-childrenand-young-people
 - https://www.annafreud.org/on-mymind/
 - https://mentalhealthfoundation.org/
@@ -659,6 +660,7 @@ bar_by_cat(fmeal, c("Every day", "Most days"), .censor = params$censor)
 +----------------------------------+----------------------------------+
 
 *LINKS*
+
 - https://www.beateatingdisorders.org.uk/
 - https://www.foodafactoflife.org.uk/
 - https://www.keepscotlandbeautiful.org/education-and-learning/food-and-the-environment/
@@ -678,14 +680,14 @@ The World Health Organisation recommends that children should participate in at 
 
 Pupils were asked two questions about the amount of physical activity they usually engage in each week. The first asked, in the previous 7 days, how many days they spent 60 minutes or more in physical activity which increased their heart rate and made them out of breath some of the time.
 
-We present in Figure 22 the percentage of pupils who participated in moderate-to-vigorous activity for at least 60 minutes every day.
+We present in the following figure the percentage of pupils who participated in moderate-to-vigorous activity for at least 60 minutes every day.
 
 ### Leisure time physical activity 
 
 ::: {custom-style="FigDesc"}
 Pupils were also asked about how often they take part in vigorous exercise in their free time. Vigorous exercise is defined as any activity which makes you get out of breath and sweat.
 
-Figure 23 shows the percentage of pupils who reported doing vigorous exercise at least 4 times a week in their leisure time.
+The following figure shows the percentage of pupils who reported doing vigorous exercise at least 4 times a week in their leisure time.
 :::
 
 ```{r activity_every_day, fig.cap="% pupils who do 60 minutes of moderate-to-vigorous physical activity every day"}
@@ -706,7 +708,7 @@ swimming), artistic activities (e.g. art and music school, playing a
 musical instrument), children's and youth organisations (e.g. Scouts or
 Guides), club in a leisure centre or at school (e.g. board games,
 model-making, language or debating club), or religious activities (e.g.
-going to church, mosque, synagogue). Figure 24 shows the percentage of
+going to church, mosque, synagogue). The following figure shows the percentage of
 young people who take part in at least one organised activity every
 week.
 :::
@@ -783,6 +785,7 @@ bar_multiple_vars(
 +----------------------------------+----------------------------------+
 
 *LINKS*
+
 - https://www.sustrans.org.uk/our-blog/projects/?location=Scotland&topic=Schools&p=1
 - https://sportscotland.org.uk/schools/
 - https://www.playscotland.org
@@ -808,8 +811,8 @@ A review of different types of bullying intervention programmes has identified k
 Pupils were asked how often they had bullied someone else at school in
 the past couple of months, at school and been a victim of bullying.
 
-Figure 28 presents the percentage of pupils who bullied others at least
-once or twice over the past couple of months. Figure 29 presents the
+The following figure presents the percentage of pupils who bullied others at least
+once or twice over the past couple of months. The subsequent figure presents the
 percentage of pupils who report being bullied at least once or twice
 over the past couple of months.
 :::
@@ -838,7 +841,7 @@ Pupils were asked how often they had experienced various types of bullying behav
 ### Cyberbullying: perpetration and victimisation
 
 ::: {custom-style="FigDesc"}
-Pupils were also asked how often they had cyberbullied someone else in the past couple of months and how often they had been a victim of cyberbullying. Figure 30 presents the percentage of pupils who report cyberbullying others at least once or twice over past couple of months.
+Pupils were also asked how often they had cyberbullied someone else in the past couple of months and how often they had been a victim of cyberbullying. The following figure presents the percentage of pupils who report cyberbullying others at least once or twice over past couple of months.
 
 Overall, *INSERT NUMBER*% of all pupils surveyed, indicated that they had been a victim of cyberbullying at least once or twice over past couple of months over the past couple of months (not shown in figure).
 :::
@@ -873,6 +876,7 @@ bar_by_cat(var = Cbully_twice, success = "Yes", .censor = params$censor)
 +----------------------------------+----------------------------------+
 
 *LINKS*
+
 - https://www.respectme.org.uk
 http://www.cypcs.org.uk
 - https://www.unicef.org.uk/rights-respecting-schools/resources/teaching-resources/
@@ -967,6 +971,7 @@ success = c("drunk once or more", "Tried smoking", "Tried e-cigarette"),
 +----------------------------------+----------------------------------+
 
 *LINKS*
+
 - https://www.alcohol-focus-scotland.org.uk/
 - https://mentor-adepis.org/planningeffective-education/
 - https://www.talktofrank.com/
@@ -1118,6 +1123,7 @@ Pupils who gamed each week were asked to complete the Internet Gaming Disorder (
 +----------------------------------+----------------------------------+
 
 *LINKS*
+
 - https://www.rcpch.ac.uk/resources/health-impacts-screen-time-guide-clinicians-parents
 - https://www.childnet.com
 - https://www.saferinternet.org.uk
@@ -1142,9 +1148,9 @@ It is argued that many existing health issues have been exacerbated by the pande
 
 ### Impact of COVID-19
 
-::: {custom-style="FigDesc"}
 Young people were asked about their experiences of COVID-19 and its associated restrictions. Pupils were asked to say how they felt various aspects of their life had been impacted by the COVID-19 pandemic choosing from the options: very negative/ quite negative/ neutral, no impact/quite positive and very positive.
 
+::: {custom-style="FigDesc"}
 The figures below show the percentage of pupils who reported either a negative (very/quite) or a positive (very/quite) impact on that aspect of their life. Figures 40 and 41 show the impact by gender. Figures 42 and 43 show the impact by school year.
 :::
 
@@ -1194,9 +1200,9 @@ The negative effects of adverse childhood experiences on mental and physical hea
 Pupils were asked how easy they find it to communicate with a parental
 figure.
 
-Figure 42 presents the percentage of pupils who say they find it easy or very easy to talk to their mother (includes step-mother).
+The following figure presents the percentage of pupils who say they find it easy or very easy to talk to their mother (includes step-mother).
 
-Figure 43 presents the percentage of pupils who say they find it easy or very easy to talk to their father (includes step-father).
+The following figure presents the percentage of pupils who say they find it easy or very easy to talk to their father (includes step-father).
 :::
 
 ```{r easy_talk_m, fig.cap="% pupils who say it's easy or very easy to speak to mother figure"}
@@ -1276,6 +1282,7 @@ bar_by_cat(var = Trusted_adult, success = "Yes, I always do", .censor = params$c
 +----------------------------------+----------------------------------+
 
 *LINKS*
+
 - https://www.parentingacrossscotland.org/info-for-families/
 - https://www.parentclub.scot/
 - https://www.children1st.org.uk/help-for-families/
@@ -1366,6 +1373,7 @@ bar_by_cat(var = stud_support_scale_cutoff, success = "High student support", .c
 +----------------------------------+----------------------------------+
 
 *LINKS*
+
 - https://www.nhsinform.scot/healthy-living/mental-wellbeing/stress/coping-with-exam-stress
 - https://young.scot/get-informed/national/how-you-can-survive-the-stress-of-exams
 - https://www.keepscotlandbeautiful.org/education-and-learning/eco-schools/green-flag-award/ten-topics/school-grounds/
