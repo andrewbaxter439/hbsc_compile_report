@@ -128,7 +128,7 @@ bar_mean_by_cat <- function(var,
   
   df_sex <- .data |>
     group_by(sex) |>
-    summarise(mean_var = mean(!!var),
+    summarise(mean_var = mean(!!var, na.rm = TRUE),
               denom = n()) |>
     filter(!is.na(sex))
   
@@ -169,7 +169,7 @@ bar_mean_by_cat <- function(var,
   
   df_school <- .data |>
     group_by(grade) |>
-    summarise(mean_var = mean(Schooldays_sleep_hrs),
+    summarise(mean_var = mean(Schooldays_sleep_hrs, na.rm = TRUE),
               denom = n()) |>
     filter(!is.na(grade))
   
@@ -299,7 +299,9 @@ bar_mean_multiple_vars <-
            group = c("none", "grade", "sex"),
            .data = school_dat,
            .censor = TRUE,
-           ymax,
+           limits = c(`Poor quality` = 1,
+                      `High quality` = 6),
+           ymax = limits[2],
            ylab = "Mean") {
     
     group <- match.arg(group)
@@ -312,8 +314,20 @@ bar_mean_multiple_vars <-
     )) |> 
       group_by(grouping) |> 
       select(!!!syms(names(varslist))) |>
-      summarise(across(everything(), ~ mean(as.numeric(.x), na.rm = TRUE)),
-                denom = n()) |>
+      mutate(across(everything(),
+                    function(score){
+                         chr_score <-  as.character(score)
+                         if_else(
+                           chr_score %in% names(limits),
+                           unname(limits[chr_score]),
+                           as.numeric(chr_score)
+                         )
+                    })) |> 
+      summarise(across(everything(),
+                       function(score) {
+                         mean(score, na.rm = TRUE)
+                       }),
+                denom = n()) |> 
       pivot_longer(-c(grouping, denom), names_to = "var", values_to = "mean") |> 
       rowwise() |>
       filter(!is.na(grouping)) |> 
@@ -343,17 +357,17 @@ bar_mean_multiple_vars <-
 
 # test
 # 
-# bar_mean_multiple_vars(
-#   list(
-#     SleepQual_GTB = "Bedtime behaviours",
-#     SleepQual_FARS = "Sleep efficiency",
-#     SleepQual_RTW = "Morning wakefulness"
-#   ),
-#   group = "sex",
-#   .censor = FALSE,
-#   ymax = 20,
-#   ylab = "Score"
-# )
+bar_mean_multiple_vars(
+  list(
+    SleepQual_GTB = "Bedtime behaviours",
+    SleepQual_FARS = "Sleep efficiency",
+    SleepQual_RTW = "Morning wakefulness"
+  ),
+  group = "sex",
+  .censor = FALSE,
+  ymax = 6,
+  ylab = "Score"
+)
 
 
 # covid concerns graphs ---------------------------------------------------

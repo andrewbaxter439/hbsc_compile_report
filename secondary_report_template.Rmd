@@ -278,13 +278,11 @@ bar_mean_multiple_vars(
   ),
   group = "sex",
   .censor = params$censor,
-  ymax = 20,
+  ymax = 6,
   ylab = "Score"
 )
 ```
 
-
-Figure 7: Pupils' mean sleep quality scores, by year group
 
 ```{r mean_sleep_grade, fig.cap="Pupils' mean sleep quality scores, by year group"}
 bar_mean_multiple_vars(
@@ -295,7 +293,7 @@ bar_mean_multiple_vars(
   ),
   group = "grade",
   .censor = params$censor,
-  ymax = 20,
+  ymax = 6,
   ylab = "Score"
 )
 ```
@@ -338,8 +336,6 @@ In terms of promoting wellbeing, positive relationships with family, friends and
 
 Pupils were asked about their life satisfaction, using the 'Cantril Ladder'. This shows a ladder with rungs numbered from 0 ('worst possible life') to 10 ('best possible life'). Pupils were asked to mark where on the ladder they feel they stand at the moment. Here we show the proportion of pupils who report high life satisfaction (gave a rating of 6 or more out of 10).
 
-**Figure 8: **
-
 ```{r high_life, fig.cap="% pupils who report high life satisfaction (6 or more out of 10)"}
 bar_by_cat(lifesat, c("6", "7", "8", "9", "10 Best possible life"),
   .censor = params$censor)
@@ -376,9 +372,11 @@ bar_by_cat(happiness, c("I feel quite happy", "I feel very happy"), .censor = pa
 
 Pupils were asked how often they had felt lonely in the past 12 months. Here we show the percentage of pupils who report feeling lonely 'most' or 'all of the time'.
 
-**Figure 12: % pupils who feel lonely most or all of the time**
 
-[$$CHART$$]{.chart}
+```{r feel_lonely, fig.cap="% pupils who feel lonely most or all of the time"}
+bar_by_cat(Lonely_mostalways, "Lonely most or all of time", .censor = params$censor)
+```
+
 
 ### WHO 5 Wellbeing Index
 
@@ -386,7 +384,10 @@ The WHO--5 Wellbeing Index is a five-item scale which provides a measure of emot
 
 **Figure 13: % pupils with low mood (WHO 5 Index)**
 
-[$$CHART$$]{.chart}
+```{r}
+bar_by_cat(WHO_low, "Low mood/risk of depression", .censor = params$censor)
+```
+
 
 ### Stress
 
@@ -396,25 +397,30 @@ problems and whether they feel in control of their life. The questions ask about
 
 last month, and scores range from 0 (no stress) to 16 (high stress).
 
-**Figure 14: Pupils' mean stress score**
+```{r mean_stress, fig.cap="Pupils' mean stress score"}
+bar_mean_by_cat(var = CohenPSS4, .censor = params$censor, ylab = "Score")
+```
 
-[$$CHART$$]{.chart}
 
 ### Anxiety
 
 Pupils were asked to complete the Generalised Anxiety Disorder Scale. This asks seven questions about how often, over the past two weeks, pupils have been bothered by feelings such as feeling nervous, being unable to stop worrying, having trouble relaxing and feeling easily annoyed. The answers produce a score between 0 to 21. A score of 11 or more indicates moderate anxiety and a score of 17 or more indicates severe anxiety. Here we show the percentage of pupils who scored more than 11. Please note this should not be understood as a clinical diagnosis of anxiety.
 
-**Figure 15: % of pupils reporting moderate or severe anxiety**
 
-[$$CHART$$]{.chart}
+```{r mod_severe_anxiety, fig.cap="% of pupils reporting moderate or severe anxiety"}
+bar_by_cat(var = gadclassification, success = "anxious", .censor = params$censor)
+```
+
 
 ### Perception of bodyweight
 
 Pupils were asked whether they thought they were underweight, overweight or neither under- nor overweight. This figure shows the proportion of young people who felt they were about the right weight, that is neither over- nor underweight.
 
-**Figure 16: % pupils who think they are neither over- nor underweight**
 
-[$$CHART$$]{.chart}
+```{r over_underweight, fig.cap="% pupils who think they are neither over- nor underweight"}
+bar_by_cat(var = aboutright, success = "Yes", .censor = params$censor)
+```
+
 
 
 ### Who can help?
