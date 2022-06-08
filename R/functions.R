@@ -39,7 +39,11 @@ bar_by_cat <- function(var,
       ggplot(aes(sex, prop, fill = sex)) +
       geom_bar_t(stat = "identity") +
       scale_fill_hbsc() +
-      scale_y_continuous("%", labels = percent, limits = c(0, 1))
+      scale_y_continuous("%", labels = percent, limits = c(0, 1))+
+      geom_text(aes(label = percent(prop, suffix="", accuracy = 1)),
+                vjust = 0, 
+                nudge_y = 0.05,
+                size = 4)
     
   } else if (all(df_sex$numerator > 3) & sum(df_sex$denom <= 14)) {
     # * if there are ≤14 students, the chart should only present a single column
@@ -50,7 +54,11 @@ bar_by_cat <- function(var,
       ggplot(aes("All pupils", prop)) +
       geom_bar_t(stat = "identity") +
       scale_fill_hbsc() +
-      scale_y_continuous("%", labels = percent, limits = c(0, 1))
+      scale_y_continuous("%", labels = percent, limits = c(0, 1))+
+      geom_text(aes(label = percent(prop, suffix="", accuracy = 1)),
+                vjust = 0, 
+                nudge_y = 0.05,
+                size = 4)
     
   } else {
     p1 <- ggplot() +
@@ -69,8 +77,8 @@ bar_by_cat <- function(var,
               .groups = "keep") |>
     filter(!is.na(grade))
   
-  if (length(df_school$grade) == 2 &
-      (all(df_school$numerator >= 7) | .censor == FALSE)) {
+  if ((length(df_school$grade) == 2 & all(df_sex$numerator > 3) & all(df_sex$denom >= 7) &
+      all(df_school$numerator >= 7) | (length(df_school$grade) == 2 & .censor == FALSE))) {
     # * for secondary schools, only separate by year if there are ≥7 S2 AND ≥7 S4).
     
     p2 <- df_school |>
@@ -93,11 +101,7 @@ bar_by_cat <- function(var,
     p2 <- NULL
   }
   
-  p1  +
-    geom_text(aes(label = percent(prop, suffix="", accuracy = 1)),
-              vjust = 0, 
-              nudge_y = 0.05,
-              size = 4) + p2
+  p1 + p2
 }
 
 # graphing mean of single var ---------------------------------------
@@ -146,7 +150,11 @@ bar_mean_by_cat <- function(var,
       ggplot(aes(sex, mean_var, fill = sex)) +
       geom_bar_t(stat = "identity") +
       scale_fill_hbsc() +
-      scale_y_continuous(ylab, limits = c(0, ymax))
+      scale_y_continuous(ylab, limits = c(0, ymax))+
+      geom_text(aes(label = round(mean_var, 1)),
+                vjust = 0, 
+                nudge_y = 0.05 * ymax,
+                size = 4)
     
   } else if (all(df_sex$denom > 3)) {
     # * if there are ≤14 students, the chart should only present a single column
@@ -156,7 +164,11 @@ bar_mean_by_cat <- function(var,
       ggplot(aes("All pupils", mean_var)) +
       geom_bar_t(stat = "identity") +
       scale_fill_hbsc() +
-      scale_y_continuous(ylab, limits = c(0, ymax))
+      scale_y_continuous(ylab, limits = c(0, ymax))+
+      geom_text(aes(label = round(mean_var, 1)),
+                vjust = 0, 
+                nudge_y = 0.05 * ymax,
+                size = 4)
     
   } else {
     p1 <- ggplot() +
@@ -173,8 +185,8 @@ bar_mean_by_cat <- function(var,
               denom = n()) |>
     filter(!is.na(grade))
   
-  if (length(df_school$grade) == 2 &
-      (all(df_school$denom >= 7) | .censor == FALSE)) {
+  if ((length(df_school$grade) == 2 & all(df_sex$denom > 3) &
+       all(df_school$numerator >= 7) | (length(df_school$grade) == 2 & .censor == FALSE))) {
     # * for secondary schools, only separate by year if there are ≥7 S2 AND ≥7 S4).
     
     p2 <- df_school |>
@@ -195,11 +207,7 @@ bar_mean_by_cat <- function(var,
     p2 <- NULL
   }
   
-  p1  +
-    geom_text(aes(label = round(mean_var, 1)),
-              vjust = 0, 
-              nudge_y = 0.05 * ymax,
-              size = 4) + p2
+  p1 + p2
 }
 
 
@@ -245,7 +253,9 @@ bar_multiple_vars <-
         censored = if_else(n < 3 & .censor, 1, 0),
         labels = varslist[[var]][1],
         prop = n / denom,
-        prop = if_else(censored == 1, 0.5, prop),
+        prop = if_else(censored == 1, 1, prop),
+        bar_lab_main = if_else(censored == 1, "", percent(prop, suffix="", accuracy = 1)),
+        bar_lab_cens = if_else(censored == 1, "Numbers too low to show", ""),
         grouping = factor(grouping, levels = c("Girls", "Boys", "S2", "S4", "1"))
       ) |>
       filter(!is.na(grouping)) |> 
@@ -257,9 +267,16 @@ bar_multiple_vars <-
       scale_fill_hbsc(aesthetics = c("fill", "colour"), name = "",  limits = force) +
       theme(legend.position = if_else(group == "none", "none", "bottom")) +
       scale_y_continuous("%", labels = percent, limits = c(0, 1)) +
-      geom_text(aes(label = percent(prop, suffix="", accuracy = 1)),
+      geom_text(aes(label = bar_lab_main),
                 vjust = -0.5, 
                 # nudge_y = 0.05,
+                colour = "black",
+                position = position_dodge(width = 0.6),
+                size = 4) +
+      geom_text(aes(label = bar_lab_cens, y = 0.5),
+                # nudge_y = 0.05,
+                vjust = 0.5,
+                angle = 90,
                 colour = "black",
                 position = position_dodge(width = 0.6),
                 size = 4)
@@ -279,7 +296,7 @@ bar_multiple_vars <-
 #   ),
 #   success = "At least weekly",
 #   group = "sex",
-#   .censor = FALSE
+#   .censor = TRUE
 # )
 
 # mean multiple vars --------------------------------------------------
@@ -335,6 +352,8 @@ bar_mean_multiple_vars <-
         censored = if_else(denom < 3 & .censor, 1, 0),
         labels = varslist[[var]][1],
         mean = if_else(censored == 1, ymax/2, mean),
+        bar_lab_main = if_else(censored == 1, na_dbl, round(mean, 1)),
+        bar_lab_cens = if_else(censored == 1, "Numbers too low to show", ""),
         grouping = factor(grouping, levels = c("Girls", "Boys", "S2", "S4", "1"))
       )
     
@@ -351,7 +370,14 @@ bar_mean_multiple_vars <-
                 # nudge_y = 0.05,
                 colour = "black",
                 position = position_dodge(width = 0.6),
-                size = 4)
+                size = 4) +
+        geom_text(aes(label = bar_lab_cens, y = ymax/2),
+                  # nudge_y = 0.05,
+                  vjust = 0.5,
+                  angle = 90,
+                  colour = "black",
+                  position = position_dodge(width = 0.6),
+                  size = 4)
     
   }
 
@@ -364,7 +390,7 @@ bar_mean_multiple_vars <-
 #     SleepQual_RTW = "Morning wakefulness"
 #   ),
 #   group = "sex",
-#   .censor = FALSE,
+#   .censor = TRUE,
 #   ymax = 6,
 #   ylab = "Score"
 # )

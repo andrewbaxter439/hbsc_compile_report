@@ -31,7 +31,7 @@ params:
   censor:
     label: 'Censor small numbers? Unselect only for development!'
     input: checkbox
-    value: FALSE
+    value: TRUE
   school: 
     label: 'School'
     input: select
@@ -106,7 +106,7 @@ multi_grades <- "S2" %in% school_dat$grade & "S4" %in% school_dat$grade
 
 ```
 
-<!--![](images/hbsc_logo.jpg){width="8.728346456692913in" height="1.6220472440944882in"} -->
+![](images/hbsc_logo.jpg){width="8.728346456692913in" height="1.6220472440944882in"}
 
 ::: {custom-style="Title"}
 
@@ -132,7 +132,6 @@ Health and Wellbeing survey results for
 ![](images/SPHSU_logo.png){width="2.3958333333333335in" height="0.4125in"}![](images/st_as_logo.jpg){width="1.3854166666666667in" height="0.39861111111111114in"}
 
 \newpage
-# Overview
 
 ###### Contents    
 `r officer::block_toc(level = 2, style = NULL, separator = ";")`
@@ -330,7 +329,7 @@ bar_mean_multiple_vars(
 +----------------------------------+----------------------------------+
 
 *LINK*
-https://www.sleepscotland.org/
+- https://www.sleepscotland.org/
 
 \newpage
 ## Mental Health and Wellbeing
@@ -401,14 +400,14 @@ bar_by_cat(happiness, c("I feel quite happy", "I feel very happy"), .censor = pa
 
 ### Loneliness
 
-Pupils were asked how often they had felt lonely in the past 12 months. Here we show the percentage of pupils who report feeling lonely 'most' or 'all of the time'.
-
-
 ::: {custom-style="FigDesc"}
+Pupils were asked how often they had felt lonely in the past 12 months. Here we show the percentage of pupils who report feeling lonely 'most' or 'all of the time'.
+:::
+
+
 ```{r feel_lonely, fig.cap="% pupils who feel lonely most or all of the time"}
 bar_by_cat(Lonely_mostalways, "Lonely most or all of time", .censor = params$censor)
 ```
-:::
 
 ### WHO 5 Wellbeing Index
 
@@ -416,7 +415,7 @@ bar_by_cat(Lonely_mostalways, "Lonely most or all of time", .censor = params$cen
 The WHO--5 Wellbeing Index is a five-item scale which provides a measure of emotional functioning. Items are summed to create a score ranging from 0 to 100. A score of 50 or less indicates low mood.
 :::
 
-```{r}
+```{r who_mood, fig.cap="% pupils with low mood (WHO 5 Index)"}
 bar_by_cat(WHO_low, "Low mood/risk of depression", .censor = params$censor)
 ```
 
@@ -488,9 +487,12 @@ bar_by_cat(var = aboutright, success = "Yes", .censor = params$censor)
 |                                  | involved in educating children   |
 |                                  | and young people, highlighting   |
 |                                  | the importance of relationships  |
-|                                  | in the school setting. It        | |                                  | provides practical examples and  | |                                  | tips that education staff can    |
+|                                  | in the school setting. It        | 
+|                                  | provides practical examples and  | 
+|                                  | tips that education staff can    |
 |                                  | build into their everyday        |
-|                                  | practice to support positive     | |                                  | relationships with young people. | +----------------------------------+----------------------------------+
+|                                  | practice to support positive     | 
+|                                  | relationships with young people. | +----------------------------------+----------------------------------+
 | Organisation                     | Description                      |
 +----------------------------------+----------------------------------+
 | **See Me Scotland**              | See Me is passionate about       |
@@ -502,7 +504,8 @@ bar_by_cat(var = aboutright, success = "Yes", .censor = params$censor)
 +----------------------------------+----------------------------------+
 | **Samaritans Scotland**          | Samaritans supports schools,     |
 |                                  | college communities and other    |
-|                                  | youth settings through our       | |                                  | postvention services, lesson     |
+|                                  | youth settings through our       | 
+|                                  | postvention services, lesson     |
 |                                  | plans and school talks.          |
 +----------------------------------+----------------------------------+
 | **Breathing Space**              | Provides a free national         |
@@ -523,15 +526,15 @@ bar_by_cat(var = aboutright, success = "Yes", .censor = params$censor)
 +----------------------------------+----------------------------------+
 
 *LINKS*
-https://www.mind.org.uk/information-support/for-childrenand-young-people
-https://www.annafreud.org/on-mymind/
-https://mentalhealthfoundation.org/
-https://www.barnardos.org.uk/whatwe-do/supporting-young-people
-https://www.seemescotland.org/
-https://www.samaritans.org/scotland/how-we-can-help/schools/
-https://www.breathingspace.scot/
-http://www.moodcafe.co.uk/
-https://youngminds.org.uk/
+- https://www.mind.org.uk/information-support/for-childrenand-young-people
+- https://www.annafreud.org/on-mymind/
+- https://mentalhealthfoundation.org/
+- https://www.barnardos.org.uk/whatwe-do/supporting-young-people
+- https://www.seemescotland.org/
+- https://www.samaritans.org/scotland/how-we-can-help/schools/
+- https://www.breathingspace.scot/
+- http://www.moodcafe.co.uk/
+- https://youngminds.org.uk/
 
 \newpage
 ## Eating habits
@@ -656,9 +659,9 @@ bar_by_cat(fmeal, c("Every day", "Most days"), .censor = params$censor)
 +----------------------------------+----------------------------------+
 
 *LINKS*
-https://www.beateatingdisorders.org.uk/
-htpps://www.foodafactoflife.org.uk/
-https://www.keepscotlandbeautiful.org/education-and-learning/food-and-the-environment/
+- https://www.beateatingdisorders.org.uk/
+- https://www.foodafactoflife.org.uk/
+- https://www.keepscotlandbeautiful.org/education-and-learning/food-and-the-environment/
 
 \newpage
 ## Physical activity and leisure time
@@ -679,9 +682,11 @@ We present in Figure 22 the percentage of pupils who participated in moderate-to
 
 ### Leisure time physical activity 
 
+::: {custom-style="FigDesc"}
 Pupils were also asked about how often they take part in vigorous exercise in their free time. Vigorous exercise is defined as any activity which makes you get out of breath and sweat.
 
 Figure 23 shows the percentage of pupils who reported doing vigorous exercise at least 4 times a week in their leisure time.
+:::
 
 ```{r activity_every_day, fig.cap="% pupils who do 60 minutes of moderate-to-vigorous physical activity every day"}
 bar_by_cat(var = MVPA7, success = "7 days of 60 mins MVPA a week", .censor = params$censor)
@@ -693,6 +698,7 @@ bar_by_cat(var = vigexfrq4, success = "4 times a week or more", .censor = params
 
 ### Participation in organised leisure activities 
 
+::: {custom-style="FigDesc"}
 Pupils were asked how often they took part in different types of
 organised leisure activities such as team sports (e.g. football,
 netball), organised individual sports (e.g. tennis, gymnastics,
@@ -703,17 +709,17 @@ model-making, language or debating club), or religious activities (e.g.
 going to church, mosque, synagogue). Figure 24 shows the percentage of
 young people who take part in at least one organised activity every
 week.
-
-**Figure 23: % pupils who do at least one organised activity at least
-once a week**
+:::
 
 ```{r organised_activity, fig.cap="% pupils who do at least one organised activity at least once a week"}
 bar_by_cat(var = Org_act_wkly, success = " At least one activity weekly", .censor = params$censor)
 ```
 
 
+::: {custom-style="FigDesc"}
 Figures 24 and 25 shows the types of activities that young people
 undertake, at least once a week.
+:::
 
 ```{r activity_type, fig.cap="% pupils who do this type of activity at least once a week, by gender"}
 bar_multiple_vars(
@@ -777,9 +783,9 @@ bar_multiple_vars(
 +----------------------------------+----------------------------------+
 
 *LINKS*
-https://www.sustrans.org.uk/our-blog/projects/?location=Scotland&topic=Schools&p=1
-https://sportscotland.org.uk/schools/
-https://www.playscotland.org
+- https://www.sustrans.org.uk/our-blog/projects/?location=Scotland&topic=Schools&p=1
+- https://sportscotland.org.uk/schools/
+- https://www.playscotland.org
 
 \newpage
 ## Experience of bullying
@@ -798,6 +804,7 @@ A review of different types of bullying intervention programmes has identified k
 
 ### Bullying at school - bullying perpetration and victimisation
 
+::: {custom-style="FigDesc"}
 Pupils were asked how often they had bullied someone else at school in
 the past couple of months, at school and been a victim of bullying.
 
@@ -805,6 +812,7 @@ Figure 28 presents the percentage of pupils who bullied others at least
 once or twice over the past couple of months. Figure 29 presents the
 percentage of pupils who report being bullied at least once or twice
 over the past couple of months.
+:::
 
 ```{r bully_others, fig.cap="% pupils who report bullying others at school in past couple of months"}
 bar_by_cat(var = bully_twice, success = "Yes", .censor = params$censor)
@@ -829,9 +837,11 @@ Pupils were asked how often they had experienced various types of bullying behav
 
 ### Cyberbullying: perpetration and victimisation
 
+::: {custom-style="FigDesc"}
 Pupils were also asked how often they had cyberbullied someone else in the past couple of months and how often they had been a victim of cyberbullying. Figure 30 presents the percentage of pupils who report cyberbullying others at least once or twice over past couple of months.
 
 Overall, *INSERT NUMBER*% of all pupils surveyed, indicated that they had been a victim of cyberbullying at least once or twice over past couple of months over the past couple of months (not shown in figure).
+:::
 
 ```{r cyberbullying, fig.cap="% pupils reporting cyberbullying others in past couple of months"}
 bar_by_cat(var = Cbully_twice, success = "Yes", .censor = params$censor)
@@ -863,9 +873,9 @@ bar_by_cat(var = Cbully_twice, success = "Yes", .censor = params$censor)
 +----------------------------------+----------------------------------+
 
 *LINKS*
-https://www.respectme.org.uk
+- https://www.respectme.org.uk
 http://www.cypcs.org.uk
-https://www.unicef.org.uk/rights-respecting-schools/resources/teaching-resources/
+- https://www.unicef.org.uk/rights-respecting-schools/resources/teaching-resources/
 
 ## Substance use
 
@@ -889,11 +899,10 @@ Pupils were asked if they had ever (in their lifetime):
 -   smoked tobacco
 -   vaped
 
+::: {custom-style="FigDesc"}
 The figures show the percentage of pupils who have used each substance
 at least once in their lifetime.
-
-**Figure 31:** **% pupils who reported substance use in their lifetime
-(all)**
+:::
 
 ```{r substance, fig.cap=""}
 bar_multiple_vars(list(
@@ -958,11 +967,11 @@ success = c("drunk once or more", "Tried smoking", "Tried e-cigarette"),
 +----------------------------------+----------------------------------+
 
 *LINKS*
-https://www.alcohol-focus-scotland.org.uk/
-https://mentor-adepis.org/planningeffective-education/
-https://www.talktofrank.com/
-https://www.ashscotland.org.uk/what-we-do/children-young-people-and-tobacco/>
-https://drinkwiseagewell.org.uk/
+- https://www.alcohol-focus-scotland.org.uk/
+- https://mentor-adepis.org/planningeffective-education/
+- https://www.talktofrank.com/
+- https://www.ashscotland.org.uk/what-we-do/children-young-people-and-tobacco/>
+- https://drinkwiseagewell.org.uk/
 
 \newpage
 ## Electronic Media Use
@@ -986,16 +995,16 @@ The Royal College of Paediatrics and Child Health have produced guides for paren
 
 ### Technology in bedroom
 
+::: {custom-style="FigDesc"}
 Here we present the percentage of pupils who have a smartphone which
 they keep in their bedroom at night and those that have a TV in their
 bedroom.
+:::
 
 ```{r sphbed, fig.cap="% of pupils with smartphone in their bedroom at night"}
 bar_by_cat(var = smartphbed, success = " Has smartphone in bedroom", .censor = params$censor)
 ```
 
-
-**Figure 33: % of pupils with TV in their bedroom**
 
 ```{r}
 bar_by_cat(var = TVbed, success = " Has TV in bedroom", .censor = params$censor)
@@ -1004,7 +1013,9 @@ bar_by_cat(var = TVbed, success = " Has TV in bedroom", .censor = params$censor)
 
 ### Contact with close friends
 
+::: {custom-style="FigDesc"}
 Pupils were asked to think about 'online contact' and 'online communication', defined as 'sending and receiving text messages, emoticons, and photo, video or audio messages through instant messaging, social networking sites or video calling (e.g. Zoom)'. Then they were asked to report how frequently they keep in online contact with people in their life. The figure shows the percentage of pupils who are in online contact with close friends either several times a day or almost all the time during the day.
+:::
 
 ```{r online_contact, fig.cap="Pupils reporting online contact with close friends several times/almost all the time during the day"}
 bar_by_cat(var = emconhigh1, success = "Intense contact", .censor = params$censor)
@@ -1012,7 +1023,9 @@ bar_by_cat(var = emconhigh1, success = "Intense contact", .censor = params$censo
 
 ### Screen time
 
+::: {custom-style="FigDesc"}
 Pupils were asked to estimate how many hours a day in their free time they spend: watching TV/DVDs/videos; playing games on a computer/console/tablet/phone; and using electronic devices for other purposes such as homework, email, messaging, surfing the internet or social media. Here we present the mean number of hours spent on each type of activity.
+:::
 
 ```{r screen_use_sex, fig.cap="Mean time (hours) pupils spend per day using a screen, by gender"}
 bar_mean_multiple_vars(list(
@@ -1105,12 +1118,12 @@ Pupils who gamed each week were asked to complete the Internet Gaming Disorder (
 +----------------------------------+----------------------------------+
 
 *LINKS*
-https://www.rcpch.ac.uk/resources/health-impacts-screen-time-guide-clinicians-parents
-https://www.childnet.com
-https://www.saferinternet.org.uk
-https://www.gov.scot/publications/national-action-plan-internet-safety-children-young-people/pages/9/
-https://www.thinkuknow.co.uk
-https://www.ceop.police.uk/safety-centre/
+- https://www.rcpch.ac.uk/resources/health-impacts-screen-time-guide-clinicians-parents
+- https://www.childnet.com
+- https://www.saferinternet.org.uk
+- https://www.gov.scot/publications/national-action-plan-internet-safety-children-young-people/pages/9/
+- https://www.thinkuknow.co.uk
+- https://www.ceop.police.uk/safety-centre/
 
 \newpage
 ## Impact of COVID-19 pandemic
@@ -1151,7 +1164,7 @@ bar_diverging("S2")
 
 
 ```{r covid_s4, fig.cap="Perceived impact of the COVID-19 pandemic on S4 pupils", eval=multi_grades}
-bar_diverging("S2")
+bar_diverging("S4")
 ```
 
 
@@ -1263,12 +1276,12 @@ bar_by_cat(var = Trusted_adult, success = "Yes, I always do", .censor = params$c
 +----------------------------------+----------------------------------+
 
 *LINKS*
-https://www.parentingacrossscotland.org/info-for-families/
-https://www.parentclub.scot/
-https://www.children1st.org.uk/help-for-families/
-https://www.opfs.org.uk/
-https://www.carers.org/country/carers-trust-scotland
-https://www.lgbtyouth.org.uk
+- https://www.parentingacrossscotland.org/info-for-families/
+- https://www.parentclub.scot/
+- https://www.children1st.org.uk/help-for-families/
+- https://www.opfs.org.uk/
+- https://www.carers.org/country/carers-trust-scotland
+- https://www.lgbtyouth.org.uk
 
 \newpage
 ##  School Environment
@@ -1353,10 +1366,10 @@ bar_by_cat(var = stud_support_scale_cutoff, success = "High student support", .c
 +----------------------------------+----------------------------------+
 
 *LINKS*
-https://www.nhsinform.scot/healthy-living/mental-wellbeing/stress/coping-with-exam-stress
-https://young.scot/get-informed/national/how-you-can-survive-the-stress-of-exams
-https://www.keepscotlandbeautiful.org/education-and-learning/eco-schools/green-flag-award/ten-topics/school-grounds/
-https://www.mentalhealth.org.uk/projects/peer-education-projectpep/schools-resources
+- https://www.nhsinform.scot/healthy-living/mental-wellbeing/stress/coping-with-exam-stress
+- https://young.scot/get-informed/national/how-you-can-survive-the-stress-of-exams
+- https://www.keepscotlandbeautiful.org/education-and-learning/eco-schools/green-flag-award/ten-topics/school-grounds/
+- https://www.mentalhealth.org.uk/projects/peer-education-projectpep/schools-resources
 
 
 /newpage
@@ -1464,7 +1477,7 @@ support improvements in pupil wellbeing.
 7.  Royal College of Paediatrics and Child Health. (n.d.). The health
     impacts of screen time - a guide for clinicians and parents.
 
-8.  <https://www.gov.scot/publications/scotlands-public-health-priorities/pages/6/>
+8.  https://www.gov.scot/publications/scotlands-public-health-priorities/pages/6/
 
 9.  Deighton, J., Humphrey, N., Belsky, J., Boehnke, J., Vostanis, P.,
     & Patalay, P. (2018). Longitudinal pathways between mental health
@@ -1528,7 +1541,7 @@ support improvements in pupil wellbeing.
 
 24. World Health Organization. (2010). Global recommendations on
     physical activity for health. Genève: WHO. Retrieved from
-    <https://www.who.int/dietphysicalactivity/publications/9789241599979/en/>
+    https://www.who.int/dietphysicalactivity/publications/9789241599979/en/
 
 25. Janssen, I., & LeBlanc, A. G. (2010). Systematic review of the
     health benefits of physical activity and fitness in school aged
