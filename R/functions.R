@@ -15,9 +15,9 @@
 #'   output)
 
 
-bar_by_cat <- function(var,
+bar_by_cat <- function(.data,
+                       var,
                        success = "Yes",
-                       .data = school_dat,
                        .censor = TRUE) {
   var <- enquo(var)
   
@@ -130,8 +130,8 @@ bar_by_cat <- function(var,
 #'   output)
 
 
-bar_mean_by_cat <- function(var,
-                       .data = school_dat,
+bar_mean_by_cat <- function(.data, 
+                            var,
                        .censor = TRUE,
                        ymax = max(.data[[rlang::as_name(var)]], na.rm = TRUE),
                        ylab = "Mean") {
@@ -247,10 +247,10 @@ bar_mean_by_cat <- function(var,
 #'   output)
 
 bar_multiple_vars <-
-  function(varslist,
+  function(.data, 
+           varslist,
            success = c("More than once a week", "About every day"),
            group = c("none", "grade", "sex"),
-           .data = school_dat,
            .censor = TRUE) {
     
     group <- match.arg(group)
@@ -331,10 +331,9 @@ bar_multiple_vars <-
 #'   output)
 
 bar_mean_multiple_vars <-
-  function(varslist,
+  function(.data, varslist,
            success = c("More than once a week", "About every day"),
            group = c("none", "grade", "sex"),
-           .data = school_dat,
            .censor = TRUE,
            limits = c(`Poor quality` = 1,
                       `High quality` = 6),
@@ -420,7 +419,7 @@ bar_mean_multiple_vars <-
 
 # covid concerns graphs ---------------------------------------------------
 
-bar_diverging <- function(category, .data = school_dat, ordervals = c(
+bar_diverging <- function(.data, category, ordervals = c(
   "covidlife" = "Life as a whole",
   "covidhealth" = "Health",
   "covidfamrel" = "Family relations",
@@ -487,7 +486,7 @@ bar_diverging <- function(category, .data = school_dat, ordervals = c(
 
 # return percentage -------------------------------------------------------
 
-perc_success <- function(var, success, .data = school_dat) {
+perc_success <- function(.data, var, success) {
   var <- enquo(var)
   
   .data |> 
