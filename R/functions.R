@@ -475,7 +475,7 @@ perc_success <- function(var, success, .data = school_dat) {
   
   .data |> 
     summarise(perc = sum(!!var %in% success)/n()) |> 
-    mutate(perc = percent(perc, accuracy = 0.1)) |> 
+    mutate(perc = percent(perc, accuracy = 1)) |> 
     pull(perc)
   
 }
