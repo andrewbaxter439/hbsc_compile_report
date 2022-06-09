@@ -227,7 +227,7 @@ bar_by_cat(health, c("Good", "Excellent"),
 ```
 
 
-### Multiple Health Complaints
+### Multiple health complaints
 
 ::: {custom-style="FigDesc"}
 Pupils were asked 'In the last 6 months how often have you had the following...?' and presented with a list of eight physical and psychological symptoms: headache, stomach-ache, backache, dizziness, feeling low, feeling nervous, feeling irritable and sleep difficulties. We looked at the proportion of young people who experienced this symptom, once a week or more.
@@ -538,7 +538,7 @@ bar_by_cat(var = aboutright, success = "Yes", .censor = params$censor)
 [Young Minds]: https://youngminds.org.uk/
 
 \newpage
-## Eating habits
+## Eating Habits
 
 This chapter presents data about eating habits. It includes the following measures:
 
@@ -666,7 +666,7 @@ bar_by_cat(fmeal, c("Every day", "Most days"), .censor = params$censor)
 [Food and the Environment Topic]: https://www.keepscotlandbeautiful.org/education-and-learning/food-and-the-environment/
 
 \newpage
-## Physical activity and leisure time
+## Physical Activity and Leisure Time
 
 This chapter presents data about physical activity and leisure time activities. The chapter includes the following measures:
 
@@ -791,7 +791,7 @@ bar_multiple_vars(
 - https://www.playscotland.org
 
 \newpage
-## Experience of bullying
+## Experience of Bullying
 
 This chapter reports the following measures relating to bullying and discrimination:
 
@@ -829,7 +829,7 @@ bar_by_cat(var = bullied_twice, success = "Yes", .censor = params$censor)
 
 ### Experience of types of bullying behaviour
 
-Pupils were asked how often they had experienced various types of bullying behaviour. We looked at the percentage of pupils across the school (combining years and gender) who had experienced each type of bullying at least 2 or 3 times in the past couple of months. Common types of bullying behaviour experienced by pupils at your school were:
+Pupils were asked how often they had experienced various types of bullying behaviour. We looked at the percentage of pupils across the school (combining years and gender) who had experienced each type of bullying at least 2 or 3 times in the past couple of months. Types of bullying behaviour experienced by pupils at your school included:
 
 
 -   Other pupils made sexual jokes or gestures to them -- *INSERT NUMBER*%
@@ -881,7 +881,7 @@ bar_by_cat(var = Cbully_twice, success = "Yes", .censor = params$censor)
 http://www.cypcs.org.uk
 - https://www.unicef.org.uk/rights-respecting-schools/resources/teaching-resources/
 
-## Substance use
+## Substance Use
 
 This chapter presents the following measures relating to substance use:
 
@@ -1075,7 +1075,7 @@ bar_by_cat(var = game_4day, success = "Gaming at least 4 days a week", .censor =
 ```
 
 
-Pupils who gamed each week were asked to complete the Internet Gaming Disorder (IGD) Scale which distinguishes between 'normative' and 'problematic' gaming. Overall, 11% of all pupils who game reported problematic gaming and this was more common amongst boys than girls.
+Pupils who gamed each week were asked to complete the Internet Gaming Disorder (IGD) Scale which distinguishes between 'normative' and 'problematic' gaming. Overall, 11% of all pupils who game reported problematic gaming.
 
 ### Who can help?
 
@@ -1132,7 +1132,7 @@ Pupils who gamed each week were asked to complete the Internet Gaming Disorder (
 - https://www.ceop.police.uk/safety-centre/
 
 \newpage
-## Impact of COVID-19 pandemic
+## Impact of COVID-19 Pandemic
 
 This chapter is about the COVID-19 pandemic and contains the following measures:
 
@@ -1151,7 +1151,7 @@ It is argued that many existing health issues have been exacerbated by the pande
 Young people were asked about their experiences of COVID-19 and its associated restrictions. Pupils were asked to say how they felt various aspects of their life had been impacted by the COVID-19 pandemic choosing from the options: very negative/ quite negative/ neutral, no impact/quite positive and very positive.
 
 ::: {custom-style="FigDesc"}
-The figures below show the percentage of pupils who reported either a negative (very/quite) or a positive (very/quite) impact on that aspect of their life. Figures 40 and 41 show the impact by gender. Figures 42 and 43 show the impact by school year.
+The figures below show the percentage of pupils who reported either a negative (very/quite) or a positive (very/quite) impact on that aspect of their life.
 :::
 
 ```{r covid_girls, fig.cap="Perceived impact of the COVID-19 pandemic on GIRLS"}
@@ -1178,6 +1178,7 @@ bar_diverging("S4")
 bar_diverging("S.")
 ```
 
+\newpage
 ## Social Relationships and Support
 
 This chapter is about social relationships and support, and includes the following measures:
@@ -1201,14 +1202,15 @@ Pupils were asked how easy they find it to communicate with a parental
 figure.
 
 The following figure presents the percentage of pupils who say they find it easy or very easy to talk to their mother (includes step-mother).
-
-The following figure presents the percentage of pupils who say they find it easy or very easy to talk to their father (includes step-father).
 :::
 
 ```{r easy_talk_m, fig.cap="% pupils who say it's easy or very easy to speak to mother figure"}
 bar_by_cat(var = easytalk_mfigure, success = "Easy to talk to mother or stepmother", .censor = params$censor)
 ```
 
+::: {custom-style="FigDesc"}
+The following figure presents the percentage of pupils who say they find it easy or very easy to talk to their father (includes step-father).
+:::
 
 ```{r easy_talk_f, fig.cap="% pupils who say it's easy or very easy to speak to the father figure"}
 bar_by_cat(var = easytalk_Ffigure, success = "Easy to talk to father or stepfather", .censor = params$censor)
