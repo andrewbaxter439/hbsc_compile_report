@@ -50,7 +50,8 @@ knitr::opts_chunk$set(
   fig.height = 4.1,
   fig.topcaption = TRUE,
   fig.cap.style = "Caption",
-  tab.cap.style = "Caption"
+  tab.cap.style = "Caption",
+  dpi = 450
 )
 library(readr)
 library(scales)
@@ -107,8 +108,7 @@ missing_vals <- school_dat |>
 
 ```
 
-![](images/hbsc_logo.jpg){width="8.728346456692913in" height="1.6220472440944882in"}
-
+![](images/hbsc_logo.jpg){width="100%"}
 ::: {custom-style="Title"}
 
 HEALTH BEHAVIOUR IN SCHOOL-AGED CHILDREN STUDY
@@ -130,7 +130,18 @@ Health and Wellbeing survey results for
 
 :::
 
-![](images/SPHSU_logo.png){width="2.3958333333333335in" height="0.4125in"}![](images/st_as_logo.jpg){width="1.3854166666666667in" height="0.39861111111111114in"}
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+![](images/comb_logo.png)
 
 \newpage
 
@@ -175,7 +186,7 @@ As well as the data, we have included notes and research evidence along with sug
 -   Some measures combine responses to a series of questions to create a mean score, for example, sleep quality, teacher support.
 -   Some of the same measures were also used in the 2018 HBSC Scotland survey. To see the 2018 Scotland HBSC national report: [Media_707475_smxx.pdf (gla.ac.uk)](https://www.gla.ac.uk/media/Media_707475_smxx.pdf)
 
-![](images/example_graph.svg){width="7.138888888888889in" height="4.015526027996501in"}
+![](images/graph_explanator.png){width="7.138888888888889in"}
 
 ### Your school's participation in the survey
 
