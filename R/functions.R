@@ -138,7 +138,7 @@ bar_mean_by_cat <- function(.data,
   require(rlang)
   var <- enquo(var)
   
-  rlang::eval_tidy(var, data = school_dat)
+  rlang::eval_tidy(var, data = .data)
   
   df_sex <- .data |>
     group_by(sex) |>
