@@ -281,9 +281,7 @@ Pupils were asked to estimate the time they usually go to bed and wake up on sch
 Current NHS recommendations are that children aged 12-17 years should aim for a minimum of 8-9 hours' sleep per night.
 :::
 
-<!-- MISSING CAPTION -->
-
-```{r}
+```{r sleep_dur, fig.cap="Mean number of hours pupils sleep on a school night"}
 bar_mean_by_cat(Schooldays_sleep_hrs, .censor = params$censor, ylab = "Hours")
 ```
 
@@ -1025,9 +1023,8 @@ bedroom.
 bar_by_cat(var = smartphbed, success = " Has smartphone in bedroom", .censor = params$censor)
 ```
 
-<!-- MISSING CAPTION -->
 
-```{r}
+```{r tv_in_room, fig.cap="% of pupils with TV in their bedroom"}
 bar_by_cat(var = TVbed, success = " Has TV in bedroom", .censor = params$censor)
 ```
 
