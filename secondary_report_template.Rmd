@@ -56,7 +56,7 @@ knitr::opts_chunk$set(
   fig.topcaption = TRUE,
   fig.cap.style = "Caption",
   tab.cap.style = "Caption",
-  dpi = 450
+  dpi = 300
 )
 library(readr)
 library(scales)
