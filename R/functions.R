@@ -86,13 +86,14 @@ bar_by_cat <- function(var,
       ggplot(aes(grade, prop, fill = grade)) +
       geom_bar_t(stat = "identity") +
       scale_fill_hbsc() +
-      scale_y_continuous(" ",
-                         labels = percent,
+      scale_y_continuous("", 
+                         labels = NULL,
                          position = "right",
                          limits = c(0, 1)
                          ) +
       theme(axis.ticks.y = element_line(colour = "white"),
-            axis.text.y = element_text(colour = "white")) +
+            axis.text.y = element_text(colour = "white"),
+            plot.margin = unit(c(0, 0, 0, 1),  "cm")) +
       geom_text(aes(label = percent(prop, suffix="", accuracy = 1)),
                 vjust = 0, 
                 nudge_y = 0.05,
@@ -103,6 +104,10 @@ bar_by_cat <- function(var,
   
   p1 + p2
 }
+
+# test
+
+# bar_by_cat(var = breakfastwd, success = "Five days", .censor = FALSE)
 
 # graphing mean of single var ---------------------------------------
 
@@ -198,7 +203,8 @@ bar_mean_by_cat <- function(var,
                          limits = c(0, ymax)
       ) +
       theme(axis.ticks.y = element_line(colour = "white"),
-            axis.text.y = element_text(colour = "white")) +
+            axis.text.y = element_text(colour = "white"),
+            plot.margin = unit(c(0, 0, 0, 1),  "cm")) +
       geom_text(aes(label = round(mean_var, 1)),
                 vjust = 0, 
                 nudge_y = 0.05 * ymax,
