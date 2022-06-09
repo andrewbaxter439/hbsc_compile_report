@@ -1471,6 +1471,7 @@ support improvements in pupil wellbeing.
 
 # References
 
+::: {custom-style="References"}
 1.  WHO \| The Ottawa Charter for Health Promotion. (n.d.). Retrieved
     January 18, 2019, from http://www.who.int/healthpromotion/conferences/previous/ottawa/en/
 
@@ -1777,3 +1778,5 @@ support improvements in pupil wellbeing.
 74. Hargreaves, D. S. (2012). Country-level correlations between school
     experience and health behaviour: the Health Behaviour in
     School-aged Children survey 2005-6. *Archives of Disease in            Childhood*, 97(Suppl 1), A63--A64.
+    
+:::
