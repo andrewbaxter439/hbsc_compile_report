@@ -78,7 +78,7 @@ global_excel_colour <- "#00798c"
 
 
 theme_set(theme_minimal() +
-            theme(text = element_text(colour = main_colour),
+            theme(text = element_text(colour = "black"),
                   axis.text.y = element_text(size = 10),
                   axis.text.x = element_text(size = 12),
                   legend.text = element_text(size = 12),
@@ -87,7 +87,7 @@ theme_set(theme_minimal() +
                   panel.grid.major.x = element_blank(),
                   panel.grid.minor.x = element_blank(),
                   # panel.grid.major.y = element_line(colour = "grey"),
-                  axis.title.y = element_text(margin = margin(r = 15, unit = "pt")),
+                  axis.title.y = element_text(margin = margin(r = 10, unit = "pt")),
                   axis.title.x = element_blank(),
                   legend.position = "none",
                   strip.text = element_blank()
@@ -194,7 +194,7 @@ school_dat |> count(sex, grade) |>
   filter(if_all(everything(), ~! is.na(.x))) |> 
   pivot_wider(names_from = grade, values_from = n) |> 
   rename(" " = sex) |> 
-  mutate(across(2:3, ~paste0("&nbsp;&nbsp;&nbsp;&nbsp;", .x))) |> 
+  rename_with(~paste0("&nbsp;&nbsp;&nbsp;&nbsp;", .x), .cols = 2:3) |> 
   knitr::kable()
 ```
 
