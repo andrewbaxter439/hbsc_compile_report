@@ -39,13 +39,16 @@ bar_by_cat <- function(var,
       ggplot(aes(sex, prop, fill = sex)) +
       geom_bar_t(stat = "identity") +
       scale_fill_hbsc() +
-      scale_y_continuous("%", labels = percent, limits = c(0, 1))+
+      scale_y_continuous("%", labels = percent)+
       geom_text(aes(label = percent(prop, suffix="", accuracy = 1)),
                 vjust = 0, 
                 nudge_y = 0.05,
-                size = 4)
+                size = 4) +
+      coord_cartesian(ylim = c(0, 1))
     
-  } else if (all(df_sex$numerator > 3) & sum(df_sex$denom <= 14)) {
+  } else { # Test semi-censored version
+    
+  # } else if (all(df_sex$numerator > 3) & sum(df_sex$denom <= 14)) {
     # * if there are ≤14 students, the chart should only present a single column
     #   representing all students.
     
@@ -54,20 +57,22 @@ bar_by_cat <- function(var,
       ggplot(aes("All pupils", prop)) +
       geom_bar_t(stat = "identity") +
       scale_fill_hbsc() +
-      scale_y_continuous("%", labels = percent, limits = c(0, 1))+
+      scale_y_continuous("%", labels = percent)+
       geom_text(aes(label = percent(prop, suffix="", accuracy = 1)),
                 vjust = 0, 
                 nudge_y = 0.05,
-                size = 4)
-    
-  } else {
-    p1 <- ggplot() +
-      geom_text(aes(x = 1, y = 0.5, label = "Chart ommitted\ndue to low numbers"),
-                size = 12) +
-      scale_x_discrete(breaks = 1, labels = "") +
-      scale_y_continuous("%", labels = percent, limits = c(0, 1))
-    
+                size = 4) +
+      coord_cartesian(ylim = c(0, 1))
   }
+  # For full censoring
+  # } else {
+  #   p1 <- ggplot() +
+  #     geom_text(aes(x = 1, y = 0.5, label = "Chart ommitted\ndue to low numbers"),
+  #               size = 12) +
+  #     scale_x_discrete(breaks = 1, labels = "") +
+  #     scale_y_continuous("%", labels = percent, limits = c(0, 1))
+  #   
+  # }
   
   df_school <- .data |>
     group_by(grade) |>
@@ -77,8 +82,8 @@ bar_by_cat <- function(var,
               .groups = "keep") |>
     filter(!is.na(grade))
   
-  if ((length(df_school$grade) == 2 & all(df_sex$numerator > 3) & all(df_sex$denom >= 7) &
-      all(df_school$numerator >= 7) | (length(df_school$grade) == 2 & .censor == FALSE))) {
+  if (((length(df_school$grade) == 2 & all(df_sex$numerator > 3) & all(df_sex$denom >= 7) &
+      all(df_school$denom >= 7)) | (length(df_school$grade) == 2 & .censor == FALSE))) {
     # * for secondary schools, only separate by year if there are ≥7 S2 AND ≥7 S4).
     
     p2 <- df_school |>
@@ -88,16 +93,16 @@ bar_by_cat <- function(var,
       scale_fill_hbsc() +
       scale_y_continuous("", 
                          labels = NULL,
-                         position = "right",
-                         limits = c(0, 1)
+                         position = "right"
                          ) +
       theme(axis.ticks.y = element_line(colour = "white"),
             axis.text.y = element_text(colour = "white"),
-            plot.margin = unit(c(0, 0, 0, 1),  "cm")) +
+            plot.margin = unit(c(0.5, 0, 0, 1),  "cm")) +
       geom_text(aes(label = percent(prop, suffix="", accuracy = 1)),
                 vjust = 0, 
                 nudge_y = 0.05,
-                size = 4)
+                size = 4) +
+      coord_cartesian(ylim = c(0, 1))
   } else {
     p2 <- NULL
   }
@@ -106,7 +111,7 @@ bar_by_cat <- function(var,
 }
 
 # test
-
+# bar_by_cat(fmeal, c("Every day", "Most days"), .censor = params$censor)
 # bar_by_cat(var = breakfastwd, success = "Five days", .censor = FALSE)
 
 # graphing mean of single var ---------------------------------------
@@ -155,13 +160,16 @@ bar_mean_by_cat <- function(var,
       ggplot(aes(sex, mean_var, fill = sex)) +
       geom_bar_t(stat = "identity") +
       scale_fill_hbsc() +
-      scale_y_continuous(ylab, limits = c(0, ymax))+
+      scale_y_continuous(ylab)+
       geom_text(aes(label = round(mean_var, 1)),
                 vjust = 0, 
                 nudge_y = 0.05 * ymax,
-                size = 4)
+                size = 4) +
+      coord_cartesian(ylim = c(0, ymax))
     
-  } else if (all(df_sex$denom > 3)) {
+    } else { # Test semi-censored version 
+      
+  # } else if (all(df_sex$denom > 3)) {
     # * if there are ≤14 students, the chart should only present a single column
     #   representing all students.
     
@@ -169,20 +177,24 @@ bar_mean_by_cat <- function(var,
       ggplot(aes("All pupils", mean_var)) +
       geom_bar_t(stat = "identity") +
       scale_fill_hbsc() +
-      scale_y_continuous(ylab, limits = c(0, ymax))+
+      scale_y_continuous(ylab)+
       geom_text(aes(label = round(mean_var, 1)),
                 vjust = 0, 
                 nudge_y = 0.05 * ymax,
-                size = 4)
+                size = 4) +
+      coord_cartesian(ylim = c(0, ymax))
     
-  } else {
-    p1 <- ggplot() +
-      geom_text(aes(x = 1, y = 0.5, label = "Chart ommitted\ndue to low numbers"),
-                size = 12) +
-      scale_x_discrete(breaks = 1, labels = "") +
-      scale_y_continuous(ylab, breaks = 0:1, limits = c(0, ymax))
+    }
     
-  }
+  # For full censoring
+  # } else {
+  #   p1 <- ggplot() +
+  #     geom_text(aes(x = 1, y = 0.5, label = "Chart ommitted\ndue to low numbers"),
+  #               size = 12) +
+  #     scale_x_discrete(breaks = 1, labels = "") +
+  #     scale_y_continuous(ylab, breaks = 0:1, limits = c(0, ymax))
+  #   
+  # }
   
   df_school <- .data |>
     group_by(grade) |>
@@ -191,7 +203,7 @@ bar_mean_by_cat <- function(var,
     filter(!is.na(grade))
   
   if ((length(df_school$grade) == 2 & all(df_sex$denom > 3) &
-       all(df_school$numerator >= 7) | (length(df_school$grade) == 2 & .censor == FALSE))) {
+       all(df_school$denom >= 7)) | (length(df_school$grade) == 2 & .censor == FALSE)) {
     # * for secondary schools, only separate by year if there are ≥7 S2 AND ≥7 S4).
     
     p2 <- df_school |>
@@ -199,16 +211,16 @@ bar_mean_by_cat <- function(var,
       geom_bar_t(stat = "identity") +
       scale_fill_hbsc() +
       scale_y_continuous(" ",
-                         position = "right",
-                         limits = c(0, ymax)
+                         position = "right"
       ) +
       theme(axis.ticks.y = element_line(colour = "white"),
             axis.text.y = element_text(colour = "white"),
-            plot.margin = unit(c(0, 0, 0, 1),  "cm")) +
+            plot.margin = unit(c(0.5, 0, 0, 1),  "cm")) +
       geom_text(aes(label = round(mean_var, 1)),
                 vjust = 0, 
                 nudge_y = 0.05 * ymax,
-                size = 4)
+                size = 4) +
+      coord_cartesian(ylim = c(0, ymax))
   } else {
     p2 <- NULL
   }
@@ -271,8 +283,9 @@ bar_multiple_vars <-
       scale_linetype_manual(values = c("1" = "dashed", "0" = "solid"), guide = guide_none()) +
       scale_x_discrete(guide = guide_axis(angle = 45)) +
       scale_fill_hbsc(aesthetics = c("fill", "colour"), name = "",  limits = force) +
-      theme(legend.position = if_else(group == "none", "none", "bottom")) +
-      scale_y_continuous("%", labels = percent, limits = c(0, 1)) +
+      theme(legend.position = if_else(group == "none", "none", "bottom"),
+            plot.margin = unit(c(0.5, 0, 0, 0),  "cm")) +
+      scale_y_continuous("%", labels = percent) +
       geom_text(aes(label = bar_lab_main),
                 vjust = -0.5, 
                 # nudge_y = 0.05,
@@ -285,7 +298,8 @@ bar_multiple_vars <-
                 angle = 90,
                 colour = "black",
                 position = position_dodge(width = 0.6),
-                size = 4)
+                size = 4) +
+      coord_cartesian(ylim = c(0, 1))
     
   }
 
@@ -369,8 +383,9 @@ bar_mean_multiple_vars <-
       scale_linetype_manual(values = c("1" = "dashed", "0" = "solid"), guide = guide_none()) +
       scale_x_discrete(guide = guide_axis(angle = 45)) +
       scale_fill_hbsc(aesthetics = c("fill", "colour"), name = "",  limits = force) +
-      theme(legend.position = if_else(group == "none", "none", "bottom")) +
-      scale_y_continuous(ylab, limits = c(0, ymax)) +
+      theme(legend.position = if_else(group == "none", "none", "bottom"),
+            plot.margin = unit(c(0.5, 0, 0, 0),  "cm")) +
+      scale_y_continuous(ylab) +
       geom_text(aes(label = round(mean, 1)),
                 vjust = -0.5, 
                 # nudge_y = 0.05,
@@ -383,7 +398,8 @@ bar_mean_multiple_vars <-
                   angle = 90,
                   colour = "black",
                   position = position_dodge(width = 0.6),
-                  size = 4)
+                  size = 4) +
+        coord_cartesian(ylim = c(0, ymax))
     
   }
 
@@ -434,7 +450,8 @@ bar_diverging <- function(category, .data = school_dat, ordervals = c(
     pivot_longer(c(sex, grade), names_to = "cat", values_to = "group") |> 
     group_by(cat, group, topic) |> 
     summarise(perc_pos = sum(response == "Positive", na.rm = TRUE)/n(),
-              perc_neg = -sum(response == "Negative", na.rm = TRUE)/n()) |> 
+              perc_neg = -sum(response == "Negative", na.rm = TRUE)/n(),
+              .groups = "drop") |> 
     pivot_longer(starts_with("perc"), names_to = "dir", values_to = "value", names_prefix = "perc_") |> 
     mutate(topic = factor(topic, levels = names(ordervals), labels = ordervals)) |> 
     filter(group == str_match(group, category)) |> 
@@ -451,15 +468,15 @@ bar_diverging <- function(category, .data = school_dat, ordervals = c(
           legend.position = "top") +
     ylab("") +
     scale_x_continuous(breaks = seq(-1, 1, 0.2),
-                       limits = c(-1, 1),
                        labels = percent(c(seq(1, 0, -0.2), seq(0.2, 1, 0.2))))  +
     geom_text(aes(label = percent(abs(value), suffix="", accuracy = 1),
                   x = value + 0.1*if_else(dir == "neg", -1, 1)),
-              size = 4)
+              size = 4) +
+    coord_cartesian(xlim = c(-1, 1))
 }
 
 # test
-
+# 
 # bar_diverging("Girls")
 # bar_diverging("Boys")
 # bar_diverging("S2")

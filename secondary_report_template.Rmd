@@ -31,7 +31,7 @@ params:
   censor:
     label: 'Censor small numbers? Unselect only for development!'
     input: checkbox
-    value: FALSE
+    value: TRUE
   school: 
     label: 'School'
     input: select
@@ -59,6 +59,7 @@ knitr::opts_chunk$set(
   dpi = 300
 )
 library(readr)
+library(tidyverse)
 library(scales)
 library(flextable)
 library(officer)
