@@ -50,7 +50,7 @@ knitr::opts_chunk$set(
   message = FALSE,
   warning = FALSE,
   error = FALSE,
-  eval = FALSE,
+  # eval = FALSE,
   fig.width = 6.2,
   fig.height = 4.1,
   fig.topcaption = TRUE,
@@ -137,11 +137,14 @@ Health and Wellbeing survey results for
 :::
 
 `r ftext(" ", fp_text(color = "white", font.size = 40, bold = TRUE, font.family = "Bradley Hand"))`
-`r fp_par(text.align = "center", padding.bottom = 320)`
+`r fp_par(text.align = "center", padding.bottom = 280)`
 
+::: {custom-style="nowrap"}
 ![](images/comb_logo.png)
 
 \newpage
+
+:::
 
 ###### Contents    
 `r officer::block_toc(level = 2, style = NULL, separator = ";")`
