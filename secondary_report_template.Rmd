@@ -35,7 +35,7 @@ params:
   school: 
     label: 'School'
     input: select
-    value: "007"
+    value: "049"
     choices: ["003", "070", "075", "007", "008", "010", "013",
     "014", "017", "019", "021", "022", "024", "026", "028", "029", 
     "033", "034", "035", "040", "041", "045", "046", "047", "049", 
@@ -50,7 +50,7 @@ knitr::opts_chunk$set(
   message = FALSE,
   warning = FALSE,
   error = FALSE,
-  eval = FALSE,
+  # eval = FALSE,
   fig.width = 6.2,
   fig.height = 4.1,
   fig.topcaption = TRUE,
