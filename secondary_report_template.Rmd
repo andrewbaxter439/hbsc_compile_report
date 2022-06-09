@@ -1,10 +1,10 @@
 ---
 # title: "HEALTH BEHAVIOUR IN SCHOOL-AGED CHILDREN STUDY"
 output:
+    reference_docx: templates/pilot_secondary_format.docx
   officedown::rdocx_document:
       # toc: yes
       # toc_depth: 2
-    reference_docx: templates/pilot_secondary_format.docx
     tables:
       style: Table
       layout: autofit
@@ -37,10 +37,6 @@ params:
     input: select
     value: "040"
     choices: ["003", "070", "075", "007", "008", "010", "013", 
-"014", "017", "019", "021", "022", "024", "026", "028", "029", 
-"033", "034", "035", "040", "041", "045", "046", "047", "049", 
-"051", "054", "055", "058", "059", "060", "062", "064", "069", 
-"072", "074", "076", "078", "083", "084", "056", "061", "063"]
 ---
 
 ```{r setup, include=FALSE}
