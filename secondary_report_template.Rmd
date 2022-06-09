@@ -49,7 +49,7 @@ knitr::opts_chunk$set(
   message = FALSE,
   warning = FALSE,
   error = FALSE,
-  eval = FALSE,
+  # eval = FALSE,
   fig.width = 6.2,
   fig.height = 4.1,
   fig.topcaption = TRUE,
@@ -321,7 +321,7 @@ bar_mean_multiple_vars(
 +----------------------------------+----------------------------------+
 | Organisation                     | Description                      |
 +==================================+==================================+
-| [**Sleep Scotland**][1]          | Sleep Scotland aims to provide   |
+| **[Sleep Scotland]**             | Sleep Scotland aims to provide   |
 | Support Line: 0800 138 6565      | the most appropriate             |
 |                                  | intervention for families of     |
 |                                  | children with sleep problems.    |
@@ -334,7 +334,7 @@ bar_mean_multiple_vars(
 +----------------------------------+----------------------------------+
 
 <!-- *LINKS* -->
-[1]: https://www.sleepscotland.org/
+[Sleep Scotland]: https://www.sleepscotland.org/
 
 \newpage
 ## Mental Health and Wellbeing
@@ -460,86 +460,86 @@ bar_by_cat(var = aboutright, success = "Yes", .censor = params$censor)
 
 ### Who can help?
 
-+----------------------------------+----------------------------------+
-| **Organisation**                 | **Description**                  |
-+==================================+==================================+
-| **MIND for better mental health**| MIND provides advice and support |
-|                                  | to empower anyone experiencing a |
-|                                  | mental health problem. They have |
-|                                  | information dedicated to         |
-|                                  | supporting children and young    |
-|                                  | people.                          |
-+----------------------------------+----------------------------------+
-| **Anna Freud National Centre**   | These resources, co-produced     |
-| **for Children and Families**    | with young people, aim to        |
-|                                  | provide information to young     |
-|                                  | people on mental health and      |
-|                                  | wellbeing to help make informed  |
-|                                  | choices about their health.      |
-+----------------------------------+----------------------------------+
-| **Mental Health Foundation**     | The Mental Health Foundation's   |
-|                                  | mission is to raise awareness of |
-|                                  | mental health through education, |
-|                                  | community and support and        |
-|                                  | thereby reduce the stigma        |
-|                                  | associated with mental health.   |
-|                                  | The website provides information |
-|                                  | on different mental health       |
-|                                  | conditions.                      |
-+----------------------------------+----------------------------------+
-| **Barnado's Scotland**           | Barnado's Scotland has put       |
-|                                  | together a film for everyone     |
-|                                  | involved in educating children   |
-|                                  | and young people, highlighting   |
-|                                  | the importance of relationships  |
-|                                  | in the school setting. It        | 
-|                                  | provides practical examples and  | 
-|                                  | tips that education staff can    |
-|                                  | build into their everyday        |
-|                                  | practice to support positive     | 
-|                                  | relationships with young people. |
-+----------------------------------+----------------------------------+
-| **See Me Scotland**              | See Me is passionate about       |
-|                                  | ending mental health stigma and  |
-|                                  | discrimination. The organisation |
-|                                  | works with individuals, groups,  |
-|                                  | communities, workplaces, and     |
-|                                  | education.                       |
-+----------------------------------+----------------------------------+
-| **Samaritans Scotland**          | Samaritans supports schools,     |
-|                                  | college communities and other    |
-|                                  | youth settings through our       | 
-|                                  | postvention services, lesson     |
-|                                  | plans and school talks.          |
-+----------------------------------+----------------------------------+
-| **Breathing Space**              | Provides a free national         |
-| Call: 0800 838587                | phoneline service to address     |
-|                                  | serious concerns about the       |
-|                                  | mental wellbeing of people in    |
-|                                  | Scotland.                        |
-+----------------------------------+----------------------------------+
-| **Moodcafé**                     | Resources for a range of mental  |
-|                                  | health issues and learning       |
-|                                  | disabilities developed for young |
-|                                  | people, adults and families by   |
-|                                  | NHS Fife.                        |
-+----------------------------------+----------------------------------+
-| **Young Minds**                  | Resources and information for    |
-|                                  | young people experiencing Mental |
-|                                  | Health difficulties              |
-+----------------------------------+----------------------------------+
++-------------------------------------+----------------------------------+
+| **Organisation**                    | **Description**                  |
++=====================================+==================================+
+| **[MIND for better mental health]** | MIND provides advice and support |
+|                                     | to empower anyone experiencing a |
+|                                     | mental health problem. They have |
+|                                     | information dedicated to         |
+|                                     | supporting children and young    |
+|                                     | people.                          |
++-------------------------------------+----------------------------------+
+| [**Anna Freud National Centre**][2] | These resources, co-produced     |
+| **for Children and Families**       | with young people, aim to        |
+|                                     | provide information to young     |
+|                                     | people on mental health and      |
+|                                     | wellbeing to help make informed  |
+|                                     | choices about their health.      |
++-------------------------------------+----------------------------------+
+| **[Mental Health Foundation]**      | The Mental Health Foundation's   |
+|                                     | mission is to raise awareness of |
+|                                     | mental health through education, |
+|                                     | community and support and        |
+|                                     | thereby reduce the stigma        |
+|                                     | associated with mental health.   |
+|                                     | The website provides information |
+|                                     | on different mental health       |
+|                                     | conditions.                      |
++-------------------------------------+----------------------------------+
+| **[Barnado's Scotland]**            | Barnado's Scotland has put       |
+|                                     | together a film for everyone     |
+|                                     | involved in educating children   |
+|                                     | and young people, highlighting   |
+|                                     | the importance of relationships  |
+|                                     | in the school setting. It        | 
+|                                     | provides practical examples and  | 
+|                                     | tips that education staff can    |
+|                                     | build into their everyday        |
+|                                     | practice to support positive     | 
+|                                     | relationships with young people. |
++-------------------------------------+----------------------------------+
+| **[See Me Scotland]**               | See Me is passionate about       |
+|                                     | ending mental health stigma and  |
+|                                     | discrimination. The organisation |
+|                                     | works with individuals, groups,  |
+|                                     | communities, workplaces, and     |
+|                                     | education.                       |
++-------------------------------------+----------------------------------+
+| **[Samaritans Scotland]**           | Samaritans supports schools,     |
+|                                     | college communities and other    |
+|                                     | youth settings through our       | 
+|                                     | postvention services, lesson     |
+|                                     | plans and school talks.          |
++-------------------------------------+----------------------------------+
+| **[Breathing Space]**               | Provides a free national         |
+| Call: 0800 838587                   | phoneline service to address     |
+|                                     | serious concerns about the       |
+|                                     | mental wellbeing of people in    |
+|                                     | Scotland.                        |
++-------------------------------------+----------------------------------+
+| **[Moodcafé]**                      | Resources for a range of mental  |
+|                                     | health issues and learning       |
+|                                     | disabilities developed for young |
+|                                     | people, adults and families by   |
+|                                     | NHS Fife.                        |
++-------------------------------------+----------------------------------+
+| **[Young Minds]**                   | Resources and information for    |
+|                                     | young people experiencing Mental |
+|                                     | Health difficulties              |
++-------------------------------------+----------------------------------+
 
-*LINKS*
+<!-- *LINKS* -->
 
-- https://www.mind.org.uk/information-support/for-childrenand-young-people
-- https://www.annafreud.org/on-mymind/
-- https://mentalhealthfoundation.org/
-- https://www.barnardos.org.uk/whatwe-do/supporting-young-people
-- https://www.seemescotland.org/
-- https://www.samaritans.org/scotland/how-we-can-help/schools/
-- https://www.breathingspace.scot/
-- http://www.moodcafe.co.uk/
-- https://youngminds.org.uk/
+[MIND for better mental health]: https://www.mind.org.uk/information-support/for-childrenand-young-people
+[2]: https://www.annafreud.org/on-my-mind/
+[Mental Health Foundation]: https://mentalhealthfoundation.org/
+[Barnado's Scotland]: https://www.barnardos.org.uk/whatwe-do/supporting-young-people
+[See Me Scotland]: https://www.seemescotland.org/
+[Samaritans Scotland]: https://www.samaritans.org/scotland/how-we-can-help/schools/
+[Breathing Space]: https://www.breathingspace.scot/
+[Moodcafé]: http://www.moodcafe.co.uk/
+[Young Minds]: https://youngminds.org.uk/
 
 \newpage
 ## Eating habits
@@ -628,46 +628,46 @@ bar_by_cat(fmeal, c("Every day", "Most days"), .censor = params$censor)
 
 ### Who can help?
 
-+----------------------------------+----------------------------------+
-| Organisation                     | Description                      |
-+==================================+==================================+
-| **Beat (eating disorders)**      | Beat help people with eating     |
-|                                  | disorders and provide support    |
-|                                  | for those with emotional         |
-|                                  | overeating and difficulties with |
-|                                  | food, weight and shape. They     |
-|                                  | provide support services such as |
-|                                  | helplines, website, self help    |
-|                                  | and support groups and online    |
-|                                  | support.                         |
-+----------------------------------+----------------------------------+
-| **Resources for Schools from**   | Food - a fact of life provides a |
-| **British Nutrition Foundation** | wealth of free resources about   |
-|                                  | healthy eating, cooking, food    |
-|                                  | and farming for children and     |
-|                                  | young people aged 3 to 18 years. |
-|                                  | The resources are progressive to |
-|                                  | support the curriculum           |
-|                                  | throughout the UK. All resources |
-|                                  | are designed to ensure that      |
-|                                  | consistent and up-to-date        |
-|                                  | messages are delivered.          |
-+----------------------------------+----------------------------------+
-| **Eco Schools Scotland - Food**  | Resources, information and       |
-| **and the Environment Topic**    | projects that can be implemented |
-|                                  | in schools to help school-aged   |
-|                                  | children learn about the         |
-|                                  | production of food, making       |
-|                                  | healthy choices and considering  |
-|                                  | the impact of food production on |
-|                                  | the environment                  |
-+----------------------------------+----------------------------------+
++--------------------------------------+-------------------------------------+
+| Organisation                         | Description                         |
++======================================+=====================================+
+| **[Beat] (eating disorders)**        | Beat help people with eating        |
+|                                      | disorders and provide support       |
+|                                      | for those with emotional            |
+|                                      | overeating and difficulties with    |
+|                                      | food, weight and shape. They        |
+|                                      | provide support services such as    |
+|                                      | helplines, website, self help       |
+|                                      | and support groups and online       |
+|                                      | support.                            |
++--------------------------------------+-------------------------------------+
+| **Resources for Schools from**       | [Food - a fact of life] provides a  |
+| **British Nutrition Foundation**     | wealth of free resources about      |
+|                                      | healthy eating, cooking, food       |
+|                                      | and farming for children and        |
+|                                      | young people aged 3 to 18 years.    |
+|                                      | The resources are progressive to    |
+|                                      | support the curriculum              |
+|                                      | throughout the UK. All resources    |
+|                                      | are designed to ensure that         |
+|                                      | consistent and up-to-date           |
+|                                      | messages are delivered.             |
++--------------------------------------+-------------------------------------+
+| **Eco Schools Scotland -**           | Resources, information and          |
+| **[Food and the Environment Topic]** | projects that can be implemented    |
+|                                      | in schools to help school-aged      |
+|                                      | children learn about the            |
+|                                      | production of food, making          |
+|                                      | healthy choices and considering     |
+|                                      | the impact of food production on    |
+|                                      | the environment                     |
++--------------------------------------+-------------------------------------+
 
-*LINKS*
+<!-- *LINKS* -->
 
-- https://www.beateatingdisorders.org.uk/
-- https://www.foodafactoflife.org.uk/
-- https://www.keepscotlandbeautiful.org/education-and-learning/food-and-the-environment/
+[Beat]: https://www.beateatingdisorders.org.uk/
+[Food - a fact of life]: https://www.foodafactoflife.org.uk/
+[Food and the Environment Topic]: https://www.keepscotlandbeautiful.org/education-and-learning/food-and-the-environment/
 
 \newpage
 ## Physical activity and leisure time
@@ -723,7 +723,7 @@ bar_by_cat(var = Org_act_wkly, success = " At least one activity weekly", .censo
 
 
 ::: {custom-style="FigDesc"}
-Figures 24 and 25 shows the types of activities that young people
+The following figures show the types of activities that young people
 undertake, at least once a week.
 :::
 
