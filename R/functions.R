@@ -262,7 +262,7 @@ bar_multiple_vars <-
       group == "grade" ~ as.character(grade)
     )) |> 
       group_by(grouping) |> 
-      select(!!!syms(names(varslist))) |>
+      select(grouping, !!!syms(names(varslist))) |>
       summarise(across(everything(), ~ sum(.x %in% success)),
                 denom = n()) |>
       pivot_longer(-c(grouping, denom), names_to = "var", values_to = "n") |> 
@@ -350,7 +350,7 @@ bar_mean_multiple_vars <-
       group == "grade" ~ as.character(grade)
     )) |> 
       group_by(grouping) |> 
-      select(!!!syms(names(varslist))) |>
+      select(grouping, !!!syms(names(varslist))) |>
       mutate(across(everything(),
                     function(score){
                          chr_score <-  as.character(score)

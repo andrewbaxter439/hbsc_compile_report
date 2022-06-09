@@ -35,7 +35,7 @@ params:
   school: 
     label: 'School'
     input: select
-    value: "040"
+    value: "008"
     choices: ["003", "070", "075", "007", "008", "010", "013",
     "014", "017", "019", "021", "022", "024", "026", "028", "029", 
     "033", "034", "035", "040", "041", "045", "046", "047", "049", 
@@ -203,7 +203,7 @@ school_dat |> count(sex, grade) |>
   filter(if_all(everything(), ~! is.na(.x))) |> 
   pivot_wider(names_from = grade, values_from = n) |> 
   rename(" " = sex) |> 
-  rename_with(~paste0("&nbsp;&nbsp;&nbsp;&nbsp;", .x), .cols = 2:3) |> 
+  rename_with(~paste0("&nbsp;&nbsp;&nbsp;&nbsp;", .x), .cols = -1) |> 
   knitr::kable()
 ```
 
@@ -280,6 +280,8 @@ Pupils were asked to estimate the time they usually go to bed and wake up on sch
 
 Current NHS recommendations are that children aged 12-17 years should aim for a minimum of 8-9 hours' sleep per night.
 :::
+
+<!-- MISSING CAPTION -->
 
 ```{r}
 bar_mean_by_cat(Schooldays_sleep_hrs, .censor = params$censor, ylab = "Hours")
@@ -1023,6 +1025,7 @@ bedroom.
 bar_by_cat(var = smartphbed, success = " Has smartphone in bedroom", .censor = params$censor)
 ```
 
+<!-- MISSING CAPTION -->
 
 ```{r}
 bar_by_cat(var = TVbed, success = " Has TV in bedroom", .censor = params$censor)
