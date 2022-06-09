@@ -31,7 +31,7 @@ params:
   censor:
     label: 'Censor small numbers? Unselect only for development!'
     input: checkbox
-    value: TRUE
+    value: FALSE
   school: 
     label: 'School'
     input: select
@@ -103,6 +103,10 @@ school_dat <- hbsc2022[hbsc2022$SCHOOL_number == params$school,] |>
   )
 
 multi_grades <- "S2" %in% school_dat$grade & "S4" %in% school_dat$grade
+
+missing_vals <- school_dat |> 
+  summarise(missing_gender = sum(is.na(sex)),
+            missing_grade = sum(is.na(grade)))
 
 ```
 
@@ -181,15 +185,15 @@ As well as the data, we have included notes and research evidence along with sug
 ::: {custom-style="FigDesc"}
 Pupils in S2 and S4 classes in your school took part in the survey
 during spring Term 2022. Table 1 shows the number of pupils
-participating by year group and gender. *INSERT NUMBER* pupil(s) did not provide their year group and *INSERT NUMBER* pupil(s) did not provide their gender.
+participating by year group and gender. `r if(missing_vals$missing_grade > 0) paste0(missing_vals$missing_grade, " pupil", ifelse(missing_vals$missing_grade > 1, "s", ""), " did not provide their year group. ")` `r if(missing_vals$missing_gender > 0) paste0(missing_vals$missing_gender, " pupil", ifelse(missing_vals$missing_gender > 1, "s", ""), " did not provide their gender.")`
 :::
 
-```{r tab_n_pupils, tab.cap="Overview of survey respondents", tab.id = "n_pupils", tab.cap.style = "Caption"}
+```{r tab_n_pupils, tab.cap="Overview of survey respondents", tab.id = "n_pupils", tab.cap.style = "Caption", eval = TRUE}
 school_dat |> count(sex, grade) |> 
   filter(if_all(everything(), ~! is.na(.x))) |> 
   pivot_wider(names_from = grade, values_from = n) |> 
   rename(" " = sex) |> 
-  mutate(across(2:3, ~formatC(.x, width = 6))) |> 
+  mutate(across(2:3, ~paste0("&nbsp;&nbsp;&nbsp;&nbsp;", .x))) |> 
   knitr::kable()
 ```
 
@@ -492,8 +496,7 @@ bar_by_cat(var = aboutright, success = "Yes", .censor = params$censor)
 |                                  | tips that education staff can    |
 |                                  | build into their everyday        |
 |                                  | practice to support positive     | 
-|                                  | relationships with young people. | +----------------------------------+----------------------------------+
-| Organisation                     | Description                      |
+|                                  | relationships with young people. |
 +----------------------------------+----------------------------------+
 | **See Me Scotland**              | See Me is passionate about       |
 |                                  | ending mental health stigma and  |
