@@ -50,7 +50,7 @@ knitr::opts_chunk$set(
   message = FALSE,
   warning = FALSE,
   error = FALSE,
-  # eval = FALSE,
+  eval = FALSE,
   fig.width = 6.2,
   fig.height = 4.1,
   fig.topcaption = TRUE,
@@ -131,11 +131,12 @@ HEALTH BEHAVIOUR IN SCHOOL-AGED CHILDREN STUDY
 :::
 
 ::: {custom-style="Subtitle"}
-
 Scotland Pilot Study 2021
 
 Health and Wellbeing survey results for
+:::
 
+::: {custom-style="Schooltitle"}
 [`r params$school`]
 :::
 
@@ -146,7 +147,7 @@ Health and Wellbeing survey results for
 :::
 
 `r ftext(" ", fp_text(color = "white", font.size = 40, bold = TRUE, font.family = "Bradley Hand"))`
-`r fp_par(text.align = "center", padding.bottom = 280)`
+`r fp_par(text.align = "center", padding.bottom = 200)`
 
 ::: {custom-style="nowrap"}
 ![](images/comb_logo.png)
@@ -217,6 +218,9 @@ school_dat |>
 ```
 
 \newpage
+
+# Your school's survey results
+
 ## General Health and Sleep
 
 This chapter reports data on general health and sleep. It includes the following measures:
@@ -903,27 +907,27 @@ school_dat |>
 
 ### Who can help?
 
-+-----------------------------------+----------------------------------+
-| Organisation                      | Description                      |
-+===================================+==================================+
-| **Respectme**\                    | Respectme envisage a respecting, |
-| [Website][17]                     | just, equal and inclusive        |
-|                                   | Scotland in which all children   |
-|                                   | and young people can live free   |
-|                                   | from bullying and harassment and |
-|                                   | are encouraged to reach their    |
-|                                   | full potential. Their work is    |
-|                                   | driven by a focus on children's  |
-|                                   | rights.                          |
-+-----------------------------------+----------------------------------+
-| **The Children and Young**        | Protecting and promoting the     |
-| **People's Commissioner Scotland**| human rights of children and     |
-| [Website][18]                     | young people.                    |
-+-----------------------------------+----------------------------------+
-| **UNICEF-Rights Respecting**\     | A framework and resources for    |
-| [Website][19]                     | use in schools to teach children |
-|                                   | about rights.                    |
-+-----------------------------------+----------------------------------+
++-------------------------------------+----------------------------------+
+| Organisation                        | Description                      |
++=====================================+==================================+
+| **Respectme**\                      | Respectme envisage a respecting, |
+| [Website][17]                       | just, equal and inclusive        |
+|                                     | Scotland in which all children   |
+|                                     | and young people can live free   |
+|                                     | from bullying and harassment and |
+|                                     | are encouraged to reach their    |
+|                                     | full potential. Their work is    |
+|                                     | driven by a focus on children's  |
+|                                     | rights.                          |
++-------------------------------------+----------------------------------+
+| **The Children and Young**          | Protecting and promoting the     |
+| **People's Commissioner Scotland**\ | human rights of children and     |
+| [Website][18]                       | young people.                    |
++-------------------------------------+----------------------------------+
+| **UNICEF-Rights Respecting**\       | A framework and resources for    |
+| [Website][19]                       | use in schools to teach children |
+|                                     | about rights.                    |
++-------------------------------------+----------------------------------+
 
 <!-- *LINKS* -->
 

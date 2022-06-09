@@ -1,3 +1,6 @@
+# global setup ------------------------------------------------------------
+
+
 knitr::opts_chunk$set(
   echo = FALSE,
   message = FALSE,
@@ -54,14 +57,17 @@ theme_set(theme_minimal() +
 
 update_geom_defaults("bar", list(fill = primary_colour))
 
-source("R/import and clean data.R")
+
+# run test loop -----------------------------------------------------------
+
 
 hbsc2022 |> 
   filter(school_level == "Secondary") |> 
   pull(SCHOOL_number) |> 
   unique() |> 
-  sample(2) |> 
+  sample(5) |> 
   map(function(school) {
+    message("Running for school ", school)
     render("secondary_report_template.Rmd", output_file = paste0("pilot_out/school_", school, ".docx"),
            params = list(school = school, censor = TRUE))
   })
