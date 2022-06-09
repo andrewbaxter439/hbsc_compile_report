@@ -49,6 +49,7 @@ knitr::opts_chunk$set(
   message = FALSE,
   warning = FALSE,
   error = FALSE,
+  eval = FALSE,
   fig.width = 6.2,
   fig.height = 4.1,
   fig.topcaption = TRUE,
@@ -320,7 +321,7 @@ bar_mean_multiple_vars(
 +----------------------------------+----------------------------------+
 | Organisation                     | Description                      |
 +==================================+==================================+
-| **Sleep Scotland**               | Sleep Scotland aims to provide   |
+| [**Sleep Scotland**][1]          | Sleep Scotland aims to provide   |
 | Support Line: 0800 138 6565      | the most appropriate             |
 |                                  | intervention for families of     |
 |                                  | children with sleep problems.    |
@@ -332,8 +333,8 @@ bar_mean_multiple_vars(
 |                                  | professionals in schools.        |
 +----------------------------------+----------------------------------+
 
-*LINK*
-- https://www.sleepscotland.org/
+<!-- *LINKS* -->
+[1]: https://www.sleepscotland.org/
 
 \newpage
 ## Mental Health and Wellbeing
