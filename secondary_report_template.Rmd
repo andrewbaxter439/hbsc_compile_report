@@ -330,9 +330,9 @@ bar_mean_multiple_vars(
 +----------------------------------+----------------------------------+
 | Organisation                     | Description                      |
 +==================================+==================================+
-| **[Sleep Scotland]**             | Sleep Scotland aims to provide   |
+| **Sleep Scotland**               | Sleep Scotland aims to provide   |
 | Support Line: 0800 138 6565      | the most appropriate             |
-|                                  | intervention for families of     |
+| [Website][1]                     | intervention for families of     |
 |                                  | children with sleep problems.    |
 |                                  | They offer a range of resources  |
 |                                  | including, a Sleep Support Line  |
@@ -343,7 +343,7 @@ bar_mean_multiple_vars(
 +----------------------------------+----------------------------------+
 
 <!-- *LINKS* -->
-[Sleep Scotland]: https://www.sleepscotland.org/
+[1]: https://www.sleepscotland.org/
 
 \newpage
 ## Mental Health and Wellbeing
@@ -472,22 +472,22 @@ bar_by_cat(var = aboutright, success = "Yes", .censor = params$censor)
 +-------------------------------------+----------------------------------+
 | **Organisation**                    | **Description**                  |
 +=====================================+==================================+
-| **[MIND for better mental health]** | MIND provides advice and support |
-|                                     | to empower anyone experiencing a |
+| **MIND for better mental health**   | MIND provides advice and support |
+| [Website][2]                        | to empower anyone experiencing a |
 |                                     | mental health problem. They have |
 |                                     | information dedicated to         |
 |                                     | supporting children and young    |
 |                                     | people.                          |
 +-------------------------------------+----------------------------------+
-| [**Anna Freud National Centre**][2] | These resources, co-produced     |
-| **for Children and Families**       | with young people, aim to        |
-|                                     | provide information to young     |
+| **Anna Freud National Centre**      | These resources, co-produced     |
+| **for Children and Families**       | with young people, aim to        | 
+| [Website][3]                        | provide information to young     |
 |                                     | people on mental health and      |
 |                                     | wellbeing to help make informed  |
 |                                     | choices about their health.      |
 +-------------------------------------+----------------------------------+
-| **[Mental Health Foundation]**      | The Mental Health Foundation's   |
-|                                     | mission is to raise awareness of |
+| **Mental Health Foundation**        | The Mental Health Foundation's   |
+| [Website][4]                        | mission is to raise awareness of |
 |                                     | mental health through education, |
 |                                     | community and support and        |
 |                                     | thereby reduce the stigma        |
@@ -496,8 +496,8 @@ bar_by_cat(var = aboutright, success = "Yes", .censor = params$censor)
 |                                     | on different mental health       |
 |                                     | conditions.                      |
 +-------------------------------------+----------------------------------+
-| **[Barnado's Scotland]**            | Barnado's Scotland has put       |
-|                                     | together a film for everyone     |
+| **Barnado's Scotland**              | Barnado's Scotland has put       |
+| [Website][5]                        | together a film for everyone     |
 |                                     | involved in educating children   |
 |                                     | and young people, highlighting   |
 |                                     | the importance of relationships  |
@@ -508,47 +508,47 @@ bar_by_cat(var = aboutright, success = "Yes", .censor = params$censor)
 |                                     | practice to support positive     | 
 |                                     | relationships with young people. |
 +-------------------------------------+----------------------------------+
-| **[See Me Scotland]**               | See Me is passionate about       |
-|                                     | ending mental health stigma and  |
+| **See Me Scotland**                 | See Me is passionate about       |
+| [Website][6]                        | ending mental health stigma and  |
 |                                     | discrimination. The organisation |
 |                                     | works with individuals, groups,  |
 |                                     | communities, workplaces, and     |
 |                                     | education.                       |
 +-------------------------------------+----------------------------------+
-| **[Samaritans Scotland]**           | Samaritans supports schools,     |
-|                                     | college communities and other    |
+| **Samaritans Scotland**             | Samaritans supports schools,     |
+| [Website][7]                        | college communities and other    |
 |                                     | youth settings through our       | 
 |                                     | postvention services, lesson     |
 |                                     | plans and school talks.          |
 +-------------------------------------+----------------------------------+
-| **[Breathing Space]**               | Provides a free national         |
+| **Breathing Space**                 | Provides a free national         |
 | Call: 0800 838587                   | phoneline service to address     |
-|                                     | serious concerns about the       |
+| [Website][8]                        | serious concerns about the       |
 |                                     | mental wellbeing of people in    |
 |                                     | Scotland.                        |
 +-------------------------------------+----------------------------------+
-| **[Moodcafé]**                      | Resources for a range of mental  |
-|                                     | health issues and learning       |
+| **Moodcafé**                      | Resources for a range of mental  |
+| [Website][9]                        | health issues and learning       |
 |                                     | disabilities developed for young |
 |                                     | people, adults and families by   |
 |                                     | NHS Fife.                        |
 +-------------------------------------+----------------------------------+
-| **[Young Minds]**                   | Resources and information for    |
-|                                     | young people experiencing Mental |
+| **Young Minds**                     | Resources and information for    |
+| [Website][10]                       | young people experiencing Mental |
 |                                     | Health difficulties              |
 +-------------------------------------+----------------------------------+
 
 <!-- *LINKS* -->
 
-[MIND for better mental health]: https://www.mind.org.uk/information-support/for-childrenand-young-people
-[2]: https://www.annafreud.org/on-my-mind/
-[Mental Health Foundation]: https://mentalhealthfoundation.org/
-[Barnado's Scotland]: https://www.barnardos.org.uk/whatwe-do/supporting-young-people
-[See Me Scotland]: https://www.seemescotland.org/
-[Samaritans Scotland]: https://www.samaritans.org/scotland/how-we-can-help/schools/
-[Breathing Space]: https://www.breathingspace.scot/
-[Moodcafé]: http://www.moodcafe.co.uk/
-[Young Minds]: https://youngminds.org.uk/
+[2]: https://www.mind.org.uk/information-support/for-childrenand-young-people
+[3]: https://www.annafreud.org/on-my-mind/
+[4]: https://mentalhealthfoundation.org/
+[5]: https://www.barnardos.org.uk/whatwe-do/supporting-young-people
+[6]: https://www.seemescotland.org/
+[7]: https://www.samaritans.org/scotland/how-we-can-help/schools/
+[8]: https://www.breathingspace.scot/
+[9]: http://www.moodcafe.co.uk/
+[10]: https://youngminds.org.uk/
 
 \newpage
 ## Eating Habits
@@ -640,8 +640,8 @@ bar_by_cat(fmeal, c("Every day", "Most days"), .censor = params$censor)
 +--------------------------------------+-------------------------------------+
 | Organisation                         | Description                         |
 +======================================+=====================================+
-| **[Beat] (eating disorders)**        | Beat help people with eating        |
-|                                      | disorders and provide support       |
+| **Beat (eating disorders)**          | Beat help people with eating        |
+| [Website][11]                        | disorders and provide support       |
 |                                      | for those with emotional            |
 |                                      | overeating and difficulties with    |
 |                                      | food, weight and shape. They        |
@@ -652,7 +652,7 @@ bar_by_cat(fmeal, c("Every day", "Most days"), .censor = params$censor)
 +--------------------------------------+-------------------------------------+
 | **Resources for Schools from**       | [Food - a fact of life] provides a  |
 | **British Nutrition Foundation**     | wealth of free resources about      |
-|                                      | healthy eating, cooking, food       |
+| [Website][12]                        | healthy eating, cooking, food       |
 |                                      | and farming for children and        |
 |                                      | young people aged 3 to 18 years.    |
 |                                      | The resources are progressive to    |
@@ -663,8 +663,8 @@ bar_by_cat(fmeal, c("Every day", "Most days"), .censor = params$censor)
 |                                      | messages are delivered.             |
 +--------------------------------------+-------------------------------------+
 | **Eco Schools Scotland -**           | Resources, information and          |
-| **[Food and the Environment Topic]** | projects that can be implemented    |
-|                                      | in schools to help school-aged      |
+| **Food and the Environment Topic**   | projects that can be implemented    |
+| [Website][13]                        | in schools to help school-aged      |
 |                                      | children learn about the            |
 |                                      | production of food, making          |
 |                                      | healthy choices and considering     |
@@ -674,9 +674,9 @@ bar_by_cat(fmeal, c("Every day", "Most days"), .censor = params$censor)
 
 <!-- *LINKS* -->
 
-[Beat]: https://www.beateatingdisorders.org.uk/
-[Food - a fact of life]: https://www.foodafactoflife.org.uk/
-[Food and the Environment Topic]: https://www.keepscotlandbeautiful.org/education-and-learning/food-and-the-environment/
+[11]: https://www.beateatingdisorders.org.uk/
+[12]: https://www.foodafactoflife.org.uk/
+[13]: https://www.keepscotlandbeautiful.org/education-and-learning/food-and-the-environment/
 
 \newpage
 ## Physical Activity and Leisure Time
@@ -778,7 +778,7 @@ bar_multiple_vars(
 | Organisation                     | Description                      |
 +==================================+==================================+
 | **Sustrans**                     | Resources supporting children    |
-|                                  | and families to become more      |
+| [Website][14]                    | and families to become more      |
 |                                  | active through providing         |
 |                                  | information about walking and    |
 |                                  | cycling routes locally.          |
@@ -787,21 +787,21 @@ bar_multiple_vars(
 |                                  | activities.                      |
 +----------------------------------+----------------------------------+
 | **Sport Scotland - Schools**     | Resources and information for    |
-|                                  | schools on how to promote        |
+| [Website][15]                    | schools on how to promote        |
 |                                  | physical activity for young      |
 |                                  | people.                          |
 +----------------------------------+----------------------------------+
 | **Play Scotland**                | Scotland provide a range of      |
-|                                  | resources and ideas for keeping  |
+| [Website][16]                    | resources and ideas for keeping  |
 |                                  | children active through play     |
 |                                  | both indoors and outdoors.       |
 +----------------------------------+----------------------------------+
 
-*LINKS*
+<!-- *LINKS* -->
 
-- https://www.sustrans.org.uk/our-blog/projects/?location=Scotland&topic=Schools&p=1
-- https://sportscotland.org.uk/schools/
-- https://www.playscotland.org
+[14]: https://www.sustrans.org.uk/our-blog/projects/?location=Scotland&topic=Schools&p=1
+[15]: https://sportscotland.org.uk/schools/
+[16]: https://www.playscotland.org
 
 \newpage
 ## Experience of Bullying
@@ -870,7 +870,7 @@ bar_by_cat(var = Cbully_twice, success = "Yes", .censor = params$censor)
 | Organisation                     | Description                      |
 +==================================+==================================+
 | **Respectme**                    | Respectme envisage a respecting, |
-|                                  | just, equal and inclusive        |
+| [Website][17]                    | just, equal and inclusive        |
 |                                  | Scotland in which all children   |
 |                                  | and young people can live free   |
 |                                  | from bullying and harassment and |
@@ -881,18 +881,18 @@ bar_by_cat(var = Cbully_twice, success = "Yes", .censor = params$censor)
 +----------------------------------+----------------------------------+
 | **The Children and Young**       | Protecting and promoting the     |
 | **People'sCommissioner Scotland**| human rights of children and     |
-|                                  | young people.                    |
+| [Website][18]                    | young people.                    |
 +----------------------------------+----------------------------------+
 | **UNICEF-Rights Respecting**     | A framework and resources for    |
-|                                  | use in schools to teach children |
+| [Website][19]                    | use in schools to teach children |
 |                                  | about rights.                    |
 +----------------------------------+----------------------------------+
 
-*LINKS*
+<!-- *LINKS* -->
 
-- https://www.respectme.org.uk
-http://www.cypcs.org.uk
-- https://www.unicef.org.uk/rights-respecting-schools/resources/teaching-resources/
+[17]: https://www.respectme.org.uk
+[18]: http://www.cypcs.org.uk
+[19]: https://www.unicef.org.uk/rights-respecting-schools/resources/teaching-resources/
 
 ## Substance Use
 
@@ -939,7 +939,7 @@ success = c("drunk once or more", "Tried smoking", "Tried e-cigarette"),
 | Organisation                     | Description                      |
 +==================================+==================================+
 | **Alcohol Focus Scotland**       | AFS want to reduce the impact of |
-|                                  | alcohol on individuals,          |
+| [Website][20]                    | alcohol on individuals,          |
 |                                  | families, communities and        |
 |                                  | Scotland as a whole, through the |
 |                                  | implementation of effective      |
@@ -952,21 +952,21 @@ success = c("drunk once or more", "Tried smoking", "Tried e-cigarette"),
 | **ADEPIS (The Alcohol and Drug** | The Alcohol and Drug Education   |
 | **Education and Prevention**     | and Prevention Information       |
 | **Information Service)**         | Service (ADEPIS) was established |
-|                                  | by the prevention charity Mentor |
+| [Website][21]                    | by the prevention charity Mentor |
 |                                  | UK to share information and      |
 |                                  | resources with schools and       |
 |                                  | practitioners working in drug    |
 |                                  | and alcohol prevention.          |
 +----------------------------------+----------------------------------+
 | **Talk to Frank**                | Talk to Frank offers a           |
-|                                  | comprehensive set of information |
+| [Website][22]                    | comprehensive set of information |
 |                                  | on drugs, alcohol and tobacco,   |
 |                                  | including where to get help,     |
 |                                  | support centres and helplines    |
 +----------------------------------+----------------------------------+
 | **ASH Scotland-Children, young** | Action on Smoking and Health     |
 | **people and families**          | (ASH) Scotland is the            |
-|                                  | independent Scottish charity     |
+| [Website][23]                    | independent Scottish charity     |
 |                                  | taking action to reduce the harm |
 |                                  | caused by tobacco. Their vision  |
 |                                  | is that everyone has the right   |
@@ -975,7 +975,7 @@ success = c("drunk once or more", "Tried smoking", "Tried e-cigarette"),
 |                                  | caused by smoking.               |
 +----------------------------------+----------------------------------+
 | **Drink wise age well**          | Support centre based in Glasgow. |
-|                                  | Information and advice for those |
+| [Website][24]                    | Information and advice for those |
 |                                  | affected by harmful alcohol      |
 |                                  | intake. (Primarily aimed at      |
 |                                  | adults, but may be useful for    |
@@ -983,13 +983,13 @@ success = c("drunk once or more", "Tried smoking", "Tried e-cigarette"),
 |                                  | too).                            |
 +----------------------------------+----------------------------------+
 
-*LINKS*
+<!-- *LINKS* -->
 
-- https://www.alcohol-focus-scotland.org.uk/
-- https://mentor-adepis.org/planningeffective-education/
-- https://www.talktofrank.com/
-- https://www.ashscotland.org.uk/what-we-do/children-young-people-and-tobacco/>
-- https://drinkwiseagewell.org.uk/
+[20]: https://www.alcohol-focus-scotland.org.uk/
+[21]: https://mentor-adepis.org/planningeffective-education/
+[22]: https://www.talktofrank.com/
+[23]: https://www.ashscotland.org.uk/what-we-do/children-young-people-and-tobacco/
+[24]: https://drinkwiseagewell.org.uk/
 
 \newpage
 ## Electronic Media Use
@@ -1097,12 +1097,12 @@ Pupils who gamed each week were asked to complete the Internet Gaming Disorder (
 +==================================+==================================+
 | **Royal College of Paediatrics** | The RCPCH has provided a set of  |
 | **and Child Health (RCPCH)**     | factsheets and guidance to       |
-|                                  | better help parents negotiate    |
+| [Website][25]                    | better help parents negotiate    |
 |                                  | setting limits on screen time    |
 |                                  | with their children.             |
 +----------------------------------+----------------------------------+
 | **Childnet International**       | Childnet International's website |
-|                                  | aims to help make the internet a |
+| [Website][26]                    | aims to help make the internet a |
 |                                  | safe place for children and      |
 |                                  | young people and provides        |
 |                                  | up-to-date information about     |
@@ -1110,18 +1110,18 @@ Pupils who gamed each week were asked to complete the Internet Gaming Disorder (
 |                                  | social networking and more.      |
 +----------------------------------+----------------------------------+
 | **UK Safer Internet Centre**     | UK Safer Internet Centre         |
-|                                  | provides online safety tips,     |
+| [Website][27]                    | provides online safety tips,     |
 |                                  | advice and resources to help     |
 |                                  | children and young people stay   |
 |                                  | safe online.                     |
 +----------------------------------+----------------------------------+
 | **Scottish Government**          | Summary of Scottish Government's |
-|                                  | national action plan and links   |
+| [Website][28]                    | national action plan and links   |
 |                                  | to other organisations and       |
 |                                  | resources                        |
 +----------------------------------+----------------------------------+
 | **Thinkuknow**                   | The Thinkuknow site provides a   |
-|                                  | range of free education          |
+| [Website][29]                    | range of free education          |
 |                                  | resources and advice targeted at |
 |                                  | specific age groups, parents and |
 |                                  | those working with children,     |
@@ -1130,19 +1130,19 @@ Pupils who gamed each week were asked to complete the Internet Gaming Disorder (
 +----------------------------------+----------------------------------+
 | **Child Exploitation and Online**| Help making a report if you are  |
 | **Protection (CEOP) reporting**  | worried about online sexual      |
-|                                  | abuse or the way someone has     |
+| [Website][30]                    | abuse or the way someone has     |
 |                                  | been communicating online with a |
 |                                  | child.                           |
 +----------------------------------+----------------------------------+
 
-*LINKS*
+<!-- *LINKS* -->
 
-- https://www.rcpch.ac.uk/resources/health-impacts-screen-time-guide-clinicians-parents
-- https://www.childnet.com
-- https://www.saferinternet.org.uk
-- https://www.gov.scot/publications/national-action-plan-internet-safety-children-young-people/pages/9/
-- https://www.thinkuknow.co.uk
-- https://www.ceop.police.uk/safety-centre/
+[25]: https://www.rcpch.ac.uk/resources/health-impacts-screen-time-guide-clinicians-parents
+[26]: https://www.childnet.com
+[27]: https://www.saferinternet.org.uk
+[28]: https://www.gov.scot/publications/national-action-plan-internet-safety-children-young-people/pages/9/
+[29]: https://www.thinkuknow.co.uk
+[30]: https://www.ceop.police.uk/safety-centre/
 
 \newpage
 ## Impact of COVID-19 Pandemic
@@ -1266,44 +1266,44 @@ bar_by_cat(var = Trusted_adult, success = "Yes, I always do", .censor = params$c
 | Organisation                     | Description                      |
 +==================================+==================================+
 | **Parenting Across Scotland**    | Parenting across Scotland is a   |
-|                                  | partnership of charities which   |
+| [Website][31]                    | partnership of charities which   |
 |                                  | offers support to children and   |
 |                                  | families in Scotland.            |
 +----------------------------------+----------------------------------+
 | **Parent Club**                  | The Scottish Government website  |
-|                                  | for parents covering everything  |
+| [Website][32]                    | for parents covering everything  |
 |                                  | from online safety, food and     |
 |                                  | eating to raising a teenager.    |
 +----------------------------------+----------------------------------+
 | **Children1st**                  | Parenting First helps families   |
-|                                  | in Scotland to put children      |
+| [Website][33]                    | in Scotland to put children      |
 |                                  | first, with practical advice and |
 |                                  | with support in difficult times. |
 +----------------------------------+----------------------------------+
 | **One-Parent Families Scotland** | A free helpline providing        |
-|                                  | impartial and confidential       |
+| [Website][34]                    | impartial and confidential       |
 |                                  | advice to single-parent families.|
 +----------------------------------+----------------------------------+
 | **Carerstrust Scotland**         | Carers Trust Scotland is the     |
-|                                  | largest provider of support      |
+| [Website][35]                    | largest provider of support      |
 |                                  | services for carers in Scotland. |
 +----------------------------------+----------------------------------+
 | **LGBT Youth Scotland**          | LGBT Youth Scotland provides     |
-|                                  | advice and support for young     |
+| [Website][36]                    | advice and support for young     |
 |                                  | people and their families around |
 |                                  | LGBTI+ issues, as well as        |
 |                                  | guidance for schools on making   |
 |                                  | schools more LGBTI+ inclusive.   |
 +----------------------------------+----------------------------------+
 
-*LINKS*
+<!-- *LINKS* -->
 
-- https://www.parentingacrossscotland.org/info-for-families/
-- https://www.parentclub.scot/
-- https://www.children1st.org.uk/help-for-families/
-- https://www.opfs.org.uk/
-- https://www.carers.org/country/carers-trust-scotland
-- https://www.lgbtyouth.org.uk
+[31]: https://www.parentingacrossscotland.org/info-for-families/
+[32]: https://www.parentclub.scot/
+[33]: https://www.children1st.org.uk/help-for-families/
+[34]: https://www.opfs.org.uk/
+[35]: https://www.carers.org/country/carers-trust-scotland
+[36]: https://www.lgbtyouth.org.uk
 
 \newpage
 ##  School Environment
@@ -1363,16 +1363,16 @@ bar_by_cat(var = stud_support_scale_cutoff, success = "High student support", .c
 +==================================+==================================+
 | **NHS Inform Scotland-Coping**   | Information for parents/carers   |
 | **with exam stress**             | on how to support children when  |
-|                                  | they are coping with exam        |
+| [Website][37]                    | they are coping with exam        |
 |                                  | stress.                          |
 +----------------------------------+----------------------------------+
 | **Young Scot-Advice on**         | Advice and information on coping |
 | **dealing with exam stress**     | with exam stress for young       |
-|                                  | people.                          |
+| [Website][38]                    | people.                          |
 +----------------------------------+----------------------------------+
 | **Eco Schools Scotland-School**  | Research by Learning Through     |
 | **Grounds**                      | Landscapes finds that well-      |
-|                                  | designed school grounds can      |
+| [Website][39]                    | designed school grounds can      |
 |                                  | improve behaviour, reduce        |
 |                                  | bullying and cut vandalism.      |
 |                                  | Improving your school's outdoor  |
@@ -1388,14 +1388,15 @@ bar_by_cat(var = stud_support_scale_cutoff, success = "High student support", .c
 | **Mental Health Foundation**     | Campaign for schools to take     |
 | **campaign-"Mental Health in**   | action on Mental Health. Links   |
 | **Schools: Make it Count"**      | to resources and guidance.       |
+| [Website][36]                    |                                  |
 +----------------------------------+----------------------------------+
 
-*LINKS*
+<!-- *LINKS* -->
 
-- https://www.nhsinform.scot/healthy-living/mental-wellbeing/stress/coping-with-exam-stress
-- https://young.scot/get-informed/national/how-you-can-survive-the-stress-of-exams
-- https://www.keepscotlandbeautiful.org/education-and-learning/eco-schools/green-flag-award/ten-topics/school-grounds/
-- https://www.mentalhealth.org.uk/projects/peer-education-projectpep/schools-resources
+[37]: https://www.nhsinform.scot/healthy-living/mental-wellbeing/stress/coping-with-exam-stress
+[38]: https://young.scot/get-informed/national/how-you-can-survive-the-stress-of-exams
+[39]: https://www.keepscotlandbeautiful.org/education-and-learning/eco-schools/green-flag-award/ten-topics/school-grounds/
+[40]: https://www.mentalhealth.org.uk/projects/peer-education-projectpep/schools-resources
 
 
 /newpage
