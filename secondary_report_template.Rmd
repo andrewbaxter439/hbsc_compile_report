@@ -137,7 +137,7 @@ Health and Wellbeing survey results for
 :::
 
 ::: {custom-style="Schooltitle"}
-[`r params$school`]
+[`r ifelse(is.null(params$school_name), params$school, params$school_name)`]
 :::
 
 ::: {custom-style="Title"}
