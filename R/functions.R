@@ -281,7 +281,7 @@ bar_multiple_vars <-
         grouping = factor(grouping, levels = c("Girls", "Boys", "S2", "S4", "1"))
       ) |>
       filter(!is.na(grouping)) |> 
-      ggplot(aes(fct_inorder(labels), prop, alpha = factor(censored), linetype = factor(censored), fill = grouping, colour = grouping)) +
+      ggplot(aes(fct_inorder(labels), prop, alpha = factor(censored), linetype = factor(censored), fill = grouping, colour = grouping, group = grouping)) +
       geom_bar_t(stat = "identity", position = position_dodge(width = 0.6)) +
       scale_alpha_manual(values = c("1" = 0.2, "0" = 1), guide = guide_none()) +
       scale_linetype_manual(values = c("1" = "dashed", "0" = "solid"), guide = guide_none()) +
@@ -354,8 +354,9 @@ bar_mean_multiple_vars <-
       group == "sex" ~ as.character(sex),
       group == "grade" ~ as.character(grade)
     )) |> 
-      group_by(grouping) |> 
       select(grouping, !!!syms(names(varslist))) |>
+      filter(if_all(.fns = ~!is.na(.x))) |> 
+      group_by(grouping) |> 
       mutate(across(everything(),
                     function(score){
                          chr_score <-  as.character(score)
@@ -382,7 +383,7 @@ bar_mean_multiple_vars <-
         grouping = factor(grouping, levels = c("Girls", "Boys", "S2", "S4", "1"))
       )
     
-      ggplot(clean_dat, aes(fct_inorder(labels), mean, alpha = factor(censored), linetype = factor(censored), fill = grouping, colour = grouping)) +
+      ggplot(clean_dat, aes(fct_inorder(labels), mean, alpha = factor(censored), linetype = factor(censored), fill = grouping, colour = grouping, group = grouping)) +
       geom_bar_t(stat = "identity", position = position_dodge(width = 0.6)) +
       scale_alpha_manual(values = c("1" = 0.2, "0" = 1), guide = guide_none()) +
       scale_linetype_manual(values = c("1" = "dashed", "0" = "solid"), guide = guide_none()) +
@@ -410,17 +411,18 @@ bar_mean_multiple_vars <-
 
 # test
 # 
-# bar_mean_multiple_vars(
-#   list(
-#     SleepQual_GTB = "Bedtime behaviours",
-#     SleepQual_FARS = "Sleep efficiency",
-#     SleepQual_RTW = "Morning wakefulness"
-#   ),
-#   group = "sex",
-#   .censor = TRUE,
-#   ymax = 6,
-#   ylab = "Score"
-# )
+bar_mean_multiple_vars(
+  school_dat,
+  list(
+    SleepQual_GTB = "Bedtime behaviours",
+    SleepQual_FARS = "Sleep efficiency",
+    SleepQual_RTW = "Morning wakefulness"
+  ),
+  group = "sex",
+  .censor = TRUE,
+  ymax = 6,
+  ylab = "Score"
+)
 
 
 # covid concerns graphs ---------------------------------------------------
