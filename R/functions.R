@@ -44,7 +44,7 @@ bar_by_cat <- function(.data,
                 vjust = 0, 
                 nudge_y = 0.05,
                 size = 4) +
-      coord_cartesian(ylim = c(0, 1))
+      coord_cartesian(ylim = c(0, 1), clip = "off")
     
   } else { # Test semi-censored version
     
@@ -102,7 +102,7 @@ bar_by_cat <- function(.data,
                 vjust = 0, 
                 nudge_y = 0.05,
                 size = 4) +
-      coord_cartesian(ylim = c(0, 1))
+      coord_cartesian(ylim = c(0, 1), clip = "off")
   } else {
     p2 <- NULL
   }
@@ -111,8 +111,10 @@ bar_by_cat <- function(.data,
 }
 
 # test
-# bar_by_cat(fmeal, c("Every day", "Most days"), .censor = params$censor)
-# bar_by_cat(var = breakfastwd, success = "Five days", .censor = FALSE)
+# school_dat |>
+#   bar_by_cat(health, c("Good", "Excellent"),
+#              .censor = params$censor)
+
 
 # graphing mean of single var ---------------------------------------
 
@@ -165,7 +167,7 @@ bar_mean_by_cat <- function(.data,
                 vjust = 0, 
                 nudge_y = 0.05 * ymax,
                 size = 4) +
-      coord_cartesian(ylim = c(0, ymax))
+      coord_cartesian(ylim = c(0, ymax), clip = "off")
     
     } else { # Test semi-censored version 
       
@@ -183,7 +185,7 @@ bar_mean_by_cat <- function(.data,
                 vjust = 0, 
                 nudge_y = 0.05 * ymax,
                 size = 4) +
-      coord_cartesian(ylim = c(0, ymax))
+      coord_cartesian(ylim = c(0, ymax), clip = "off")
     
     }
     
@@ -221,7 +223,7 @@ bar_mean_by_cat <- function(.data,
                 vjust = 0, 
                 nudge_y = 0.05 * ymax,
                 size = 4) +
-      coord_cartesian(ylim = c(0, ymax))
+      coord_cartesian(ylim = c(0, ymax), clip = "off")
   } else {
     p2 <- NULL
   }
@@ -301,25 +303,27 @@ bar_multiple_vars <-
                 colour = "black",
                 position = position_dodge(width = 0.6),
                 size = 4) +
-      coord_cartesian(ylim = c(0, 1))
+      coord_cartesian(ylim = c(0, 1), clip = "off")
     
   }
 
 # test
 # 
-# bar_multiple_vars(
-#   varslist = list(
-#     ls_teamsp_wk = "Team sports",
-#     ls_indsport_wk = "Individual sports",
-#     ls_arts_wk = "Artistic activities",
-#     ls_youth_wk = "Youth organisation",
-#     ls_club_wk = "Club activity",
-#     ls_relig_wk = "Religious activity"
-#   ),
-#   success = "At least weekly",
-#   group = "sex",
-#   .censor = TRUE
-# )
+# school_dat |> 
+#   bar_multiple_vars(
+#     list(
+#       fruits_2 = "Fruit",
+#       vegetables_2 = "Vegetables",
+#       chips3 = "Chips",
+#       sweets_2 = "Sweets",
+#       fruitjuice = "Fruit juice",
+#       softdrinks_2 = "Soft drinks",
+#       energydrink = "Energy drinks"
+#     ),
+#     success = c("Once a day, every day", "Every day, more than once"),
+#     group = "sex",
+#     .censor = params$censor
+#   )
 
 # mean multiple vars --------------------------------------------------
 
@@ -400,7 +404,7 @@ bar_mean_multiple_vars <-
                   colour = "black",
                   position = position_dodge(width = 0.6),
                   size = 4) +
-        coord_cartesian(ylim = c(0, ymax))
+        coord_cartesian(ylim = c(0, ymax), clip = "off")
     
   }
 
@@ -473,7 +477,7 @@ bar_diverging <- function(.data, category, ordervals = c(
     geom_text(aes(label = percent(abs(value), suffix="", accuracy = 1),
                   x = value + 0.1*if_else(dir == "neg", -1, 1)),
               size = 4) +
-    coord_cartesian(xlim = c(-1, 1))
+    coord_cartesian(xlim = c(-1, 1), clip = "off")
 }
 
 # test
