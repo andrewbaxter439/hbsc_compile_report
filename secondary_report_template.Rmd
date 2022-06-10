@@ -35,12 +35,16 @@ params:
   school: 
     label: 'School'
     input: select
-    value: "049"
+    value: "058"
     choices: ["003", "070", "075", "007", "008", "010", "013",
     "014", "017", "019", "021", "022", "024", "026", "028", "029", 
     "033", "034", "035", "040", "041", "045", "046", "047", "049", 
     "051", "054", "055", "058", "059", "060", "062", "064", "069", 
     "072", "074", "076", "078", "083", "084", "056", "061", "063"]
+  school_name:
+    label: 'School name'
+    input: text
+    value: NA
 
 ---
 
@@ -138,7 +142,7 @@ Health and Wellbeing survey results for
 :::
 
 ::: {custom-style="Schooltitle"}
-[`r ifelse(is.null(params$school_name), params$school, params$school_name)`]
+`r ifelse(params$school_name == "NA", params$school, params$school_name)`
 :::
 
 ::: {custom-style="Title"}
@@ -212,7 +216,7 @@ participating by year group and gender. `r if(missing_vals$missing_grade > 0) pa
 school_dat |>
   count(sex, grade) |> 
   filter(if_all(everything(), ~! is.na(.x))) |> 
-  pivot_wider(names_from = grade, values_from = n) |> 
+  pivot_wider(names_from = grade, values_from = n, values_fill = 0) |> 
   rename(" " = sex) |> 
   rename_with(~paste0("&nbsp;&nbsp;&nbsp;&nbsp;", .x), .cols = -1) |> 
   knitr::kable()
@@ -889,7 +893,7 @@ Pupils were asked how often they had experienced various types of bullying behav
 -   Other pupils made sexual jokes or gestures to them -- `r perc_success(school_dat, Bully_sexjoke, "Bullied 2-3 times+")`
 -   Being called names, made fun of or teased -- `r perc_success(school_dat, Bully_names, "Bullied 2-3 times+")`
 <!-- This one doesn't seem to have a variable? -->
-<!-- -   Received mean comments about weight -- `r perc_success(school_dat, Bully_, "Bullied 2-3 times+")`% -->
+<!-- -   Received mean comments about weight -- -->
 -   Other pupils told lies or spread rumours about them -- `r perc_success(school_dat, Bully_rumours, "Bullied 2-3 times+")`
 -   Being left out, excluded or ignored -- `r perc_success(school_dat, Bully_excluded, "Bullied 2-3 times+")`
 
@@ -1463,7 +1467,7 @@ school_dat |>
 [40]: https://www.mentalhealth.org.uk/projects/peer-education-projectpep/schools-resources
 
 
-/newpage
+\newpage
 # Challenge Questions 
 
 The aim of these challenge questions is to support interpretation of the

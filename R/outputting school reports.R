@@ -73,6 +73,10 @@ hbsc2022 |>
   })
 
 
+# knitting secondaries with complete s2 and s4 ----------------------------
+
+
+
 schools_to_knit <- hbsc2022 |> 
   filter(school_level == "Secondary") |> 
   group_by(SCHOOL_number, Grade) |> 
@@ -100,5 +104,27 @@ schools <-
 
 # interim final output ----------------------------------------------------
 
+library(rmarkdown)
+
 schools_to_knit |> 
+  head(5) |> 
+  left_join(schools, by = "SCHOOL_number") |> 
+  rowwise() |>
+  group_walk(function(df, key) {
+    
+    dir_write <- file.path(out_dir, "draft report outputs", df$LA)
+    
+    if (!dir.exists(dir_write)) {
+      dir.create(dir_write)
+    }
+    
+   render("secondary_report_template.Rmd",
+          params = list(
+            school = df$SCHOOL_number,
+            school_name = df$school_name,
+            censor = TRUE
+          ),
+          output_file = file.path(dir_write, paste0(str_remove_all(df$school_name, "[:punctuation:]"), ".docx")))
+  
+  })
   

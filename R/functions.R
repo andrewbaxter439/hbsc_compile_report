@@ -411,18 +411,18 @@ bar_mean_multiple_vars <-
 
 # test
 # 
-bar_mean_multiple_vars(
-  school_dat,
-  list(
-    SleepQual_GTB = "Bedtime behaviours",
-    SleepQual_FARS = "Sleep efficiency",
-    SleepQual_RTW = "Morning wakefulness"
-  ),
-  group = "sex",
-  .censor = TRUE,
-  ymax = 6,
-  ylab = "Score"
-)
+# bar_mean_multiple_vars(
+#   school_dat,
+#   list(
+#     SleepQual_GTB = "Bedtime behaviours",
+#     SleepQual_FARS = "Sleep efficiency",
+#     SleepQual_RTW = "Morning wakefulness"
+#   ),
+#   group = "sex",
+#   .censor = TRUE,
+#   ymax = 6,
+#   ylab = "Score"
+# )
 
 
 # covid concerns graphs ---------------------------------------------------
