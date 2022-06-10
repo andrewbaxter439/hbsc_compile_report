@@ -174,6 +174,7 @@ bar_mean_by_cat <- function(.data,
     #   representing all students.
     
     p1 <- df_sex |>
+      summarise(mean_var = weighted.mean(mean_var, w = denom)) |> 
       ggplot(aes("All pupils", mean_var)) +
       geom_bar_t(stat = "identity") +
       scale_fill_hbsc() +
@@ -232,7 +233,8 @@ bar_mean_by_cat <- function(.data,
 
 # test
 
-# bar_mean_by_cat(Schooldays_sleep_hrs, .censor = FALSE)
+# school_dat |>
+#   bar_mean_by_cat(Schooldays_sleep_hrs, .censor = params$censor, ylab = "Hours")
 
 # graphing multiple vars --------------------------------------------------
 
