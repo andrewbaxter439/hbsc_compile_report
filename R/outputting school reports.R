@@ -71,3 +71,34 @@ hbsc2022 |>
     render("secondary_report_template.Rmd", output_file = paste0("pilot_out/school_", school, ".docx"),
            params = list(school = school, censor = TRUE))
   })
+
+
+schools_to_knit <- hbsc2022 |> 
+  filter(school_level == "Secondary") |> 
+  group_by(SCHOOL_number, Grade) |> 
+  tally() |> 
+  pivot_wider(names_from = Grade, values_from = n) |> 
+  mutate(total = sum(`Secondary 2`, `Secondary 4`, na.rm = FALSE)) |> 
+  filter(!is.na(total)) |> 
+  arrange(total)
+
+  
+
+# importing school ids ----------------------------------------------------
+
+out_dir <- "Q:\\Project Recipient Data\\HBSC 2022\\School ID\\Report tracking"
+  
+schools <-
+  readxl::read_excel(
+    "Q:\\Project Recipient Data\\HBSC 2022\\School ID\\Report tracking\\Report overview_pre Easter.xlsx",
+    sheet = "S2 and S4 pre Easter"
+  ) |>
+  select(school_name = `School Name`, LA, id = `Research ID (S2)`) |>
+  mutate(SCHOOL_number = str_extract(id, "(?<=^S\\d)\\d{3}(?=\\.xlsx$)"),
+         .keep = "unused")
+
+
+# interim final output ----------------------------------------------------
+
+schools_to_knit |> 
+  
