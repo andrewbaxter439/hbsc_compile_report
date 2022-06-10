@@ -66,9 +66,10 @@ library(officer)
 library(haven)
 library(patchwork)
 
-primary_colour <-  "#2e3192"
+primary_colour <-  "#C00000"
 secondary_colour <- "#016bb2"
 main_colour <- "#333333"
+global_all_pupils_colour <- "#C00000"
 global_girls_colour <- "#2F5597"
 global_boys_colour <- "#DAE3F3"
 global_s2_colour <- "#548235"
