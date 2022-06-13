@@ -62,7 +62,8 @@ bar_by_cat <- function(.data,
                 vjust = 0, 
                 nudge_y = 0.05,
                 size = 4) +
-      coord_cartesian(ylim = c(0, 1))
+      theme(plot.margin = unit(c(0.5, 0, 0, 1),  "cm")) +
+      coord_cartesian(ylim = c(0, 1), clip = "off")
   }
   # For full censoring
   # } else {
@@ -205,7 +206,7 @@ bar_mean_by_cat <- function(.data,
               denom = n()) |>
     filter(!is.na(grade))
   
-  if ((length(df_school$grade) == 2 & all(df_sex$denom > 3) &
+  if ((length(df_school$grade) == 2 & all(df_sex$denom > 7) &
        all(df_school$denom >= 7)) | (length(df_school$grade) == 2 & .censor == FALSE)) {
     # * for secondary schools, only separate by year if there are ≥7 S2 AND ≥7 S4).
     
