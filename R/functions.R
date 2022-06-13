@@ -424,7 +424,7 @@ bar_mean_multiple_vars <-
       mutate(
         censored = if_else(denom < 3 & .censor, 1, 0),
         labels = varslist[[var]][1],
-        mean = if_else(censored == 1, ymax/2, mean),
+        mean = if_else(censored == 1, ymax, mean),
         bar_lab_main = if_else(censored == 1, na_dbl, round(mean, 1)),
         bar_lab_cens = if_else(censored == 1, "Numbers too low to show", ""),
         grouping = factor(grouping, levels = c("Girls", "Boys", "S2", "S4", "1"))
