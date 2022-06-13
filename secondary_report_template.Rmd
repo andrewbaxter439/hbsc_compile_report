@@ -902,7 +902,7 @@ Pupils were asked how often they had experienced various types of bullying behav
 ::: {custom-style="FigDesc"}
 Pupils were also asked how often they had cyberbullied someone else in the past couple of months and how often they had been a victim of cyberbullying. The following figure presents the percentage of pupils who report cyberbullying others at least once or twice over past couple of months.
 
-Overall, `r perc_success(school_dat, cbeenbullied, c("It has happened once or twice", "2 or 3 times a month", "About once a week", "Several times a week"))` of all pupils surveyed, indicated that they had been a victim of cyberbullying at least once or twice over the past couple of months (not shown in figure).
+Overall, `r perc_success(school_dat, cbeenbullied, c("It has happened once or twice", "2 or 3 times a month", "About once a week", "Several times a week"))` of all pupils surveyed indicated that they had been a victim of cyberbullying at least once or twice over the past couple of months (not shown in figure).
 :::
 
 ```{r cyberbullying, fig.cap="% pupils reporting cyberbullying others in past couple of months"}

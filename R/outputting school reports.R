@@ -107,7 +107,7 @@ schools <-
 library(rmarkdown)
 
 schools_to_knit |> 
-  head(5) |> 
+  tail(5) |> 
   left_join(schools, by = "SCHOOL_number") |> 
   rowwise() |>
   group_walk(function(df, key) {
@@ -118,13 +118,18 @@ schools_to_knit |>
       dir.create(dir_write)
     }
     
-   render("secondary_report_template.Rmd",
-          params = list(
-            school = df$SCHOOL_number,
-            school_name = df$school_name,
-            censor = TRUE
-          ),
-          output_file = file.path(dir_write, paste0(str_remove_all(df$school_name, "[:punctuation:]"), ".docx")))
-  
+    render(
+      "secondary_report_template.Rmd",
+      params = list(
+        school = df$SCHOOL_number,
+        school_name = df$school_name,
+        censor = TRUE
+      ),
+      output_file = file.path(dir_write, paste0(
+        str_remove_all(df$LA, "[:punctuation:]"), " - ",
+        str_remove_all(df$school_name, "[:punctuation:]"), ".docx"
+      ))
+    )
+    
   })
   
