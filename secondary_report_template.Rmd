@@ -963,36 +963,53 @@ Pupils were asked if they had ever (in their lifetime):
 -   smoked tobacco
 -   vaped
 
-::: {custom-style="FigDesc"}
-The figures show the percentage of pupils who have used each substance
-at least once in their lifetime.
-:::
+```{r test_substance_use_denoms, include=FALSE}
 
-```{r substance_gender, fig.cap="% pupils who reported substance use in their lifetime, by gender"}
-school_dat |> 
-  bar_multiple_vars(list(
+subs_use_vars <- list(
   drunk1life = "Been drunk",
   smokever = "Tried tobacco",
   ecigever = "Tried vaping"
-),
-success = c("drunk once or more", "Tried smoking", "Tried e-cigarette"),
-group = "sex",
-.censor = params$censor
 )
+
+include_subs_split <- test_bar_multiple_vars(school_dat, subs_use_vars)
+
 ```
 
 
-```{r substance_grade, fig.cap="% pupils who reported substance use in their lifetime, by year group"}
-school_dat |> 
-  bar_multiple_vars(list(
-  drunk1life = "Been drunk",
-  smokever = "Tried tobacco",
-  ecigever = "Tried vaping"
-),
-success = c("drunk once or more", "Tried smoking", "Tried e-cigarette"),
-group = "grade",
-.censor = params$censor
-)
+::: {custom-style="FigDesc"}
+`r if(include_subs_split){"The figures show"} else {"This figure shows"}` the percentage of pupils who have used each substance at least once in their lifetime.
+:::
+
+```{r substance_combined, fig.cap="% pupils who reported substance use in their lifetime", eval=!include_subs_split}
+school_dat |>
+  bar_multiple_vars(
+    subs_use_vars,
+    success = c("drunk once or more", "Tried smoking", "Tried e-cigarette"),
+    group = "none",
+    .censor = FALSE
+  )
+```
+
+
+```{r substance_gender, fig.cap="% pupils who reported substance use in their lifetime, by gender", eval=include_subs_split}
+school_dat |>
+  bar_multiple_vars(
+    subs_use_vars,
+    success = c("drunk once or more", "Tried smoking", "Tried e-cigarette"),
+    group = "sex",
+    .censor = FALSE
+  )
+```
+
+
+```{r substance_grade, fig.cap="% pupils who reported substance use in their lifetime, by year group", eval=include_subs_split}
+school_dat |>
+  bar_multiple_vars(
+    subs_use_vars,
+    success = c("drunk once or more", "Tried smoking", "Tried e-cigarette"),
+    group = "grade",
+    .censor = FALSE
+  )
 ```
 
 
@@ -1113,30 +1130,36 @@ Pupils were asked to estimate how many hours a day in their free time they spend
 
 ```{r screen_use_sex, fig.cap="Mean time (hours) pupils spend per day using a screen, by gender"}
 school_dat |>
-  bar_mean_multiple_vars(list(
-  sit_gamehr = "Gaming",
-  sit_socnethr = "Social media",
-  sit_watchhr = "Watching TV",
-  sit_browhr = "Browsing internet"
-),
-group = "sex",
-ylab = "Hours",
-.censor = params$censor)
+  bar_mean_multiple_vars(
+    list(
+      sit_gamehr = "Gaming",
+      sit_socnethr = "Social media",
+      sit_watchhr = "Watching TV",
+      sit_browhr = "Browsing internet"
+    ),
+    group = "sex",
+    ymax = 6,
+    ylab = "Hours",
+    .censor = params$censor
+  )
 ```
 
 
 
 ```{r screen_use_grade, fig.cap="Mean time (hours) pupils spend per day using a screen, by year group"}
 school_dat |>
-  bar_mean_multiple_vars(list(
-  sit_gamehr = "Gaming",
-  sit_socnethr = "Social media",
-  sit_watchhr = "Watching TV",
-  sit_browhr = "Browsing internet"
-),
-group = "grade",
-ylab = "Hours",
-.censor = params$censor)
+  bar_mean_multiple_vars(
+    list(
+      sit_gamehr = "Gaming",
+      sit_socnethr = "Social media",
+      sit_watchhr = "Watching TV",
+      sit_browhr = "Browsing internet"
+    ),
+    group = "grade",
+    ymax = 6,
+    ylab = "Hours",
+    .censor = params$censor
+  )
 ```
 
 ### Problematic social media use

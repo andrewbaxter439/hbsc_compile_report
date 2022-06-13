@@ -245,27 +245,44 @@ bar_mean_by_cat <- function(.data,
 test_bar_multiple_vars <-
   function(.data,
            varslist,
-           success = c("More than once a week", "About every day")) {
+           success) {
+    
+    missing_success <- is_missing(success)
+    
     .data |> 
       group_by(sex) |> 
       select(sex, !!!syms(names(varslist))) |>
-      summarise(across(everything(), ~ sum(.x %in% success)),
+      summarise(across(everything(), function(vars) {
+        if(missing_success) {
+          sum(!is.na(vars))
+        } else {
+          sum(vars %in% success)
+        }
+        }),
                 denom = n()) |>
       pivot_longer(-c(sex, denom), names_to = "var", values_to = "n") |> 
       filter(!is.na(sex)) |> 
-      mutate(include = denom >= 7 | n >= 3) |> 
+      mutate(include = denom >= 7 & n >= 3) |> 
       summarise(include = all(include)) |> 
       pull(include)
   }
 
-school_dat |> 
-  test_bar_multiple_vars(list(
-    drunk1life = "Been drunk",
-    smokever = "Tried tobacco",
-    ecigever = "Tried vaping"
-  ),
-  success = c("drunk once or more", "Tried smoking", "Tried e-cigarette"))
+# school_dat |> 
+#   test_bar_multiple_vars(list(
+#     drunk1life = "Been drunk",
+#     smokever = "Tried tobacco",
+#     ecigever = "Tried vaping"
+#   ),
+#   success = c("drunk once or more", "Tried smoking", "Tried e-cigarette"))
 
+# school_dat |>
+#   test_bar_multiple_vars(
+#     list(
+#       sit_gamehr = "Gaming",
+#       sit_socnethr = "Social media",
+#       sit_watchhr = "Watching TV",
+#       sit_browhr = "Browsing internet"
+#     ))
 
 # graphing multiple vars --------------------------------------------------
 
@@ -367,8 +384,8 @@ bar_multiple_vars <-
 #'   output)
 
 bar_mean_multiple_vars <-
-  function(.data, varslist,
-           success = c("More than once a week", "About every day"),
+  function(.data, 
+           varslist,
            group = c("none", "grade", "sex"),
            .censor = TRUE,
            limits = c(`Poor quality` = 1,
