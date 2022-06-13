@@ -239,6 +239,34 @@ bar_mean_by_cat <- function(.data,
 # school_dat |>
 #   bar_mean_by_cat(Schooldays_sleep_hrs, .censor = params$censor, ylab = "Hours")
 
+
+# test multiple vars for denominator size ---------------------------------
+
+test_bar_multiple_vars <-
+  function(.data,
+           varslist,
+           success = c("More than once a week", "About every day")) {
+    .data |> 
+      group_by(sex) |> 
+      select(sex, !!!syms(names(varslist))) |>
+      summarise(across(everything(), ~ sum(.x %in% success)),
+                denom = n()) |>
+      pivot_longer(-c(sex, denom), names_to = "var", values_to = "n") |> 
+      filter(!is.na(sex)) |> 
+      mutate(include = denom >= 7 | n >= 3) |> 
+      summarise(include = all(include)) |> 
+      pull(include)
+  }
+
+school_dat |> 
+  test_bar_multiple_vars(list(
+    drunk1life = "Been drunk",
+    smokever = "Tried tobacco",
+    ecigever = "Tried vaping"
+  ),
+  success = c("drunk once or more", "Tried smoking", "Tried e-cigarette"))
+
+
 # graphing multiple vars --------------------------------------------------
 
 #' Graphing multiple variables as bars with percentage prevalence in each
@@ -250,6 +278,7 @@ bar_mean_by_cat <- function(.data,
 #' @param .data Data file to use
 #' @param .censor Whether to censor low numbers (default as TRUE for final
 #'   output)
+
 
 bar_multiple_vars <-
   function(.data, 

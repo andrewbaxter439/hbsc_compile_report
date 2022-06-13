@@ -968,7 +968,7 @@ The figures show the percentage of pupils who have used each substance
 at least once in their lifetime.
 :::
 
-```{r substance, fig.cap=""}
+```{r substance_gender, fig.cap="% pupils who reported substance use in their lifetime, by gender"}
 school_dat |> 
   bar_multiple_vars(list(
   drunk1life = "Been drunk",
@@ -976,6 +976,21 @@ school_dat |>
   ecigever = "Tried vaping"
 ),
 success = c("drunk once or more", "Tried smoking", "Tried e-cigarette"),
+group = "sex",
+.censor = params$censor
+)
+```
+
+
+```{r substance_grade, fig.cap="% pupils who reported substance use in their lifetime, by year group"}
+school_dat |> 
+  bar_multiple_vars(list(
+  drunk1life = "Been drunk",
+  smokever = "Tried tobacco",
+  ecigever = "Tried vaping"
+),
+success = c("drunk once or more", "Tried smoking", "Tried e-cigarette"),
+group = "grade",
 .censor = params$censor
 )
 ```
