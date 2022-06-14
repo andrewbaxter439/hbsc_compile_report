@@ -58,7 +58,7 @@ theme_set(theme_minimal() +
 update_geom_defaults("bar", list(fill = primary_colour))
 
 
-# run test loop -----------------------------------------------------------
+# anonymous test sampling -------------------------------------------------
 
 
 hbsc2022 |> 
@@ -86,7 +86,19 @@ schools_to_knit <- hbsc2022 |>
   filter(!is.na(total)) |> 
   arrange(total)
 
-  
+
+# anonymous sampling by size ----------------------------------------------
+
+schools_to_knit |> 
+  ungroup() |> 
+  mutate(size = as.numeric(cut_number(total, 4))) |> 
+  group_by(size) |> 
+  slice_sample(n = 2) |> 
+  {\(x) map(x$SCHOOL_number, function(school) {
+    message("Running for school ", school)
+    render("secondary_report_template.Rmd", output_file = paste0("pilot_out/school_", school, ".docx"),
+           params = list(school = school, censor = TRUE))
+  })}()
 
 # importing school ids ----------------------------------------------------
 
