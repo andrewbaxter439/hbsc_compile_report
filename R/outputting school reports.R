@@ -83,7 +83,7 @@ schools_to_knit <- hbsc2022 |>
   tally() |> 
   pivot_wider(names_from = Grade, values_from = n) |> 
   mutate(total = sum(`Secondary 2`, `Secondary 4`, na.rm = FALSE)) |> 
-  filter(!is.na(total)) |> 
+  filter(!is.na(total), if_all(starts_with("Secondary"), ~.x > 5)) |> 
   arrange(total)
 
 
@@ -91,12 +91,12 @@ schools_to_knit <- hbsc2022 |>
 
 schools_to_knit |> 
   ungroup() |> 
-  mutate(size = as.numeric(cut_number(total, 4))) |> 
+  mutate(size = cut_number(total, 3, labels = c("small", "medium", "large"))) |>
   group_by(size) |> 
   slice_sample(n = 2) |> 
-  {\(x) map(x$SCHOOL_number, function(school) {
+  {\(x) map2(x$SCHOOL_number, x$size, function(school, size) {
     message("Running for school ", school)
-    render("secondary_report_template.Rmd", output_file = paste0("pilot_out/school_", school, ".docx"),
+    render("secondary_report_template.Rmd", output_file = paste0("pilot_out/", size, "_", "school_", school, ".docx"),
            params = list(school = school, censor = TRUE))
   })}()
 

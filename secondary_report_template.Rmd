@@ -222,11 +222,11 @@ school_dat |>
   knitr::kable()
 ```
 
-\newpage
 
 # Your school's survey results
-
-## General Health and Sleep
+::: {custom-style="Heading 2 - no split"}
+General Health and Sleep
+:::
 
 This chapter reports data on general health and sleep. It includes the following measures:
 
@@ -243,7 +243,6 @@ Sleep is a key contributor to adolescent wellbeing. Recent research has found th
 
 The quality of sleep is just as important as amount of sleep for improving wellbeing, since even managing to get the recommended hours of sleep each night will not refresh a child if the quality of the sleep is poor. The Scottish \#Sleepyteens project found that sleep quality is poorer for those adolescents who use social media very intensively at night-time.^6^ Experts recommend that use of screens should be avoided in the hour before planned bedtime to avoid disruption to sleep. The Royal College of Paediatrics and Child Health have produced guides for parents to help them to negotiate the right amount of screen time for their children.^7^
 
-\newpage
 ### Self-reported health
 
 ::: {custom-style="FigDesc"}
@@ -370,7 +369,6 @@ school_dat |>
 <!-- *LINKS* -->
 [1]: https://www.sleepscotland.org/
 
-\newpage
 ## Mental Health and Wellbeing
 
 This chapter presents data on mental health and wellbeing, and includes the following measures:
@@ -584,7 +582,6 @@ school_dat |>
 [9]: http://www.moodcafe.co.uk/
 [10]: https://youngminds.org.uk/
 
-\newpage
 ## Eating Habits
 
 This chapter presents data about eating habits. It includes the following measures:
@@ -716,7 +713,7 @@ school_dat |>
 [12]: https://www.foodafactoflife.org.uk/
 [13]: https://www.keepscotlandbeautiful.org/education-and-learning/food-and-the-environment/
 
-\newpage
+
 ## Physical Activity and Leisure Time
 
 This chapter presents data about physical activity and leisure time activities. The chapter includes the following measures:
@@ -846,7 +843,7 @@ school_dat |>
 [15]: https://sportscotland.org.uk/schools/
 [16]: https://www.playscotland.org
 
-\newpage
+
 ## Experience of Bullying
 
 This chapter reports the following measures relating to bullying and discrimination:
@@ -1071,7 +1068,7 @@ school_dat |>
 [23]: https://www.ashscotland.org.uk/what-we-do/children-young-people-and-tobacco/
 [24]: https://drinkwiseagewell.org.uk/
 
-\newpage
+
 ## Electronic Media Use
 
 This chapter reports data relating to electronic media use. It includes
@@ -1236,7 +1233,7 @@ Pupils who gamed each week were asked to complete the Internet Gaming Disorder (
 [29]: https://www.thinkuknow.co.uk
 [30]: https://www.ceop.police.uk/safety-centre/
 
-\newpage
+
 ## Impact of COVID-19 Pandemic
 
 This chapter is about the COVID-19 pandemic and contains the following measures:
@@ -1288,7 +1285,7 @@ school_dat |>
   bar_diverging("S.")
 ```
 
-\newpage
+
 ## Social Relationships and Support
 
 This chapter is about social relationships and support, and includes the following measures:
@@ -1407,7 +1404,7 @@ school_dat |>
 [35]: https://www.carers.org/country/carers-trust-scotland
 [36]: https://www.lgbtyouth.org.uk
 
-\newpage
+
 ##  School Environment
 
 This chapter reports data relating to the school environment and
@@ -1505,7 +1502,7 @@ school_dat |>
 [40]: https://www.mentalhealth.org.uk/projects/peer-education-projectpep/schools-resources
 
 
-\newpage
+
 # Challenge Questions 
 
 The aim of these challenge questions is to support interpretation of the
