@@ -119,7 +119,7 @@ staff and parents.
 **Understanding the data in this report**
 
 -   Generally, within the same figure, we provide results by gender (in
-    blue) and also by year group (in green)
+    blue) and also by year group (in green). Results for all pupils will be shown in red when numbers are low.
 
 -   Most data are presented as a cut-off, for example, two answers to a
     question are combined, such as feeling 'often' or 'always'
@@ -207,7 +207,7 @@ their children.^7^
 
 **Self-reported health**
 
-Pupils were asked to rate their own health. This figure the proportion
+Pupils were asked to rate their own health. This figure shows the proportion
 of pupils reporting their health to be either 'excellent' or 'good'.
 
 **Figure 1: % pupils who report good or excellent health**
@@ -298,7 +298,7 @@ the following measures:
 
 -   Loneliness
 
--   WHO 5 Wellbeing Index -Low mood
+-   WHO 5 Wellbeing Index - Low mood
 
 -   Stress
 
@@ -647,14 +647,15 @@ moderate-to-vigorous activity for at least 60 minutes every day.
 exercise in their free time. Vigorous exercise is defined as any
 activity which makes you get out of breath and sweat.\
 \
-Figure 23 shows the percentage of pupils who reported doing vigorous
-exercise at least 4 times a week in their leisure time.
 
 **Figure 22: % pupils who do 60 minutes of moderate-to-vigorous physical
 activity every day**
 
 **\
 **
+
+Figure 23 shows the percentage of pupils who reported doing vigorous
+exercise at least 4 times a week in their leisure time.
 
 **Figure 23: % pupils who do vigorous exercise at least 4 times per week
 in their leisure time**
@@ -1472,9 +1473,11 @@ support improvements in pupil wellbeing.
 ```{=html}
 <!-- -->
 ```
--   When considering the HBSC data, do a committee of stakeholders from
-    different parts of the school community take part in identifying HWB
-    priorities to take forward?
+-   When considering the HBSC data, 
+    do a committee of stakeholders from
+    different parts of the school community 
+    take part in identifying HWB priorities 
+    to take forward?
 
 ***We also recommend you also consult the Scottish Government guidance
 \"Mental health and wellbeing: whole school approach: Framework\".***
