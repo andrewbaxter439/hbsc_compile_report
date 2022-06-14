@@ -306,7 +306,7 @@ bar_multiple_vars <-
     
     group <- match.arg(group)
     
-    .data |>
+    clean_dat <- .data |>
     mutate(grouping = case_when(
       group == "none" ~ "1",
       group == "sex" ~ as.character(sex),
@@ -327,7 +327,9 @@ bar_multiple_vars <-
         bar_lab_cens = if_else(censored == 1, "Numbers too low to show", ""),
         grouping = factor(grouping, levels = c("Girls", "Boys", "S2", "S4", "1"))
       ) |>
-      filter(!is.na(grouping)) |> 
+      filter(!is.na(grouping)) 
+    
+    clean_dat |> 
       ggplot(aes(fct_inorder(labels), prop, linetype = factor(censored), fill = grouping, colour = grouping, group = grouping)) +
       geom_bar_t(aes(alpha = factor(censored)), stat = "identity", position = position_dodge(width = 0.6)) +
       scale_alpha_manual(values = c("1" = 0.2, "0" = 1), guide = guide_none()) +
@@ -343,35 +345,37 @@ bar_multiple_vars <-
                 colour = "black",
                 position = position_dodge(width = 0.6),
                 size = 4) +
-      geom_text(aes(label = bar_lab_cens, y = 0.15),
-                # nudge_y = 0.05,
-                vjust = 0.5,
-                hjust = 0,
-                angle = 90,
-                colour = "black",
-                position = position_dodge(width = 0.6),
-                size = 4) +
-      coord_cartesian(ylim = c(0, 1), clip = "off")
+      # geom_text(aes(label = bar_lab_cens, y = 0.15),
+      #           # nudge_y = 0.05,
+      #           vjust = 0.5,
+      #           hjust = 0,
+      #           angle = 90,
+      #           colour = "black",
+      #           position = position_dodge(width = 0.6),
+      #           size = 4) +
+      coord_cartesian(ylim = c(0, 1), clip = "off") +
+      labs(caption = if_else(any(clean_dat$censored == 1), "* Numbers too low to show", ""))
     
   }
 
 # test
 # 
-# school_dat |>
-#   bar_multiple_vars(
-#     list(
-#       fruits_2 = "Fruit",
-#       vegetables_2 = "Vegetables",
-#       chips3 = "Chips",
-#       sweets_2 = "Sweets",
-#       fruitjuice = "Fruit juice",
-#       softdrinks_2 = "Soft drinks",
-#       energydrink = "Energy drinks"
-#     ),
-#     success = c("Once a day, every day", "Every day, more than once"),
-#     group = "sex",
-#     .censor = params$censor
-#   )
+school_dat |>
+  bar_multiple_vars(
+    list(
+      fruits_2 = "Fruit",
+      vegetables_2 = "Vegetables",
+      chips3 = "Chips",
+      sweets_2 = "Sweets",
+      fruitjuice = "Fruit juice",
+      softdrinks_2 = "Soft drinks",
+      energydrink = "Energy drinks"
+    ),
+    success = c("Once a day, every day", "Every day, more than once"),
+    group = "sex",
+    .censor = params$censor
+  ) +
+  theme(plot.caption = element_text(hjust = 1, size = 10, face = "italic"))
 
 # mean multiple vars --------------------------------------------------
 
