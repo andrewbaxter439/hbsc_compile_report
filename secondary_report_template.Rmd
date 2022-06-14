@@ -334,7 +334,7 @@ school_dat |>
 ```
 
 
-```{r mean_sleep_grade, fig.cap="Pupils' mean sleep quality scores, by year group"}
+```{r mean_sleep_grade, fig.cap="Pupils' mean sleep quality scores, by year group", eval=multi_grades}
 school_dat |>
   bar_mean_multiple_vars(
   list(
@@ -793,7 +793,7 @@ school_dat |>
 
 
 
-```{r activity_type_grade, fig.cap="% pupils who do this type of activity at least once a week, by year group"}
+```{r activity_type_grade, fig.cap="% pupils who do this type of activity at least once a week, by year group", eval = multi_grades}
 school_dat |> 
   bar_multiple_vars(
   varslist = list(
@@ -999,7 +999,7 @@ school_dat |>
 ```
 
 
-```{r substance_grade, fig.cap="% pupils who reported substance use in their lifetime, by year group", eval=include_subs_split}
+```{r substance_grade, fig.cap="% pupils who reported substance use in their lifetime, by year group", eval=include_subs_split & multi_grades}
 school_dat |>
   bar_multiple_vars(
     subs_use_vars,
@@ -1143,7 +1143,7 @@ school_dat |>
 
 
 
-```{r screen_use_grade, fig.cap="Mean time (hours) pupils spend per day using a screen, by year group"}
+```{r screen_use_grade, fig.cap="Mean time (hours) pupils spend per day using a screen, by year group", eval = multi_grades}
 school_dat |>
   bar_mean_multiple_vars(
     list(
