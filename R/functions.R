@@ -202,7 +202,7 @@ bar_mean_by_cat <- function(.data,
   
   df_school <- .data |>
     group_by(grade) |>
-    summarise(mean_var = mean(Schooldays_sleep_hrs, na.rm = TRUE),
+    summarise(mean_var = mean(!!var, na.rm = TRUE),
               denom = n()) |>
     filter(!is.na(grade))
   
@@ -232,7 +232,8 @@ bar_mean_by_cat <- function(.data,
   p1 + p2
 }
 
-
+# school_dat |>
+#   bar_mean_by_cat(Weekend_sleep_hrs, .censor = params$censor, ylab = "Hours")
 
 # test
 
