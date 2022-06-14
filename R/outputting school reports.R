@@ -87,6 +87,11 @@ schools_to_knit <- hbsc2022 |>
   arrange(total)
 
 
+# render just 040 for test
+
+render("secondary_report_template.Rmd", output_file = paste0("pilot_out/school_040_v2.docx"),
+           params = list(school = "040", censor = TRUE))
+
 # anonymous sampling by size ----------------------------------------------
 
 schools_to_knit |> 
