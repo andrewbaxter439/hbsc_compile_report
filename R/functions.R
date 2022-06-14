@@ -337,7 +337,8 @@ bar_multiple_vars <-
       scale_x_discrete(guide = guide_axis(angle = 45)) +
       scale_fill_hbsc(aesthetics = c("fill", "colour"), name = "",  limits = force) +
       theme(legend.position = if_else(group == "none", "none", "bottom"),
-            plot.margin = unit(c(0.5, 0, 0, 0),  "cm")) +
+            plot.margin = unit(c(0.5, 0, 0, 0),  "cm"),
+            plot.caption = element_text(hjust = 1, size = 10, face = "italic")) +
       scale_y_continuous("%", labels = percent) +
       geom_text(aes(label = bar_lab_main),
                 vjust = -0.5, 
@@ -360,22 +361,21 @@ bar_multiple_vars <-
 
 # test
 # 
-school_dat |>
-  bar_multiple_vars(
-    list(
-      fruits_2 = "Fruit",
-      vegetables_2 = "Vegetables",
-      chips3 = "Chips",
-      sweets_2 = "Sweets",
-      fruitjuice = "Fruit juice",
-      softdrinks_2 = "Soft drinks",
-      energydrink = "Energy drinks"
-    ),
-    success = c("Once a day, every day", "Every day, more than once"),
-    group = "sex",
-    .censor = params$censor
-  ) +
-  theme(plot.caption = element_text(hjust = 1, size = 10, face = "italic"))
+# school_dat |>
+#   bar_multiple_vars(
+#     list(
+#       fruits_2 = "Fruit",
+#       vegetables_2 = "Vegetables",
+#       chips3 = "Chips",
+#       sweets_2 = "Sweets",
+#       fruitjuice = "Fruit juice",
+#       softdrinks_2 = "Soft drinks",
+#       energydrink = "Energy drinks"
+#     ),
+#     success = c("Once a day, every day", "Every day, more than once"),
+#     group = "sex",
+#     .censor = params$censor
+#   ) 
 
 # mean multiple vars --------------------------------------------------
 
