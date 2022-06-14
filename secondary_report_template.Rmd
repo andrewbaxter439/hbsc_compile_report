@@ -197,7 +197,7 @@ As well as the data, we have included notes and research evidence along with sug
 \newpage
 ### Understanding the data in this report
 
--   Generally, within the same figure, we provide results by gender (in blue) and also by year group (in green)
+-   Generally, within the same figure, we provide results by gender (in blue) and also by year group (in green). Results for all pupils will be shown in red when numbers are low.
 -   Most data are presented as a cut-off, for example, two answers to a question are combined, such as feeling 'often' or 'always' confident.
 -   Some measures combine responses to a series of questions to create a mean score, for example, sleep quality, teacher support.
 -   Some of the same measures were also used in the 2018 HBSC Scotland survey. Please see the [2018 Scotland HBSC national report](https://www.gla.ac.uk/media/Media_707475_smxx.pdf) for more information about the survey.
@@ -247,7 +247,7 @@ The quality of sleep is just as important as amount of sleep for improving wellb
 ### Self-reported health
 
 ::: {custom-style="FigDesc"}
-Pupils were asked to rate their own health. This figure the proportion of pupils reporting their health to be either 'excellent' or 'good'.
+Pupils were asked to rate their own health. This figure shows the proportion of pupils reporting their health to be either 'excellent' or 'good'.
 :::
 
 ```{r good_excel_health, fig.cap="% pupils who report good or excellent health", fig.cap.style="Caption"}
@@ -380,7 +380,7 @@ This chapter presents data on mental health and wellbeing, and includes the foll
 -   Feeling confident
 -   Happiness with life
 -   Loneliness
--   WHO 5 Wellbeing Index -Low mood
+-   WHO 5 Wellbeing Index - Low mood
 -   Stress
 -   Anxiety
 -   Perception of bodyweight
