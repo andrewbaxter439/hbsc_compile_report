@@ -195,10 +195,10 @@ This report presents the survey data from your school, on the following health t
 As well as the data, we have included notes and research evidence along with suggested resources to help promote pupil health and wellbeing. We hope you will find the report useful in reviewing the health and wellbeing of your pupils, and in identifying key targets for health improvement action planning in your school. The report is confidential, and only provided to the HBSC contact at your school. However, we would strongly encourage you to share the report more widely with your pupils, staff and parents.
 
 \newpage
-### Understanding the data in this report
+## Understanding the data in this report
 
 -   Generally, within the same figure, we provide results by gender (in blue) and also by year group (in green). Results for all pupils will be shown in red when numbers are low.
--   Most data are presented as a cut-off, for example, two answers to a question are combined, such as feeling 'often' or 'always' confident.
+-   Most data are presented as a cut-off; for example, two answers to a question are combined, such as feeling 'often' or 'always' confident.
 -   Some measures combine responses to a series of questions to create a mean score, for example, sleep quality, teacher support.
 -   Some of the same measures were also used in the 2018 HBSC Scotland survey. Please see the [2018 Scotland HBSC national report](https://www.gla.ac.uk/media/Media_707475_smxx.pdf) for more information about the survey.
 
@@ -315,7 +315,7 @@ school_dat |>
 ### Sleep quality
 
 ::: {custom-style="FigDesc"}
-Pupils were asked ten questions about sleep quality, covering three different aspects: (i) bedtime behaviours, (ii) sleep efficiency and (iii) morning wakefulness. For each aspect of sleep, scores range from 1 to 6. A higher score indicates better sleep quality in that aspect.
+Pupils were asked ten questions about sleep quality, covering three different aspects: (i) bedtime behaviours (e.g. delaying going to bed), (ii) sleep efficiency (e.g. have trouble settling down, need help getting to sleep or when waking up during the night) and (iii) morning wakefulness (e.g. waking up feeling rested and alert). For each aspect of sleep, scores range from 1 to 6. A higher score indicates better sleep quality in that aspect.
 :::
 
 ```{r mean_sleep_gender, fig.cap="Pupils' mean sleep quality scores, by gender"}
@@ -387,9 +387,9 @@ Mental wellbeing is one of the Scottish Government's six public health prioritie
 
 In recent years levels of mental wellbeing among young people have been declining in Scotland^11^ and there is international evidence to suggest that emotional disorders are increasing, particularly amongst adolescent girls.^12^
 
-An individual's mental health and wellbeing is influenced by a wide variety of factors including environmental, social and individual factors and the interaction between these. Contextual factors may influence or be a consequence of mental health and also serve as a risk or protective factor. They operate at different levels: individual, family, learning environment, community and structural.^13^ Deprivation is a key risk factor for mental health; a systematic review showed that children and adolescents from socio-economically deprived backgrounds were two to three times more likely to develop mental health problems.^14^
+An individual's mental health and wellbeing is influenced by a wide variety of factors including environmental, social and individual factors and the interaction between these. Contextual factors may influence or be a consequence of mental health and also serve as a risk or protective factor. These factors operate at different levels: individual, family, learning environment, community and structural.^13^ Deprivation is a key risk factor for poor mental health; a systematic review showed that children and adolescents from socio-economically deprived backgrounds were two to three times more likely to develop mental health problems.^14^
 
-In terms of promoting wellbeing, positive relationships with family, friends and school staff are consistently linked with health and wellbeing during adolescence. The school environment also plays a key role, with perceived academic ability, teacher support and school satisfaction linked to levels of life satisfaction and happiness.^15^
+In terms of promoting wellbeing, positive relationships with family, friends and school staff are consistently linked with health and wellbeing during adolescence. The school environment plays a key role, with perceived academic ability, teacher support and school satisfaction linked to levels of life satisfaction and happiness.^15^
 
 ### Life satisfaction
 
@@ -741,11 +741,11 @@ school_dat |>
 ::: {custom-style="FigDesc"}
 Pupils were also asked about how often they take part in vigorous exercise in their free time. Vigorous exercise is defined as any activity which makes you get out of breath and sweat.
 
-The following figure shows the percentage of pupils who reported doing vigorous exercise at least 4 times a week in their leisure time.
+The following figure shows the percentage of pupils who reported doing vigorous exercise at least 3 times a week in their leisure time.
 :::
 
 
-```{r activity_four_times, fig.cap="% pupils who do vigorous exercise at least 4 times per week in their leisure time"}
+```{r activity_four_times, fig.cap="% pupils who do vigorous exercise at least 3 times per week in their leisure time"}
 school_dat |>
   bar_by_cat(var = vigexfrq4, success = "4 times a week or more", .censor = params$censor)
 ```
@@ -765,7 +765,7 @@ young people who take part in at least one organised activity every
 week.
 :::
 
-```{r organised_activity, fig.cap="% pupils who do at least one organised activity at least once a week"}
+```{r organised_activity, fig.cap="% pupils who do at least one organised activity a week"}
 school_dat |>
   bar_by_cat(var = Org_act_wkly, success = " At least one activity weekly", .censor = params$censor)
 ```
@@ -907,8 +907,6 @@ Pupils were also asked how often they had cyberbullied someone else in the past 
 school_dat |>
   bar_by_cat(var = Cbully_twice, success = "Yes", .censor = params$censor)
 ```
-
-Overall, `r perc_success(school_dat, cbeenbullied, c("It has happened once or twice", "2 or 3 times a month", "About once a week", "Several times a week"))` of all pupils surveyed indicated that they had been a victim of cyberbullying at least once or twice over the past couple of months (not shown in figure).
 
 ### Who can help?
 
@@ -1181,6 +1179,7 @@ school_dat |>
 
 Pupils who gamed each week were asked to complete the Internet Gaming Disorder (IGD) Scale which distinguishes between 'normative' and 'problematic' gaming. Overall, 11% of all pupils who game reported problematic gaming.
 
+\newpage
 ### Who can help?
 
 +----------------------------------+----------------------------------+
@@ -1244,7 +1243,7 @@ This chapter is about the COVID-19 pandemic and contains the following measures:
 
 In March 2020, the World Health Organisation (WHO) declared COVID-19 a pandemic. The pandemic and its associated health protection measures such as lockdowns, school closures, home learning and social distancing have had a significant impact on day-to-day life.
 
-A review carried out by Public Health Scotland^50^ looked at the possible positive and adverse consequences of the first lockdown on young people's development. In terms of family relationships, it found that young people may have experienced 'stressors' including parental mental wellbeing, changing family financial situations and limited access to services. However, most young people (aged 12-14 years old) enjoyed spending time with their family during lockdown.
+A review carried out by Public Health Scotland^50^ looked at the possible positive and adverse consequences of the first lockdown on young people's development. In terms of family relationships, it found that young people may have experienced 'stressors' including poor parental wellbeing, changing family financial situations and limited access to services. However, most young people (aged 12-14 years old) enjoyed spending time with their family during lockdown.
 
 Another important aspect impacted by the pandemic is mental health and wellbeing. Feelings of loneliness (particularly amongst girls) increased during the first lockdown ^51^. Girls have also been more likely to report lower levels of mental wellbeing and higher levels of anxiety than boys.^50-52^ Older adolescents also reported feeling concerned about the impact of lockdown on their education and future careers.^50^
 
@@ -1301,7 +1300,7 @@ Supportive family relationships are vital for adolescent development, socialisat
 
 Another important source of support is that offered by peers, which is also linked to better health in adolescents.^61^ Support from classmates has a positive effect on mental wellbeing by helping to boost self-efficacy and building a sense of school community.^62^
 
-The negative effects of adverse childhood experiences on mental and physical health across the lifespan can be reduced by having the support of a trusted adult in childhood. A review by NHS Scotland demonstrates the importance of having an adult that young people trust and can talk to, with young people reporting this adult can help with educational attainment, optimism, self-efficacy and reducing internalising symptoms (depression and anxiety).^63^
+The negative effects of adverse childhood experiences on mental and physical health across the lifespan can be reduced by having the support of a trusted adult in childhood. A review by NHS Scotland demonstrates the importance of having an adult that young people trust and can talk to, with young people reporting this having higher educational attainment, optimism and self-efficacy as well as lower internalising symptoms (depression and anxiety).^63^
 
 
 ### Family communication
