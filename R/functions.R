@@ -558,16 +558,19 @@ perc_success <- function(.data, var, success) {
 
 #' scale_fill_hbsc to globalise fill colours
 
-scale_fill_hbsc <- function(x, ...) scale_fill_manual(
-  values = c(
-    "Girls" = global_girls_colour,
-    "Boys" = global_boys_colour,
-    "S2" = global_s2_colour,
-    "S4" = global_s4_colour,
-    "1" = primary_colour
-  ),
-  ...
-)
+scale_fill_hbsc <- function(...) {
+  scale_fill_manual(
+    values = c(
+      "Girls" = global_girls_colour,
+      "Boys" = global_boys_colour,
+      "S2" = global_s2_colour,
+      "S4" = global_s4_colour,
+      "1" = primary_colour
+    ),
+    ...
+  )
+}
+
 
 #' Thinner geom_bar
 

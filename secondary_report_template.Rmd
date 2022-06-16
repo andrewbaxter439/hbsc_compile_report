@@ -56,7 +56,7 @@ knitr::opts_chunk$set(
   error = FALSE,
   # eval = FALSE,
   fig.width = 6.2,
-  fig.height = 4.1,
+  fig.height = 3.8,
   fig.topcaption = TRUE,
   fig.cap.style = "Caption",
   tab.cap.style = "Caption",
