@@ -320,7 +320,7 @@ bar_multiple_vars <-
       pivot_longer(-c(grouping, denom), names_to = "var", values_to = "n") |> 
       rowwise() |>
       mutate(
-        censored = if_else(n < 3 & .censor & n!= 0, 1, 0),
+        censored = if_else(n < 3 & .censor, 1, 0),
         labels = varslist[[var]][1],
         prop = n / denom,
         prop = if_else(censored == 1, 0.05, prop),
