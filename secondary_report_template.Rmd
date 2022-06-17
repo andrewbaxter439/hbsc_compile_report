@@ -35,7 +35,7 @@ params:
   school: 
     label: 'School'
     input: select
-    value: "010"
+    value: "040"
     choices: ["003", "070", "075", "007", "008", "010", "013",
     "014", "017", "019", "021", "022", "024", "026", "028", "029", 
     "033", "034", "035", "040", "041", "045", "046", "047", "049", 
@@ -68,6 +68,7 @@ library(scales)
 library(flextable)
 library(officer)
 library(haven)
+library(janitor)
 library(patchwork)
 
 primary_colour <-  "#C00000"
@@ -218,7 +219,8 @@ school_dat |>
   filter(if_all(everything(), ~! is.na(.x))) |> 
   pivot_wider(names_from = grade, values_from = n, values_fill = 0) |> 
   rename(" " = sex) |> 
-  rename_with(~paste0("&nbsp;&nbsp;&nbsp;&nbsp;", .x), .cols = -1) |> 
+  adorn_totals(c("row", "col")) |> 
+  rename_with(~paste0("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;", .x), .cols = -1) |> 
   knitr::kable()
 ```
 
@@ -471,7 +473,13 @@ The Cohen Perceived Stress Scale asks four questions about how pupils feel they 
 
 ```{r mean_stress, fig.cap="Pupils' mean stress score"}
 school_dat |>
-  bar_mean_by_cat(var = CohenPSS4, .censor = params$censor, ylab = "Score")
+  bar_mean_by_cat(
+    var = CohenPSS4,
+    .censor = params$censor,
+    ymax = 16,
+    ylab = "Score",
+    ybreaks = seq(0, 16, 4)
+  )
 ```
 
 
