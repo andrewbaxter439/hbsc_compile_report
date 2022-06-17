@@ -335,7 +335,7 @@ bar_multiple_vars <-
       geom_bar_t(aes(alpha = factor(censored)), stat = "identity", position = position_dodge(width = 0.6)) +
       scale_alpha_manual(values = c("1" = 0.2, "0" = 1), guide = guide_none()) +
       scale_linetype_manual(values = c("1" = "dashed", "0" = "solid"), guide = guide_none()) +
-      scale_x_discrete(guide = guide_axis(angle = 45)) +
+      scale_x_discrete(guide = guide_axis(n.dodge = ceiling(length(varslist) / 4))) +
       scale_fill_hbsc(aesthetics = c("fill", "colour"), name = "",  limits = force) +
       theme(legend.position = if_else(group == "none", "none", "bottom"),
             plot.margin = unit(c(0.5, 0.5, 0.5, 0),  "cm"),
@@ -441,7 +441,7 @@ bar_mean_multiple_vars <-
       geom_bar_t(stat = "identity", position = position_dodge(width = 0.6)) +
       scale_alpha_manual(values = c("1" = 0.2, "0" = 1), guide = guide_none()) +
       scale_linetype_manual(values = c("1" = "dashed", "0" = "solid"), guide = guide_none()) +
-      scale_x_discrete(guide = guide_axis(angle = 45)) +
+      scale_x_discrete(guide = guide_axis(n.dodge = ceiling(length(varslist) / 4))) +
       scale_fill_hbsc(aesthetics = c("fill", "colour"), name = "",  limits = force) +
       theme(legend.position = if_else(group == "none", "none", "bottom"),
             plot.margin = unit(c(0.5, 0.5, 0.5, 0),  "cm")) +
