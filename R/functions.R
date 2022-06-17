@@ -172,7 +172,7 @@ bar_mean_by_cat <- function(.data,
       geom_bar_t(stat = "identity") +
       scale_fill_hbsc() +
       scale_y_continuous(ylab, breaks = ybreaks_fun()) +
-      geom_text(aes(label = round(mean_var, 1)),
+      geom_text(aes(label = sprintf("%.1f", mean_var)),
                 vjust = 0, 
                 nudge_y = 0.05 * ymax,
                 size = 4) +
@@ -190,7 +190,7 @@ bar_mean_by_cat <- function(.data,
       geom_bar_t(stat = "identity") +
       scale_fill_hbsc() +
       scale_y_continuous(ylab, breaks = ybreaks_fun())+
-      geom_text(aes(label = round(mean_var, 1)),
+      geom_text(aes(label = sprintf("%.1f", mean_var)),
                 vjust = 0, 
                 nudge_y = 0.05 * ymax,
                 size = 4) +
@@ -228,7 +228,7 @@ bar_mean_by_cat <- function(.data,
       theme(axis.ticks.y = element_line(colour = "white"),
             axis.text.y = element_text(colour = "white"),
             plot.margin = unit(c(0.5, 0.5, 0.5, 1),  "cm")) +
-      geom_text(aes(label = round(mean_var, 1)),
+      geom_text(aes(label = sprintf("%.1f", mean_var)),
                 vjust = 0, 
                 nudge_y = 0.05 * ymax,
                 size = 4) +
@@ -445,7 +445,7 @@ bar_mean_multiple_vars <-
         censored = if_else(denom < 3 & .censor, 1, 0),
         labels = varslist[[var]][1],
         mean = if_else(censored == 1, ymax/20, mean),
-        bar_lab_main = if_else(censored == 1, "*", as.character(round(mean, 1))),
+        bar_lab_main = if_else(censored == 1, "*", sprintf("%.1f", mean)),
         bar_lab_cens = if_else(censored == 1, "Numbers too low to show", ""),
         grouping = factor(grouping, levels = c("Girls", "Boys", "S2", "S4", "1"))
       )
@@ -459,7 +459,7 @@ bar_mean_multiple_vars <-
       theme(legend.position = if_else(group == "none", "none", "bottom"),
             plot.margin = unit(c(0.5, 0.5, 0.5, 0),  "cm")) +
       scale_y_continuous(ylab) +
-      geom_text(aes(label = round(mean, 1)),
+      geom_text(aes(label = sprintf("%.1f", mean)),
                 vjust = -0.5, 
                 # nudge_y = 0.05,
                 colour = "black",
