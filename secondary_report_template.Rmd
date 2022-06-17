@@ -572,10 +572,10 @@ school_dat |>
 
 <!-- *LINKS* -->
 
-[2]: https://www.mind.org.uk/information-support/for-childrenand-young-people
+[2]: https://www.mind.org.uk/information-support/for-children-and-young-people
 [3]: https://www.annafreud.org/on-my-mind/
 [4]: https://mentalhealthfoundation.org/
-[5]: https://www.barnardos.org.uk/whatwe-do/supporting-young-people
+[5]: https://www.barnardos.org.uk/what-we-do/supporting-young-people
 [6]: https://www.seemescotland.org/
 [7]: https://www.samaritans.org/scotland/how-we-can-help/schools/
 [8]: https://www.breathingspace.scot/
@@ -1051,7 +1051,7 @@ school_dat |>
 |                                  | from the harm and inequality     |
 |                                  | caused by smoking.               |
 +----------------------------------+----------------------------------+
-| **Drink wise age well**\         | Support centre based in Glasgow. |
+| **Drink Wise, Age Well**\         | Support centre based in Glasgow. |
 | [Website][24]                    | Information and advice for those |
 |                                  | affected by harmful alcohol      |
 |                                  | intake. (Primarily aimed at      |
