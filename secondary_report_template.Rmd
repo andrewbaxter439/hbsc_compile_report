@@ -35,7 +35,7 @@ params:
   school: 
     label: 'School'
     input: select
-    value: "040"
+    value: "010"
     choices: ["003", "070", "075", "007", "008", "010", "013",
     "014", "017", "019", "021", "022", "024", "026", "028", "029", 
     "033", "034", "035", "040", "041", "045", "046", "047", "049", 
@@ -747,7 +747,7 @@ The following figure shows the percentage of pupils who reported doing vigorous 
 
 ```{r activity_four_times, fig.cap="% pupils who do vigorous exercise at least 3 times per week in their leisure time"}
 school_dat |>
-  bar_by_cat(var = vigexfrq4, success = "4 times a week or more", .censor = params$censor)
+  bar_by_cat(var = vigexfrq3, success = "3 times a week or more", .censor = params$censor)
 ```
 
 ### Participation in organised leisure activities 
@@ -963,7 +963,7 @@ Pupils were asked if they had ever (in their lifetime):
 ```{r test_substance_use_denoms, include=FALSE}
 
 subs_use_vars <- list(
-  drunk1life = "Been drunk",
+  # drunk1life = "Been drunk",
   smokever = "Tried tobacco",
   ecigever = "Tried vaping"
 )
@@ -983,7 +983,7 @@ school_dat |>
     subs_use_vars,
     success = c("drunk once or more", "Tried smoking", "Tried e-cigarette"),
     group = "none",
-    .censor = FALSE
+    .censor = TRUE
   )
 ```
 
@@ -994,7 +994,7 @@ school_dat |>
     subs_use_vars,
     success = c("drunk once or more", "Tried smoking", "Tried e-cigarette"),
     group = "sex",
-    .censor = FALSE
+    .censor = TRUE
   )
 ```
 
@@ -1005,7 +1005,7 @@ school_dat |>
     subs_use_vars,
     success = c("drunk once or more", "Tried smoking", "Tried e-cigarette"),
     group = "grade",
-    .censor = FALSE
+    .censor = TRUE
   )
 ```
 
