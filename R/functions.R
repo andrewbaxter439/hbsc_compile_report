@@ -307,7 +307,7 @@ bar_multiple_vars <-
     
     group <- match.arg(group)
     
-    .data |>
+    clean_dat <- .data |>
     mutate(grouping = case_when(
       group == "none" ~ "1",
       group == "sex" ~ as.character(sex),
@@ -320,23 +320,26 @@ bar_multiple_vars <-
       pivot_longer(-c(grouping, denom), names_to = "var", values_to = "n") |> 
       rowwise() |>
       mutate(
-        censored = if_else(n < 3 & .censor, 1, 0),
+        censored = if_else(n < 3 & .censor & n!= 0, 1, 0),
         labels = varslist[[var]][1],
         prop = n / denom,
-        prop = if_else(censored == 1, 1, prop),
-        bar_lab_main = if_else(censored == 1, "", percent(prop, suffix="", accuracy = 1)),
+        prop = if_else(censored == 1, 0.05, prop),
+        bar_lab_main = if_else(censored == 1, "*", percent(prop, suffix="", accuracy = 1)),
         bar_lab_cens = if_else(censored == 1, "Numbers too low to show", ""),
         grouping = factor(grouping, levels = c("Girls", "Boys", "S2", "S4", "1"))
       ) |>
-      filter(!is.na(grouping)) |> 
-      ggplot(aes(fct_inorder(labels), prop, alpha = factor(censored), linetype = factor(censored), fill = grouping, colour = grouping, group = grouping)) +
-      geom_bar_t(stat = "identity", position = position_dodge(width = 0.6)) +
+      filter(!is.na(grouping)) 
+    
+    clean_dat |> 
+      ggplot(aes(fct_inorder(labels), prop, linetype = factor(censored), fill = grouping, colour = grouping, group = grouping)) +
+      geom_bar_t(aes(alpha = factor(censored)), stat = "identity", position = position_dodge(width = 0.6)) +
       scale_alpha_manual(values = c("1" = 0.2, "0" = 1), guide = guide_none()) +
       scale_linetype_manual(values = c("1" = "dashed", "0" = "solid"), guide = guide_none()) +
       scale_x_discrete(guide = guide_axis(angle = 45)) +
       scale_fill_hbsc(aesthetics = c("fill", "colour"), name = "",  limits = force) +
       theme(legend.position = if_else(group == "none", "none", "bottom"),
-            plot.margin = unit(c(0.5, 0.5, 0.5, 0),  "cm")) +
+            plot.margin = unit(c(0.5, 0.5, 0.5, 0),  "cm"),
+            plot.caption = element_text(hjust = 1, size = 10, face = "italic")) +
       scale_y_continuous("%", labels = percent) +
       geom_text(aes(label = bar_lab_main),
                 vjust = -0.5, 
@@ -344,20 +347,22 @@ bar_multiple_vars <-
                 colour = "black",
                 position = position_dodge(width = 0.6),
                 size = 4) +
-      geom_text(aes(label = bar_lab_cens, y = 0.5),
-                # nudge_y = 0.05,
-                vjust = 0.5,
-                angle = 90,
-                colour = "black",
-                position = position_dodge(width = 0.6),
-                size = 4) +
-      coord_cartesian(ylim = c(0, 1), clip = "off")
+      # geom_text(aes(label = bar_lab_cens, y = 0.15),
+      #           # nudge_y = 0.05,
+      #           vjust = 0.5,
+      #           hjust = 0,
+      #           angle = 90,
+      #           colour = "black",
+      #           position = position_dodge(width = 0.6),
+      #           size = 4) +
+      coord_cartesian(ylim = c(0, 1), clip = "off") +
+      labs(caption = if_else(any(clean_dat$censored == 1), "* Numbers too low to show", ""))
     
   }
 
 # test
 # 
-# school_dat |> 
+# school_dat |>
 #   bar_multiple_vars(
 #     list(
 #       fruits_2 = "Fruit",
@@ -371,7 +376,7 @@ bar_multiple_vars <-
 #     success = c("Once a day, every day", "Every day, more than once"),
 #     group = "sex",
 #     .censor = params$censor
-#   )
+#   ) 
 
 # mean multiple vars --------------------------------------------------
 
@@ -394,6 +399,7 @@ bar_mean_multiple_vars <-
            ymax = limits[2],
            ylab = "Mean") {
     
+    require(rlang)
     group <- match.arg(group)
     
     clean_dat <- .data |>
@@ -425,8 +431,8 @@ bar_mean_multiple_vars <-
       mutate(
         censored = if_else(denom < 3 & .censor, 1, 0),
         labels = varslist[[var]][1],
-        mean = if_else(censored == 1, ymax, mean),
-        bar_lab_main = if_else(censored == 1, na_dbl, round(mean, 1)),
+        mean = if_else(censored == 1, ymax/20, mean),
+        bar_lab_main = if_else(censored == 1, "*", as.character(round(mean, 1))),
         bar_lab_cens = if_else(censored == 1, "Numbers too low to show", ""),
         grouping = factor(grouping, levels = c("Girls", "Boys", "S2", "S4", "1"))
       )
