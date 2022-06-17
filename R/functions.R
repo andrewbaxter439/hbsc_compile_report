@@ -137,9 +137,17 @@ bar_mean_by_cat <- function(.data,
                             var,
                        .censor = TRUE,
                        ymax = max(.data[[rlang::as_name(var)]], na.rm = TRUE),
-                       ylab = "Mean") {
+                       ylab = "Mean",
+                       ybreaks = NULL) {
   require(rlang)
   var <- enquo(var)
+  
+  if (is.null(ybreaks)) {
+    ybreaks_fun <- waiver
+  } else {
+    ybreaks_fun <- \() ybreaks
+  }
+    
   
   rlang::eval_tidy(var, data = .data)
   
@@ -163,7 +171,7 @@ bar_mean_by_cat <- function(.data,
       ggplot(aes(sex, mean_var, fill = sex)) +
       geom_bar_t(stat = "identity") +
       scale_fill_hbsc() +
-      scale_y_continuous(ylab)+
+      scale_y_continuous(ylab, breaks = ybreaks_fun()) +
       geom_text(aes(label = round(mean_var, 1)),
                 vjust = 0, 
                 nudge_y = 0.05 * ymax,
@@ -181,7 +189,7 @@ bar_mean_by_cat <- function(.data,
       ggplot(aes("All pupils", mean_var)) +
       geom_bar_t(stat = "identity") +
       scale_fill_hbsc() +
-      scale_y_continuous(ylab)+
+      scale_y_continuous(ylab, breaks = ybreaks_fun())+
       geom_text(aes(label = round(mean_var, 1)),
                 vjust = 0, 
                 nudge_y = 0.05 * ymax,
@@ -215,7 +223,7 @@ bar_mean_by_cat <- function(.data,
       geom_bar_t(stat = "identity") +
       scale_fill_hbsc() +
       scale_y_continuous(" ",
-                         position = "right"
+                         position = "right", breaks = ybreaks_fun()
       ) +
       theme(axis.ticks.y = element_line(colour = "white"),
             axis.text.y = element_text(colour = "white"),
@@ -233,7 +241,12 @@ bar_mean_by_cat <- function(.data,
 }
 
 # school_dat |>
-#   bar_mean_by_cat(Weekend_sleep_hrs, .censor = params$censor, ylab = "Hours")
+#   bar_mean_by_cat(
+#     var = CohenPSS4,
+#     .censor = params$censor,
+#     ymax = 16,
+#     ylab = "Score"
+#   )
 
 # test
 
