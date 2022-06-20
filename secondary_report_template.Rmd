@@ -213,14 +213,16 @@ during spring Term 2022. Table 1 shows the number of pupils
 participating by year group and gender. `r if(missing_vals$missing_grade > 0) paste0(missing_vals$missing_grade, " pupil", ifelse(missing_vals$missing_grade > 1, "s", ""), " did not provide their year group. ")` `r if(missing_vals$missing_gender > 0) paste0(missing_vals$missing_gender, " pupil", ifelse(missing_vals$missing_gender > 1, "s", ""), " did not provide their gender.")`
 :::
 
-```{r tab_n_pupils, tab.cap="Overview of survey respondents", tab.id = "n_pupils", tab.cap.style = "Caption", eval = TRUE}
-school_dat |>
+```{r tab_n_pupils, tab.cap="Overview of survey respondents", tab.id = "n_pupils", tab.cap.style = "Caption", eval = TRUE, table.conditional.last_row = TRUE, tab.last_column = TRUE, label = 'tab1'}
+school_summary <- school_dat |>
   count(sex, grade) |> 
   filter(if_all(everything(), ~! is.na(.x))) |> 
   pivot_wider(names_from = grade, values_from = n, values_fill = 0) |> 
   rename(" " = sex) |> 
   adorn_totals(c("row", "col")) |> 
-  rename_with(~paste0("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;", .x), .cols = -1) |> 
+  rename_with(~paste0("&nbsp;&nbsp;&nbsp;", .x), .cols = -1) 
+
+school_summary |> 
   knitr::kable()
 ```
 
