@@ -282,7 +282,7 @@ school_dat |>
     sleepdificulty =   "Sleep difficulties"
   ),
   .censor = params$censor
-)
+) + theme(axis.text.x = element_text(size = 10))
 ```
 
 
