@@ -4,8 +4,8 @@ library(haven)
 library(tidyverse)
 
 if (Sys.getenv("data_dir") == "") {
-  data_dir <- readline("Please specify a data file directory: ")
-  Sys.setenv("data_dir", data_dir)
+  dir_entry <- readline("Please specify a data file directory: ")
+  Sys.setenv(data_dir =  dir_entry)
 }
 
 hbsc2022 <- read_spss(Sys.getenv("data_dir")) |> 
