@@ -119,7 +119,7 @@ school_dat <- hbsc2022[hbsc2022$SCHOOL_number == params$school,] |>
     sex = factor(paste0(sex, "s"), levels = c("Girls", "Boys"))
   )
 
-multi_grades <- "S2" %in% school_dat$grade & "S4" %in% school_dat$grade
+multi_grades <- "S2" %in% school_dat$grade & "S4" %in% school_dat$grade & all(count(school_dat, grade)$n > 7)
 
 missing_vals <- school_dat |> 
   summarise(missing_gender = sum(is.na(sex)),
