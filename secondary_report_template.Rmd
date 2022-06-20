@@ -312,8 +312,9 @@ school_dat |>
   bar_mean_by_cat(
     Schooldays_sleep_hrs,
     .censor = params$censor,
-    ymax = 13,
-    ylab = "Hours"
+    ymax = 12,
+    ylab = "Hours",
+    ybreaks = seq(0, 12, 4)
   )
 ```
 
@@ -323,7 +324,8 @@ school_dat |>
     Weekend_sleep_hrs,
     .censor = params$censor,
     ymax = 13,
-    ylab = "Hours"
+    ylab = "Hours",
+    ybreaks = seq(0, 12, 4)
   )
 ```
 
