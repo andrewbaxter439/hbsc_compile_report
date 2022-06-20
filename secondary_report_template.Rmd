@@ -12,20 +12,20 @@ output:
       conditional:
        first_row: true
        first_column: false
-       last_row: false
-       last_column: false
+       last_row: true
+       last_column: true
        no_hband: false
        no_vband: true
     # lists:
     #   ol.style: 'Number alignment: Left'
     #   ul.style: List Paragraph
     page_margins:
-      bottom: 1
-      top: 1
+      bottom: 0.8
+      top: 0.8
       right: 0.8
       left: 0.8
       header: 0
-      footer: 0
+      footer: 0.5
       gutter: 0
 params:
   censor:
@@ -211,20 +211,18 @@ Understanding the data in this report
 
 ::: {custom-style="FigDesc"}
 Pupils in S2 and S4 classes in your school took part in the survey
-during spring Term 2022. Table 1 shows the number of pupils
+during spring term 2022. Table 1 shows the number of pupils
 participating by year group and gender. `r if(missing_vals$missing_grade > 0) paste0(missing_vals$missing_grade, " pupil", ifelse(missing_vals$missing_grade > 1, "s", ""), " did not provide their year group. ")` `r if(missing_vals$missing_gender > 0) paste0(missing_vals$missing_gender, " pupil", ifelse(missing_vals$missing_gender > 1, "s", ""), " did not provide their gender.")`
 :::
 
-```{r tab_n_pupils, tab.cap="Overview of survey respondents", tab.id = "n_pupils", tab.cap.style = "Caption", eval = TRUE, table.conditional.last_row = TRUE, tab.last_column = TRUE, label = 'tab1'}
-school_summary <- school_dat |>
+```{r tab_n_pupils, tab.cap="Overview of survey respondents", tab.id = "n_pupils", tab.cap.style = "Caption", eval = TRUE}
+school_dat |>
   count(sex, grade) |> 
   filter(if_all(everything(), ~! is.na(.x))) |> 
   pivot_wider(names_from = grade, values_from = n, values_fill = 0) |> 
   rename(" " = sex) |> 
   adorn_totals(c("row", "col")) |> 
-  rename_with(~paste0("&nbsp;&nbsp;&nbsp;", .x), .cols = -1) 
-
-school_summary |> 
+  rename_with(~paste0("&nbsp;&nbsp;&nbsp;", .x), .cols = 2:3)  |>
   knitr::kable()
 ```
 
