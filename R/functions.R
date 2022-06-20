@@ -281,14 +281,14 @@ test_bar_multiple_vars <-
       pull(include)
   }
 
-# school_dat |> 
-#   test_bar_multiple_vars(list(
-#     drunk1life = "Been drunk",
-#     smokever = "Tried tobacco",
-#     ecigever = "Tried vaping"
-#   ),
-#   success = c("drunk once or more", "Tried smoking", "Tried e-cigarette"))
 
+# school_dat |>
+#   test_bar_multiple_vars(
+#     list(# drunk1life = "Been drunk",
+#       smokever = "Tried tobacco",
+#       ecigever = "Tried vaping"),
+#     success = c("drunk once or more", "Tried smoking", "Tried e-cigarette")
+#   )
 # school_dat |>
 #   test_bar_multiple_vars(
 #     list(
