@@ -309,12 +309,22 @@ Current NHS recommendations are that children aged 12-17 years should aim for a 
 
 ```{r sleep_dur, fig.cap="Mean number of hours pupils sleep on a school night"}
 school_dat |>
-  bar_mean_by_cat(Schooldays_sleep_hrs, .censor = params$censor, ylab = "Hours")
+  bar_mean_by_cat(
+    Schooldays_sleep_hrs,
+    .censor = params$censor,
+    ymax = 13,
+    ylab = "Hours"
+  )
 ```
 
 ```{r weekend_sleep, fig.cap="Mean number of hours pupils sleep on weekends/holidays", fig.id="fig_weekend_sleep"}
 school_dat |>
-  bar_mean_by_cat(Weekend_sleep_hrs, .censor = params$censor, ylab = "Hours")
+  bar_mean_by_cat(
+    Weekend_sleep_hrs,
+    .censor = params$censor,
+    ymax = 13,
+    ylab = "Hours"
+  )
 ```
 
 
