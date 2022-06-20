@@ -505,7 +505,8 @@ bar_diverging <- function(.data, category, ordervals = c(
   "coviddiet" = "Diet",
   "covidfuture" = "Future",
   "covidfinance" = "Family finances"
-)) {
+), 
+.censor = TRUE) {
   
   global_girls_colour <- "#2F5597"
   global_boys_colour <- "#DAE3F3"
@@ -518,43 +519,70 @@ bar_diverging <- function(.data, category, ordervals = c(
                   S4 = c(global_s2_colour, global_s4_colour),
                   `S.` = c(global_s2_colour, global_s4_colour))
   
-  .data |> 
+  clean_dat <- .data |>
     select(sex, grade, starts_with("covid")) |>
-    pivot_longer(-c(sex, grade), names_to = "topic", values_to = "response") |> 
-    pivot_longer(c(sex, grade), names_to = "cat", values_to = "group") |> 
-    group_by(cat, group, topic) |> 
-    summarise(perc_pos = sum(response == "Positive", na.rm = TRUE)/n(),
-              perc_neg = -sum(response == "Negative", na.rm = TRUE)/n(),
-              .groups = "drop") |> 
-    pivot_longer(starts_with("perc"), names_to = "dir", values_to = "value", names_prefix = "perc_") |> 
-    mutate(topic = factor(topic, levels = names(ordervals), labels = ordervals)) |> 
+    pivot_longer(-c(sex, grade), names_to = "topic", values_to = "response") |>
+    pivot_longer(c(sex, grade), names_to = "cat", values_to = "group") |>
+    group_by(cat, group, topic) |>
+    summarise(
+      n = n(),
+      n_pos = sum(response == "Positive", na.rm = TRUE),
+      n_neg = sum(response == "Negative", na.rm = TRUE),
+      perc_pos = n_pos / n,
+      perc_neg = -n_neg / n,
+      .groups = "drop"
+    ) |> pivot_longer(
+      n_pos:perc_neg,
+      names_to = c("var", "dir"),
+      values_to = "val",
+      names_sep = "_"
+    ) |> 
     filter(group == str_match(group, category)) |> 
-    ggplot(aes(x = value, y = fct_rev(topic), fill = dir)) +
+    pivot_wider(
+      names_from = "var",
+      values_from = "val",
+      id_cols = c(cat, group, topic, dir)
+    ) |> 
+    mutate(topic = factor(topic, levels = names(ordervals), labels = ordervals),
+           censored = if_else(n < 3 & .censor, 1, 0),
+           perc = if_else(censored == 1, 0.05 * if_else(dir == "neg", -1, 1), perc),
+           bar_lab_main = if_else(censored == 1, "*", percent(abs(perc), suffix="", accuracy = 1))) |>
+    filter(group == str_match(group, category))
+  
+    clean_dat |>
+    ggplot(aes(x = perc, y = fct_rev(topic), fill = dir,
+               linetype = factor(censored))) +
     geom_vline(xintercept = 0) +
-    geom_col(width = 0.6) +
+    geom_col(aes(alpha = factor(censored)), width = 0.6, size = 2) +
     scale_fill_manual("",
                       labels = c("Negative", "Positive"),
+                      # aesthetics = c("fill", "colour"),
                       values = colours[[category]]) +
     theme(panel.grid.major.y = element_blank(),
           panel.grid.major.x = element_line(),
           axis.text.x = element_text(size = 10),
           axis.text.y = element_text(size = 12),
+          plot.caption = element_text(hjust = 1, size = 10, face = "italic"),
           legend.position = "top") +
     ylab("") +
+    scale_alpha_manual(values = c("1" = 0.5, "0" = 1), guide = guide_none()) +
+    scale_linetype_manual(values = c("1" = "dashed", "0" = "solid"), guide = guide_none()) +
     scale_x_continuous(breaks = seq(-1, 1, 0.2),
                        labels = percent(c(seq(1, 0, -0.2), seq(0.2, 1, 0.2))))  +
-    geom_text(aes(label = percent(abs(value), suffix="", accuracy = 1),
-                  x = value + 0.1*if_else(dir == "neg", -1, 1)),
-              size = 4) +
-    coord_cartesian(xlim = c(-1, 1), clip = "off")
+    geom_text(aes(label = bar_lab_main,
+                  x = perc + 0.1*if_else(dir == "neg", -1, 1)),
+              size = 4,
+              colour = "black") +
+    coord_cartesian(xlim = c(-1, 1), clip = "off") +
+    labs(caption = if_else(any(clean_dat$censored == 1), "* Numbers too low to show", ""))
 }
 
 # test
 # 
-# bar_diverging("Girls")
-# bar_diverging("Boys")
-# bar_diverging("S2")
-# bar_diverging("S4")
+# bar_diverging(school_dat, "Girls")
+# bar_diverging(school_dat, "Boys")
+# bar_diverging(school_dat, "S2")
+# bar_diverging(school_dat, "S4")
 # bar_diverging("S.")
 
 
