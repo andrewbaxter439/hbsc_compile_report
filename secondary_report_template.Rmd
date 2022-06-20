@@ -981,7 +981,12 @@ subs_use_vars <- list(
   ecigever = "Tried vaping"
 )
 
-include_subs_split <- test_bar_multiple_vars(school_dat, subs_use_vars)
+include_subs_split <-
+  test_bar_multiple_vars(
+    school_dat,
+    subs_use_vars,
+    success = c("drunk once or more", "Tried smoking", "Tried e-cigarette")
+  )
 
 ```
 
