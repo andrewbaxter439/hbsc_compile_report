@@ -35,7 +35,7 @@ params:
   school: 
     label: 'School'
     input: select
-    value: "040"
+    value: "059"
     choices: ["003", "070", "075", "007", "008", "010", "013",
     "014", "017", "019", "021", "022", "024", "026", "028", "029", 
     "033", "034", "035", "040", "041", "045", "046", "047", "049", 
@@ -55,8 +55,8 @@ knitr::opts_chunk$set(
   warning = FALSE,
   error = FALSE,
   # eval = FALSE,
-  fig.width = 6.2,
-  fig.height = 3.66,
+  fig.width = 5.5,
+  fig.height = 3,
   fig.topcaption = TRUE,
   fig.cap.style = "Caption",
   tab.cap.style = "Caption",
@@ -1276,31 +1276,31 @@ Young people were asked about their experiences of COVID-19 and its associated r
 The figures below show the percentage of pupils who reported either a negative (very/quite) or a positive (very/quite) impact on that aspect of their life.
 :::
 
-```{r covid_girls, fig.cap="Perceived impact of the COVID-19 pandemic on GIRLS"}
+```{r covid_girls, fig.cap="Perceived impact of the COVID-19 pandemic on GIRLS", fig.height=4.2, fig.width=6.4}
 school_dat |>
   bar_diverging("Girls")
 ```
 
 
-```{r covid_boys, fig.cap="Perceived impact of the COVID-19 pandemic on BOYS"}
+```{r covid_boys, fig.cap="Perceived impact of the COVID-19 pandemic on BOYS", fig.height=4.2, fig.width=6.4}
 school_dat |>
   bar_diverging("Boys")
 ```
 
 
-```{r covid_s2, fig.cap="Perceived impact of the COVID-19 pandemic on S2 pupils", eval=multi_grades}
+```{r covid_s2, fig.cap="Perceived impact of the COVID-19 pandemic on S2 pupils", eval=multi_grades, fig.height=4.2, fig.width=6.4}
 school_dat |>
   bar_diverging("S2")
 ```
 
 
-```{r covid_s4, fig.cap="Perceived impact of the COVID-19 pandemic on S4 pupils", eval=multi_grades}
+```{r covid_s4, fig.cap="Perceived impact of the COVID-19 pandemic on S4 pupils", eval=multi_grades, fig.height=4.2, fig.width=6.4}
 school_dat |>
   bar_diverging("S4")
 ```
 
 
-```{r covid_all, fig.cap="Perceived impact of the COVID-19 pandemic on all pupils", eval=!multi_grades}
+```{r covid_all, fig.cap="Perceived impact of the COVID-19 pandemic on all pupils", eval=!multi_grades, fig.height=4.2, fig.width=6.4}
 school_dat |>
   bar_diverging("S.")
 ```
