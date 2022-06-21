@@ -218,7 +218,9 @@ participating by year group and gender. `r if(missing_vals$missing_grade > 0) pa
 ```{r tab_n_pupils, tab.cap="Overview of survey respondents", tab.id = "n_pupils", tab.cap.style = "Caption", eval = TRUE}
 school_dat |>
   count(sex, grade) |> 
-  filter(if_all(everything(), ~! is.na(.x))) |> 
+  # filter(if_all(everything(), ~! is.na(.x))) |>
+  mutate(sex = if_else(is.na(sex), "Other or not declared", as.character(sex)),
+         grade = if_else(is.na(grade), "Not declared", as.character(grade))) |> 
   pivot_wider(names_from = grade, values_from = n, values_fill = 0) |> 
   rename(" " = sex) |> 
   adorn_totals(c("row", "col")) |> 
