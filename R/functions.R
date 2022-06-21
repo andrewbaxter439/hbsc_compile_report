@@ -261,7 +261,7 @@ test_bar_multiple_vars <-
            varslist,
            success) {
     
-    missing_success <- is_missing(success)
+    missing_success <- rlang::is_missing(success)
     
     .data |> 
       group_by(sex) |> 
