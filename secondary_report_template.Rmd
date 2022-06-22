@@ -948,7 +948,9 @@ This chapter presents the following measures relating to substance use:
 
 The use of smoking, alcohol and drugs by school pupils and the impact on their health is a key area of concern, though data from HBSC and the Schools Adolescent Lifestyle and Substance Use Survey (SALSUS) surveys show encouraging downward trends in tobacco and alcohol use among Scottish adolescents. Data from the international HBSC study showed that adolescents across a large part of Europe are drinking less than they used to.^36^
 
-Nonetheless, frequent and excessive drinking is associated with a range of problems such as future alcohol and drug use, academic problems, risky sexual behaviour, and various physical and emotional problems.^37-39^
+Nonetheless, frequent and excessive drinking is associated with a range of problems such as future alcohol and drug use, academic problems, risky sexual behaviour, and various physical and emotional problems.^37-38^
+
+Although Nicotine Vaping Products (NVPs), or e-cigarettes’, are considered a lower risk to health than tobacco, the majority still contain nicotine. World Health Organisation (WHO) suggests that nicotine consumption by adolescents can have negative effects on brain development leading to learning and anxiety disorders.^39^  UK and Scottish government recommend these products are not used by children or young people and sale of products to under 18s is banned.
 
 School environment factors have been shown to be crucial in reducing smoking amongst pupils. Research has shown that exposure to teachers smoking on school grounds is linked to higher smoking among older adolescents.^40^ A zero-tolerance approach to smoking in school, both for pupils and staff, has been found to be effective in reducing tobacco use in adolescents.^41^ Identifying with media messages and peer pressure are shown to be risk factors for substance use in adolescence. The ability to think critically about media messages and good parental influences have both been shown to reduce substance use.^42^
 
@@ -1730,13 +1732,12 @@ support improvements in pupil wellbeing.
     Perspective on Alcohol and Youths 16 to 20 Years of Age. 
     *Pediatrics*, 121(Supplement 4), S290--S310.
 
-38. Cooper, M. L. (2002). Alcohol use and risky sexual behavior among
-    college students and youth: evaluating the evidence. *Journal of       Studies on Alcohol*, Supplement, (s14), 101--117.
-
-39. Eaton, D. K., Kann, L., Kinchen, S., Ross, J., Hawkins, J.,
+38. Eaton, D. K., Kann, L., Kinchen, S., Ross, J., Hawkins, J.,
     Harris, W. A., ... Wechsler, H. (2006). Youth Risk Behavior
     Surveillance---United States, 2005. *Journal of School Health*, 
     76(7), 353--372.
+    
+39. World Health Organization (2021) WHO Report on the Global Tobacco Epidemic, 2021: Addressing new and emerging products. WHO, Geneva.
 
 40. Poulsen, L. H., Osler, M., Roberts, C., Due, P., Damsgaard, M. T., 
     & Holstein, B. E. (2002). Exposure to teachers smoking and 
