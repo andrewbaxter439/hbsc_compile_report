@@ -76,8 +76,6 @@ main_colour <- "#333333"
 global_all_pupils_colour <- "#C00000"
 global_girls_colour <- "#2F5597"
 global_boys_colour <- "#DAE3F3"
-global_s2_colour <- "#548235"
-global_s4_colour <- "#C5E0B4"
 global_good_colour <- "#8d96a3"
 global_excel_colour <- "#00798c" 
 
@@ -111,18 +109,13 @@ update_geom_defaults("bar", list(fill = primary_colour))
 ```{r school_data, eval=TRUE, include=TRUE}
 
 school_dat <- hbsc2022[hbsc2022$SCHOOL_number == params$school,] |>
-  filter(school_level == "Secondary") |> 
+  filter(school_level == "Primary") |> 
   mutate(
-    grade = if_else(Grade == "Secondary 2", "S2", "S4"),
-    grade = factor(grade, levels = c("S2", "S4")),
     sex = factor(paste0(sex, "s"), levels = c("Girls", "Boys"))
   )
 
-multi_grades <- "S2" %in% school_dat$grade & "S4" %in% school_dat$grade
-
 missing_vals <- school_dat |> 
-  summarise(missing_gender = sum(is.na(sex)),
-            missing_grade = sum(is.na(grade)))
+  summarise(missing_gender = sum(is.na(sex)))
 
 ```
 
