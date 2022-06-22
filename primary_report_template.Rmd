@@ -1181,7 +1181,7 @@ school_dat |>
 | [Website][37]                    | they are coping with exam        |
 |                                  | stress.                          |
 +----------------------------------+----------------------------------+
-| **Young Scot-Advice on**         | Advice and information on coping |
+| **Young Scot-Advice on**        | Advice and information on coping |
 | **dealing with exam stress**\    | with exam stress for young       |
 | [Website][38]                    | people.                          |
 +----------------------------------+----------------------------------+
