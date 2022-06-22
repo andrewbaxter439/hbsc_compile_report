@@ -137,9 +137,17 @@ bar_mean_by_cat <- function(.data,
                             var,
                        .censor = TRUE,
                        ymax = max(.data[[rlang::as_name(var)]], na.rm = TRUE),
-                       ylab = "Mean") {
+                       ylab = "Mean",
+                       ybreaks = NULL) {
   require(rlang)
   var <- enquo(var)
+  
+  if (is.null(ybreaks)) {
+    ybreaks_fun <- waiver
+  } else {
+    ybreaks_fun <- \() ybreaks
+  }
+    
   
   rlang::eval_tidy(var, data = .data)
   
@@ -163,8 +171,8 @@ bar_mean_by_cat <- function(.data,
       ggplot(aes(sex, mean_var, fill = sex)) +
       geom_bar_t(stat = "identity") +
       scale_fill_hbsc() +
-      scale_y_continuous(ylab)+
-      geom_text(aes(label = round(mean_var, 1)),
+      scale_y_continuous(ylab, breaks = ybreaks_fun()) +
+      geom_text(aes(label = sprintf("%.1f", mean_var)),
                 vjust = 0, 
                 nudge_y = 0.05 * ymax,
                 size = 4) +
@@ -181,8 +189,8 @@ bar_mean_by_cat <- function(.data,
       ggplot(aes("All pupils", mean_var)) +
       geom_bar_t(stat = "identity") +
       scale_fill_hbsc() +
-      scale_y_continuous(ylab)+
-      geom_text(aes(label = round(mean_var, 1)),
+      scale_y_continuous(ylab, breaks = ybreaks_fun())+
+      geom_text(aes(label = sprintf("%.1f", mean_var)),
                 vjust = 0, 
                 nudge_y = 0.05 * ymax,
                 size = 4) +
@@ -215,12 +223,12 @@ bar_mean_by_cat <- function(.data,
       geom_bar_t(stat = "identity") +
       scale_fill_hbsc() +
       scale_y_continuous(" ",
-                         position = "right"
+                         position = "right", breaks = ybreaks_fun()
       ) +
       theme(axis.ticks.y = element_line(colour = "white"),
             axis.text.y = element_text(colour = "white"),
             plot.margin = unit(c(0.5, 0.5, 0.5, 1),  "cm")) +
-      geom_text(aes(label = round(mean_var, 1)),
+      geom_text(aes(label = sprintf("%.1f", mean_var)),
                 vjust = 0, 
                 nudge_y = 0.05 * ymax,
                 size = 4) +
@@ -233,7 +241,12 @@ bar_mean_by_cat <- function(.data,
 }
 
 # school_dat |>
-#   bar_mean_by_cat(Weekend_sleep_hrs, .censor = params$censor, ylab = "Hours")
+#   bar_mean_by_cat(
+#     var = CohenPSS4,
+#     .censor = params$censor,
+#     ymax = 16,
+#     ylab = "Score"
+#   )
 
 # test
 
@@ -248,7 +261,7 @@ test_bar_multiple_vars <-
            varslist,
            success) {
     
-    missing_success <- is_missing(success)
+    missing_success <- rlang::is_missing(success)
     
     .data |> 
       group_by(sex) |> 
@@ -268,14 +281,14 @@ test_bar_multiple_vars <-
       pull(include)
   }
 
-# school_dat |> 
-#   test_bar_multiple_vars(list(
-#     drunk1life = "Been drunk",
-#     smokever = "Tried tobacco",
-#     ecigever = "Tried vaping"
-#   ),
-#   success = c("drunk once or more", "Tried smoking", "Tried e-cigarette"))
 
+# school_dat |>
+#   test_bar_multiple_vars(
+#     list(# drunk1life = "Been drunk",
+#       smokever = "Tried tobacco",
+#       ecigever = "Tried vaping"),
+#     success = c("drunk once or more", "Tried smoking", "Tried e-cigarette")
+#   )
 # school_dat |>
 #   test_bar_multiple_vars(
 #     list(
@@ -307,7 +320,7 @@ bar_multiple_vars <-
     
     group <- match.arg(group)
     
-    .data |>
+    clean_dat <- .data |>
     mutate(grouping = case_when(
       group == "none" ~ "1",
       group == "sex" ~ as.character(sex),
@@ -323,20 +336,23 @@ bar_multiple_vars <-
         censored = if_else(n < 3 & .censor, 1, 0),
         labels = varslist[[var]][1],
         prop = n / denom,
-        prop = if_else(censored == 1, 1, prop),
-        bar_lab_main = if_else(censored == 1, "", percent(prop, suffix="", accuracy = 1)),
+        prop = if_else(censored == 1, 0.05, prop),
+        bar_lab_main = if_else(censored == 1, "*", percent(prop, suffix="", accuracy = 1)),
         bar_lab_cens = if_else(censored == 1, "Numbers too low to show", ""),
         grouping = factor(grouping, levels = c("Girls", "Boys", "S2", "S4", "1"))
       ) |>
-      filter(!is.na(grouping)) |> 
-      ggplot(aes(fct_inorder(labels), prop, alpha = factor(censored), linetype = factor(censored), fill = grouping, colour = grouping, group = grouping)) +
-      geom_bar_t(stat = "identity", position = position_dodge(width = 0.6)) +
+      filter(!is.na(grouping)) 
+    
+    clean_dat |> 
+      ggplot(aes(fct_inorder(labels), prop, linetype = factor(censored), fill = grouping, colour = grouping, group = grouping)) +
+      geom_bar_t(aes(alpha = factor(censored)), stat = "identity", position = position_dodge(width = 0.6)) +
       scale_alpha_manual(values = c("1" = 0.2, "0" = 1), guide = guide_none()) +
       scale_linetype_manual(values = c("1" = "dashed", "0" = "solid"), guide = guide_none()) +
-      scale_x_discrete(guide = guide_axis(angle = 45)) +
+      scale_x_discrete(guide = guide_axis(n.dodge = ceiling(length(varslist) / 4))) +
       scale_fill_hbsc(aesthetics = c("fill", "colour"), name = "",  limits = force) +
       theme(legend.position = if_else(group == "none", "none", "bottom"),
-            plot.margin = unit(c(0.5, 0.5, 0.5, 0),  "cm")) +
+            plot.margin = unit(c(0.5, 0.5, 0.5, 0),  "cm"),
+            plot.caption = element_text(hjust = 1, size = 10, face = "italic")) +
       scale_y_continuous("%", labels = percent) +
       geom_text(aes(label = bar_lab_main),
                 vjust = -0.5, 
@@ -344,20 +360,22 @@ bar_multiple_vars <-
                 colour = "black",
                 position = position_dodge(width = 0.6),
                 size = 4) +
-      geom_text(aes(label = bar_lab_cens, y = 0.5),
-                # nudge_y = 0.05,
-                vjust = 0.5,
-                angle = 90,
-                colour = "black",
-                position = position_dodge(width = 0.6),
-                size = 4) +
-      coord_cartesian(ylim = c(0, 1), clip = "off")
+      # geom_text(aes(label = bar_lab_cens, y = 0.15),
+      #           # nudge_y = 0.05,
+      #           vjust = 0.5,
+      #           hjust = 0,
+      #           angle = 90,
+      #           colour = "black",
+      #           position = position_dodge(width = 0.6),
+      #           size = 4) +
+      coord_cartesian(ylim = c(0, 1), clip = "off") +
+      labs(caption = if_else(any(clean_dat$censored == 1), "* Numbers too low to show", ""))
     
   }
 
 # test
 # 
-# school_dat |> 
+# school_dat |>
 #   bar_multiple_vars(
 #     list(
 #       fruits_2 = "Fruit",
@@ -371,7 +389,7 @@ bar_multiple_vars <-
 #     success = c("Once a day, every day", "Every day, more than once"),
 #     group = "sex",
 #     .censor = params$censor
-#   )
+#   ) 
 
 # mean multiple vars --------------------------------------------------
 
@@ -394,6 +412,7 @@ bar_mean_multiple_vars <-
            ymax = limits[2],
            ylab = "Mean") {
     
+    require(rlang)
     group <- match.arg(group)
     
     clean_dat <- .data |>
@@ -425,8 +444,8 @@ bar_mean_multiple_vars <-
       mutate(
         censored = if_else(denom < 3 & .censor, 1, 0),
         labels = varslist[[var]][1],
-        mean = if_else(censored == 1, ymax, mean),
-        bar_lab_main = if_else(censored == 1, na_dbl, round(mean, 1)),
+        mean = if_else(censored == 1, ymax/20, mean),
+        bar_lab_main = if_else(censored == 1, "*", sprintf("%.1f", mean)),
         bar_lab_cens = if_else(censored == 1, "Numbers too low to show", ""),
         grouping = factor(grouping, levels = c("Girls", "Boys", "S2", "S4", "1"))
       )
@@ -435,12 +454,12 @@ bar_mean_multiple_vars <-
       geom_bar_t(stat = "identity", position = position_dodge(width = 0.6)) +
       scale_alpha_manual(values = c("1" = 0.2, "0" = 1), guide = guide_none()) +
       scale_linetype_manual(values = c("1" = "dashed", "0" = "solid"), guide = guide_none()) +
-      scale_x_discrete(guide = guide_axis(angle = 45)) +
+      scale_x_discrete(guide = guide_axis(n.dodge = ceiling(length(varslist) / 4))) +
       scale_fill_hbsc(aesthetics = c("fill", "colour"), name = "",  limits = force) +
       theme(legend.position = if_else(group == "none", "none", "bottom"),
             plot.margin = unit(c(0.5, 0.5, 0.5, 0),  "cm")) +
       scale_y_continuous(ylab) +
-      geom_text(aes(label = round(mean, 1)),
+      geom_text(aes(label = sprintf("%.1f", mean)),
                 vjust = -0.5, 
                 # nudge_y = 0.05,
                 colour = "black",
@@ -486,7 +505,8 @@ bar_diverging <- function(.data, category, ordervals = c(
   "coviddiet" = "Diet",
   "covidfuture" = "Future",
   "covidfinance" = "Family finances"
-)) {
+), 
+.censor = TRUE) {
   
   global_girls_colour <- "#2F5597"
   global_boys_colour <- "#DAE3F3"
@@ -499,43 +519,70 @@ bar_diverging <- function(.data, category, ordervals = c(
                   S4 = c(global_s2_colour, global_s4_colour),
                   `S.` = c(global_s2_colour, global_s4_colour))
   
-  .data |> 
+  clean_dat <- .data |>
     select(sex, grade, starts_with("covid")) |>
-    pivot_longer(-c(sex, grade), names_to = "topic", values_to = "response") |> 
-    pivot_longer(c(sex, grade), names_to = "cat", values_to = "group") |> 
-    group_by(cat, group, topic) |> 
-    summarise(perc_pos = sum(response == "Positive", na.rm = TRUE)/n(),
-              perc_neg = -sum(response == "Negative", na.rm = TRUE)/n(),
-              .groups = "drop") |> 
-    pivot_longer(starts_with("perc"), names_to = "dir", values_to = "value", names_prefix = "perc_") |> 
-    mutate(topic = factor(topic, levels = names(ordervals), labels = ordervals)) |> 
+    pivot_longer(-c(sex, grade), names_to = "topic", values_to = "response") |>
+    pivot_longer(c(sex, grade), names_to = "cat", values_to = "group") |>
+    group_by(cat, group, topic) |>
+    summarise(
+      n = n(),
+      n_pos = sum(response == "Positive", na.rm = TRUE),
+      n_neg = sum(response == "Negative", na.rm = TRUE),
+      perc_pos = n_pos / n,
+      perc_neg = -n_neg / n,
+      .groups = "drop"
+    ) |> pivot_longer(
+      n_pos:perc_neg,
+      names_to = c("var", "dir"),
+      values_to = "val",
+      names_sep = "_"
+    ) |> 
     filter(group == str_match(group, category)) |> 
-    ggplot(aes(x = value, y = fct_rev(topic), fill = dir)) +
+    pivot_wider(
+      names_from = "var",
+      values_from = "val",
+      id_cols = c(cat, group, topic, dir)
+    ) |> 
+    mutate(topic = factor(topic, levels = names(ordervals), labels = ordervals),
+           censored = if_else(n < 3 & .censor, 1, 0),
+           perc = if_else(censored == 1, 0.05 * if_else(dir == "neg", -1, 1), perc),
+           bar_lab_main = if_else(censored == 1, "*", percent(abs(perc), suffix="", accuracy = 1))) |>
+    filter(group == str_match(group, category))
+  
+    clean_dat |>
+    ggplot(aes(x = perc, y = fct_rev(topic), fill = dir,
+               linetype = factor(censored))) +
     geom_vline(xintercept = 0) +
-    geom_col(width = 0.6) +
+    geom_col(aes(alpha = factor(censored)), width = 0.6, size = 2) +
     scale_fill_manual("",
                       labels = c("Negative", "Positive"),
+                      # aesthetics = c("fill", "colour"),
                       values = colours[[category]]) +
     theme(panel.grid.major.y = element_blank(),
           panel.grid.major.x = element_line(),
           axis.text.x = element_text(size = 10),
           axis.text.y = element_text(size = 12),
+          plot.caption = element_text(hjust = 1, size = 10, face = "italic"),
           legend.position = "top") +
     ylab("") +
+    scale_alpha_manual(values = c("1" = 0.5, "0" = 1), guide = guide_none()) +
+    scale_linetype_manual(values = c("1" = "dashed", "0" = "solid"), guide = guide_none()) +
     scale_x_continuous(breaks = seq(-1, 1, 0.2),
                        labels = percent(c(seq(1, 0, -0.2), seq(0.2, 1, 0.2))))  +
-    geom_text(aes(label = percent(abs(value), suffix="", accuracy = 1),
-                  x = value + 0.1*if_else(dir == "neg", -1, 1)),
-              size = 4) +
-    coord_cartesian(xlim = c(-1, 1), clip = "off")
+    geom_text(aes(label = bar_lab_main,
+                  x = perc + 0.1*if_else(dir == "neg", -1, 1)),
+              size = 4,
+              colour = "black") +
+    coord_cartesian(xlim = c(-1, 1), clip = "off") +
+    labs(caption = if_else(any(clean_dat$censored == 1), "* Numbers too low to show", ""))
 }
 
 # test
 # 
-# bar_diverging("Girls")
-# bar_diverging("Boys")
-# bar_diverging("S2")
-# bar_diverging("S4")
+# bar_diverging(school_dat, "Girls")
+# bar_diverging(school_dat, "Boys")
+# bar_diverging(school_dat, "S2")
+# bar_diverging(school_dat, "S4")
 # bar_diverging("S.")
 
 
