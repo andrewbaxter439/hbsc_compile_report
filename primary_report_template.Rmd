@@ -786,7 +786,7 @@ school_dat |>
 Pupils were asked how often they had experienced various types of bullying behaviour. We looked at the percentage of pupils across the school (combining years and gender) who had experienced each type of bullying at least 2 or 3 times in the past couple of months. Types of bullying behaviour experienced by pupils at your school included:
 
 
-```{r bullymost, render="asis"}
+```{r bullymost, results="asis"}
 school_dat |>
   common_health_complaints(
     list(
