@@ -202,7 +202,7 @@ Understanding the data in this report
 
 ::: {custom-style="FigDesc"}
 Pupils in P7 classes in your school took part in the survey
-during spring Term 2022. Table 1 shows the number of pupils
+during spring term 2022. Table 1 shows the number of pupils
 participating by gender. `r if(missing_vals$missing_gender > 0) paste0(missing_vals$missing_gender, " pupil", ifelse(missing_vals$missing_gender > 1, "s", ""), " did not provide their gender.")`
 :::
 
