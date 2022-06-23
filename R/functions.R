@@ -657,7 +657,7 @@ common_health_complaints <- function(.data,
     filter(!is.na(grouping))|> 
     group_by(var) |> 
     mutate(overall_perc = weighted.mean(prop, w = denom)) |> 
-    mutate(prop = if_else(n < 3, na_dbl, prop)) |> 
+    mutate(prop = if_else(n < 3, rlang::na_dbl, prop)) |> 
     select(grouping, labels, prop, overall_perc) |> 
     pivot_wider(names_from = grouping, values_from = prop) |> 
     ungroup() |> 
