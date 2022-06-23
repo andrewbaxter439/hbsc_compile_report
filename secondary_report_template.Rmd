@@ -114,7 +114,9 @@ update_geom_defaults("bar", list(fill = primary_colour))
 school_dat <- hbsc2022[hbsc2022$SCHOOL_number == params$school,] |>
   filter(school_level == "Secondary") |> 
   mutate(
-    grade = if_else(Grade == "Secondary 2", "S2", "S4"),
+    grade = case_when(Grade == "Secondary 2" ~ "S2",
+                      Grade == "Secondary 4" ~ "S4",
+                      TRUE ~ "not supplied"),
     grade = factor(grade, levels = c("S2", "S4")),
     sex = factor(paste0(sex, "s"), levels = c("Girls", "Boys"))
   )
@@ -367,6 +369,7 @@ school_dat |>
 )
 ```
 
+\newpage
 ### Who can help?
 
 +----------------------------------+----------------------------------+
@@ -1306,6 +1309,7 @@ school_dat |>
 
 ```{r covid_all, fig.cap="Perceived impact of the COVID-19 pandemic on all pupils", eval=!multi_grades, fig.height=4.2, fig.width=6.4}
 school_dat |>
+  mutate(grade = "Sx") |> 
   bar_diverging("S.")
 ```
 
