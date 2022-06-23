@@ -187,7 +187,9 @@ This report presents the survey data from your school, on the following health t
 As well as the data, we have included notes and research evidence along with suggested resources to help promote pupil health and wellbeing. We hope you will find the report useful in reviewing the health and wellbeing of your pupils, and in identifying key targets for health improvement action planning in your school. The report is confidential, and only provided to the HBSC contact at your school. However, we would strongly encourage you to share the report more widely with your pupils, staff and parents.
 
 \newpage
-## Understanding the data in this report
+::: {custom-style="Heading 2 - no number"}
+Understanding the data in this report
+:::
 
 -   Generally, within the same figure, we provide results by gender (in blue). Results for all pupils will be shown in red when numbers are low.
 -   Most data are presented as a cut-off; for example, two answers to a question are combined, such as feeling 'often' or 'always' confident.
