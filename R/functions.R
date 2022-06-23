@@ -624,3 +624,71 @@ scale_fill_hbsc <- function(...) {
 geom_bar_t <- function (..., width = 0.5) {
   geom_bar(..., width = width)
 }
+
+
+# three most common health complaints -------------------------------------
+
+common_health_complaints <- function(.data, 
+                                     varslist,
+                                     success = c("More than once a week", "About every day"),
+                                     group = c("none", "grade", "sex"),
+                                     .censor = TRUE) {
+  group <- match.arg(group)
+  
+  clean_dat <- .data |>
+    mutate(grouping = case_when(
+      group == "none" ~ "1",
+      group == "sex" ~ as.character(sex),
+      group == "grade" ~ as.character(grade)
+    )) |> 
+    group_by(grouping) |> 
+    select(grouping, !!!syms(names(varslist))) |>
+    summarise(across(everything(), ~ sum(.x %in% success)),
+              denom = n()) |>
+    pivot_longer(-c(grouping, denom), names_to = "var", values_to = "n") |> 
+    rowwise() |>
+    mutate(
+      labels = varslist[[var]][1],
+      prop = n / denom,
+      grouping = factor(grouping, levels = c("Girls", "Boys", "S2", "S4", "1"))
+    ) |>
+    filter(!is.na(grouping))|> 
+    group_by(var) |> 
+    mutate(overall_perc = weighted.mean(prop, w = denom)) |> 
+    mutate(prop = if_else(n < 3, na_dbl, prop)) |> 
+    select(grouping, labels, prop, overall_perc) |> 
+    pivot_wider(names_from = grouping, values_from = prop) |> 
+    ungroup() |> 
+    arrange(desc(overall_perc)) |> 
+    head(3) |> 
+    mutate(across(where(is.numeric), percent))
+  
+  clean_dat |> 
+    rowwise() |> 
+    group_walk(function(df, k) {
+      cat("* ", df$labels, ": ", df$overall_perc, sep = "")
+      
+      if (!is.na(df$Boys) & !is.na(df$Girls)) {
+            cat(" (", df$Girls, " of girls, ", df$Boys, " of Boys)\n", sep = "")
+      } else {
+        cat("\n")
+      }
+    })
+  
+}
+
+  # school_dat |>
+  #   common_health_complaints(
+  #     list(
+  #       headache =   "Headache",
+  #       stomachache =   "Stomach-ache",
+  #       backache =   "Backache",
+  #       dizzy =   "Dizziness",
+  #       feellow =   "Feeling low",
+  #       nervous =   "Feeling nervous",
+  #       irritable =   "Feeling irritable",
+  #       sleepdificulty =   "Sleep difficulties"
+  #     ),
+  #     group = "sex",
+  #     .censor = params$censor
+  #   )
