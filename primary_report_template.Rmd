@@ -211,7 +211,7 @@ school_dat |>
   count(sex) |> 
   mutate(sex = if_else(is.na(sex), "Other or not declared", as.character(sex))) |> 
   pivot_wider(names_from = sex, values_from = n, values_fill = 0) |> 
-  rename_with(~paste0("", .x), .cols = 1:2) |>
+  rename_with(~paste0("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;", .x), .cols = 1:2) |>
   knitr::kable()
 ```
 
@@ -253,7 +253,7 @@ school_dat |>
 ### Multiple health complaints
 
 ::: {custom-style="FigDesc"}
-Pupils were asked 'In the last 6 months how often have you had the following...?' and presented with a list of eight physical and psychological symptoms: headache, stomach-ache, backache, dizziness, feeling low, feeling nervous, feeling irritable and sleep difficulties. We looked at the proportion of young people who experienced this symptom, once a week or more.
+Pupils were asked 'In the last 6 months how often have you had the following...?' and presented with a list of eight physical and psychological symptoms: headache, stomach-ache, backache, dizziness, feeling low, feeling nervous, feeling irritable and sleep difficulties. We looked at the proportion of young people who experienced this symptom, once a week or more. The most frequent health complaints are:
 :::
 
 ```{r mulciple_health, results="asis"}
@@ -576,7 +576,7 @@ together?". Here we show the percentage who responded that they have a
 family meal most days or every day.
 :::
 
-```{r family_meal, fig.cap="% pupils who eat a meal with family most days or everyday"}
+```{r family_meal, fig.cap="% pupils who eat a meal with family most days or every day"}
 
 school_dat |>
   bar_by_cat(fmeal, c("Every day", "Most days"), .censor = params$censor)
@@ -686,7 +686,7 @@ school_dat |>
 
 
 ::: {custom-style="FigDesc"}
-The following figures show the types of activities that young people
+The following figure shows the types of activities that young people
 undertake, at least once a week.
 :::
 
@@ -783,7 +783,7 @@ school_dat |>
 
 ### Experience of types of bullying behaviour
 
-Pupils were asked how often they had experienced various types of bullying behaviour. We looked at the percentage of pupils across the school (combining years and gender) who had experienced each type of bullying at least 2 or 3 times in the past couple of months. Types of bullying behaviour experienced by pupils at your school included:
+Pupils were asked how often they had experienced various types of bullying behaviour. We looked at the percentage of pupils across the school (combining years and gender) who had experienced each type of bullying at least 2 or 3 times in the past couple of months. The most common types of bullying behaviour experienced by pupils at your school were:
 
 
 ```{r bullymost, results="asis"}
@@ -1031,7 +1031,7 @@ school_dat |>
 The following figure presents the percentage of pupils who say they find it easy or very easy to talk to their father (includes step-father).
 :::
 
-```{r easy_talk_f, fig.cap="% pupils who say it's easy or very easy to speak to the father figure"}
+```{r easy_talk_f, fig.cap="% pupils who say it's easy or very easy to speak to father figure"}
 school_dat |>
   bar_by_cat(var = easytalk_Ffigure, success = "Easy to talk to father or stepfather", .censor = params$censor)
 ```
@@ -1039,7 +1039,7 @@ school_dat |>
 ### Family support
 
 ::: {custom-style="FigDesc"}
-The HBSC survey includes the Family Support Scale. This consists of four questions about how much support the young person feels they get from their family, for example, listening to their problems and help with decision making. The figure shows the percentage of pupils who reported high family support.
+The HBSC survey includes the Family Support Scale. This consists of four questions about how much support the young person feels they get from their family, for example, listening to their problems and help with decision making. The figure shows the percentage of pupils who report high family support.
 :::
 
 ```{r high_support, fig.cap="% pupils who report high family support"}
@@ -1180,7 +1180,7 @@ school_dat |>
 | [Website][37]                    | they are coping with exam        |
 |                                  | stress.                          |
 +----------------------------------+----------------------------------+
-| **Young Scot-Advice on**       | Advice and information on coping |
+| **Young Scot-Advice on**         | Advice and information on coping |
 | **dealing with exam stress**\    | with exam stress for young       |
 | [Website][38]                    | people.                          |
 +----------------------------------+----------------------------------+

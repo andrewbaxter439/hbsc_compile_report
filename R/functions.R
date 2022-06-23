@@ -323,7 +323,7 @@ bar_multiple_vars <-
     
     clean_dat <- .data |>
     mutate(grouping = case_when(
-      group == "none" ~ "1",
+      group == "none" ~ "All pupils",
       group == "sex" ~ as.character(sex),
       group == "grade" ~ as.character(grade)
     )) |> 
@@ -335,12 +335,12 @@ bar_multiple_vars <-
       rowwise() |>
       mutate(
         censored = if_else(n < 3 & .censor, 1, 0),
-        labels = varslist[[var]][1],
+        labels = str_wrap(varslist[[var]][1], 12),
         prop = n / denom,
         prop = if_else(censored == 1, 0.05, prop),
         bar_lab_main = if_else(censored == 1, "*", percent(prop, suffix="", accuracy = 1)),
         bar_lab_cens = if_else(censored == 1, "Numbers too low to show", ""),
-        grouping = factor(grouping, levels = c("Girls", "Boys", "S2", "S4", "1"))
+        grouping = factor(grouping, levels = c("Girls", "Boys", "S2", "S4", "All pupils"))
       ) |>
       filter(!is.na(grouping)) 
     
@@ -351,7 +351,7 @@ bar_multiple_vars <-
       scale_linetype_manual(values = c("1" = "dashed", "0" = "solid"), guide = guide_none()) +
       scale_x_discrete(guide = guide_axis(n.dodge = ceiling(length(varslist) / 4))) +
       scale_fill_hbsc(aesthetics = c("fill", "colour"), name = "",  limits = force) +
-      theme(legend.position = if_else(group == "none", "none", "bottom"),
+      theme(legend.position = "bottom",
             plot.margin = unit(c(0.8, 0.5, 0.5, 0),  "cm"),
             plot.caption = element_text(hjust = 1, size = 10, face = "italic")) +
       scale_y_continuous("%", labels = percent) +
@@ -444,7 +444,7 @@ bar_mean_multiple_vars <-
       filter(!is.na(grouping)) |> 
       mutate(
         censored = if_else(denom < 3 & .censor, 1, 0),
-        labels = varslist[[var]][1],
+        labels = str_wrap(varslist[[var]][1], 12),
         mean = if_else(censored == 1, ymax/20, mean),
         bar_lab_main = if_else(censored == 1, "*", sprintf("%.1f", mean)),
         bar_lab_cens = if_else(censored == 1, "Numbers too low to show", ""),
@@ -614,6 +614,7 @@ scale_fill_hbsc <- function(...) {
       "Boys" = global_boys_colour,
       "S2" = global_s2_colour,
       "S4" = global_s4_colour,
+      "All pupils" = primary_colour,
       "1" = primary_colour
     ),
     ...
@@ -663,7 +664,7 @@ common_health_complaints <- function(.data,
     ungroup() |> 
     arrange(desc(overall_perc)) |> 
     head(3) |> 
-    mutate(across(where(is.numeric), percent))
+    mutate(across(where(is.numeric), percent, accuracy = 1))
   
   clean_dat |> 
     rowwise() |> 
