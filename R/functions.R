@@ -562,6 +562,7 @@ bar_diverging <- function(.data, category, ordervals = c(
           panel.grid.major.x = element_line(),
           axis.text.x = element_text(size = 10),
           axis.text.y = element_text(size = 12),
+          plot.margin = unit(c(0.5, 0.5, 0.5, 0),  "cm"),
           plot.caption = element_text(hjust = 1, size = 10, face = "italic"),
           legend.position = "top") +
     ylab("") +
