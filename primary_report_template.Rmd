@@ -35,7 +35,7 @@ params:
   school: 
     label: 'School'
     input: select
-    value: "062"
+    value: "036"
     choices: ["024","066","063","071","062","072","036"]
 
   school_name:
@@ -209,7 +209,7 @@ participating by gender. `r if(missing_vals$missing_gender > 0) paste0(missing_v
 ```{r tab_n_pupils, tab.cap="Overview of survey respondents", tab.id = "n_pupils", tab.cap.style = "Caption", eval = TRUE}
 school_dat |>
   count(sex) |> 
-  mutate(sex = if_else(is.na(sex), "Other or not declared", as.character(sex))) |> 
+  mutate(sex = if_else(is.na(sex), "Not declared", as.character(sex))) |> 
   pivot_wider(names_from = sex, values_from = n, values_fill = 0) |> 
   rename_with(~paste0("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;", .x), .cols = 1:2) |>
   knitr::kable()
@@ -533,7 +533,7 @@ food and drink. The figures show the percentage of pupils who consumed
 each type of food or drink at least once a day.
 :::
 
-```{r food_drink_gender, fig.cap="% pupils who consume food/drink daily, by gender"}
+```{r food_drink_gender, fig.cap="% pupils who consume food/drink daily"}
 school_dat |> 
   bar_multiple_vars(
   list(
@@ -546,7 +546,7 @@ school_dat |>
     energydrink = "Energy drinks"
   ),
   success = c("Once a day, every day", "Every day, more than once"),
-  group = "sex",
+  group = "none",
   .censor = params$censor
 )
 ```
@@ -690,7 +690,7 @@ The following figure shows the types of activities that young people
 undertake, at least once a week.
 :::
 
-```{r activity_type, fig.cap="% pupils who do this type of activity at least once a week, by gender"}
+```{r activity_type, fig.cap="% pupils who do this type of activity at least once a week"}
 school_dat |> 
   bar_multiple_vars(
   varslist = list(
@@ -702,7 +702,7 @@ school_dat |>
     ls_relig_wk = "Religious activity"
   ),
   success = "At least weekly",
-  group = "sex",
+  group = "none",
   .censor = params$censor
 )
 ```
@@ -793,10 +793,9 @@ school_dat |>
       Bully_names = "Being called names, made fun of or teased",
       Bully_excluded = "Being left out, excluded or ignored",
       Bully_rumours = "Other pupils told lies or spread rumours about them",
-      Bully_race = "[race]",
-      Bully_religion = "[religion]",
-      Bully_sexjoke = "[sexjoke]",
-      Bully_hit = "[hit]"
+      Bully_race = "Being bullied regarding their race",
+      Bully_religion = "Being bullied regarding their religion"
+      # Bully_hit = "[hit]"
     ),
     success = "Bullied 2-3 times+",
     group = "sex"
