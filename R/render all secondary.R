@@ -89,7 +89,7 @@ schools_to_knit |>
       ),
       output_file = file.path(dir_write, paste0(
         str_remove_all(df$LA, "[:punctuation:]"), " - ",
-        str_remove_all(df$school_name, "[:punctuation:]"), ".docx"
+        str_remove_all(df$school_name, "[:punctuation:]"), "_v2.docx"
       ))
     )
     

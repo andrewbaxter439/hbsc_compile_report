@@ -1203,7 +1203,7 @@ school_dat |>
 ```
 
 
-Pupils who gamed each week were asked to complete the Internet Gaming Disorder (IGD) Scale which distinguishes between 'normative' and 'problematic' gaming. Overall, `r perc_success(school_dat, problematicgame, "Problematic gamer")` of all pupils who game reported problematic gaming.
+Pupils who gamed each week were asked to complete the Internet Gaming Disorder (IGD) Scale which distinguishes between 'normative' and 'problematic' gaming. Overall, `r school_dat |> filter(!is.na(problematicgame)) |>  perc_success(problematicgame, "Problematic gamer")` of all pupils who game reported problematic gaming.
 
 \newpage
 ### Who can help?
