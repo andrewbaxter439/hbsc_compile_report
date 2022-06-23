@@ -44,6 +44,7 @@ bar_by_cat <- function(.data,
                 vjust = 0, 
                 nudge_y = 0.05,
                 size = 4) +
+      theme(plot.margin = unit(c(0.8, 0.5, 0.5, 1),  "cm")) +
       coord_cartesian(ylim = c(0, 1), clip = "off")
     
   } else { # Test semi-censored version
@@ -62,7 +63,7 @@ bar_by_cat <- function(.data,
                 vjust = 0, 
                 nudge_y = 0.05,
                 size = 4) +
-      theme(plot.margin = unit(c(0.5, 0.5, 0.5, 1),  "cm")) +
+      theme(plot.margin = unit(c(0.8, 0.5, 0.5, 1),  "cm")) +
       coord_cartesian(ylim = c(0, 1), clip = "off")
   }
   # For full censoring
@@ -98,7 +99,7 @@ bar_by_cat <- function(.data,
                          ) +
       theme(axis.ticks.y = element_line(colour = "white"),
             axis.text.y = element_text(colour = "white"),
-            plot.margin = unit(c(0.5, 0.5, 0.5, 1),  "cm")) +
+            plot.margin = unit(c(0.8, 0.5, 0.5, 1),  "cm")) +
       geom_text(aes(label = percent(prop, suffix="", accuracy = 1)),
                 vjust = 0, 
                 nudge_y = 0.05,
@@ -351,7 +352,7 @@ bar_multiple_vars <-
       scale_x_discrete(guide = guide_axis(n.dodge = ceiling(length(varslist) / 4))) +
       scale_fill_hbsc(aesthetics = c("fill", "colour"), name = "",  limits = force) +
       theme(legend.position = if_else(group == "none", "none", "bottom"),
-            plot.margin = unit(c(0.5, 0.5, 0.5, 0),  "cm"),
+            plot.margin = unit(c(0.8, 0.5, 0.5, 0),  "cm"),
             plot.caption = element_text(hjust = 1, size = 10, face = "italic")) +
       scale_y_continuous("%", labels = percent) +
       geom_text(aes(label = bar_lab_main),
