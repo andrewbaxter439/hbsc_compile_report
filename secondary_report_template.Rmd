@@ -878,8 +878,8 @@ school_dat |>
 This chapter reports the following measures relating to bullying and discrimination:
 
 -   Bullying at school-perpetration and victim
+-   Cyberbullying and cyber victimisation
 -   Experience of different types bullying behaviour
--   Cyberbullying victimisation
 
 Being a victim of bullying at school can have a serious impact on young people and is linked to loneliness, depression and low self-esteem in adulthood. Victims of bullying may experience a range of problem behaviours, psychological and psychosomatic issues, anxiety, depression and even suicide.^30,31^
 
