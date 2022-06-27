@@ -689,7 +689,7 @@ together?". Here we show the percentage who responded that they have a
 family meal most days or every day.
 :::
 
-```{r family_meal, fig.cap="% pupils who eat a meal with family most days or everyday"}
+```{r family_meal, fig.cap="% pupils who eat a meal with family most days or every day"}
 
 school_dat |>
   bar_by_cat(fmeal, c("Every day", "Most days"), .censor = params$censor)
