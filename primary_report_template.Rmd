@@ -995,6 +995,11 @@ school_dat |>
   bar_diverging("Boys")
 ```
 
+```{r covid_all, fig.cap="Perceived impact of the COVID-19 pandemic on all pupils", eval=!multi_grades, fig.height=4.2, fig.width=6.4}
+school_dat |>
+  mutate(grade = "All pupils") |> 
+  bar_diverging("All pupils")
+```
 
 ## Social Relationships and Support
 

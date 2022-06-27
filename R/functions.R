@@ -518,6 +518,7 @@ bar_diverging <- function(.data, category, ordervals = c(
                   Boys = c(global_girls_colour, global_boys_colour),
                   S2 = c(global_s2_colour, global_s4_colour),
                   S4 = c(global_s2_colour, global_s4_colour),
+                  `All pupils` = c(primary_colour, "f37575"),
                   `S.` = c(global_s2_colour, global_s4_colour))
   
   clean_dat <- .data |>
