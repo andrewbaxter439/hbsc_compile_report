@@ -672,7 +672,7 @@ common_health_complaints <- function(.data,
       cat("* ", df$labels, ": ", df$overall_perc, sep = "")
       
       if (!is.na(df$Boys) & !is.na(df$Girls)) {
-            cat(" (", df$Girls, " of girls, ", df$Boys, " of Boys)\n", sep = "")
+            cat(" (", df$Girls, " of girls, ", df$Boys, " of boys)\n", sep = "")
       } else {
         cat("\n")
       }
