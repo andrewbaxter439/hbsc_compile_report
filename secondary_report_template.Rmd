@@ -207,7 +207,7 @@ Understanding the data in this report
 -   Some measures combine responses to a series of questions to create a mean score, for example, sleep quality, teacher support.
 -   Some of the same measures were also used in the 2018 HBSC Scotland survey. Please see the [2018 Scotland HBSC national report](https://www.gla.ac.uk/media/Media_707475_smxx.pdf) for more information about the survey.
 
-![](images/graph_explanator.png){width="7.138888888888889in"}
+![](images/graph_explanator_v2.png){width="7.138888888888889in"}
 
 ### Your school's participation in the survey
 
