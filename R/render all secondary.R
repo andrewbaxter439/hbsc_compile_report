@@ -70,7 +70,7 @@ library(rmarkdown)
 
 schools_to_knit |> 
   left_join(schools, by = "SCHOOL_number") |> 
-  filter(str_detect(`Break for summer`, "^(17|23|24)")) |>
+  filter(str_detect(`Break for summer`, "^(17|23|24)", negate = TRUE)) |>
   rowwise() |>
   group_walk(function(df, key) {
     
