@@ -215,7 +215,7 @@ bar_mean_by_cat <- function(.data,
               denom = n()) |>
     filter(!is.na(grade))
   
-  if ((length(df_school$grade) == 2 & all(df_sex$denom > 7) &
+  if ((length(df_school$grade) == 2 & all(df_sex$denom >= 7) &
        all(df_school$denom >= 7)) | (length(df_school$grade) == 2 & .censor == FALSE)) {
     # * for secondary schools, only separate by year if there are ≥7 S2 AND ≥7 S4).
     
