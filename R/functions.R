@@ -347,7 +347,7 @@ bar_multiple_vars <-
     clean_dat |> 
       ggplot(aes(fct_inorder(labels), prop, linetype = factor(censored), fill = grouping, colour = grouping, group = grouping)) +
       geom_bar_t(aes(alpha = factor(censored)), stat = "identity", position = position_dodge(width = 0.6)) +
-      scale_alpha_manual(values = c("1" = 0.2, "0" = 1), guide = guide_none()) +
+      scale_alpha_manual(values = c("1" = 0.6, "0" = 1), guide = guide_none()) +
       scale_linetype_manual(values = c("1" = "dashed", "0" = "solid"), guide = guide_none()) +
       scale_x_discrete(guide = guide_axis(n.dodge = ceiling(length(varslist) / 4))) +
       scale_fill_hbsc(aesthetics = c("fill", "colour"), name = "",  limits = force) +
@@ -451,9 +451,9 @@ bar_mean_multiple_vars <-
         grouping = factor(grouping, levels = c("Girls", "Boys", "S2", "S4", "1"))
       )
     
-      scale_alpha_manual(values = c("1" = 0.2, "0" = 1), guide = guide_none()) +
       ggplot(clean_dat, aes(fct_inorder(labels), mean, linetype = factor(censored), fill = grouping, colour = grouping, group = grouping)) +
       geom_bar_t(aes(alpha = factor(censored)), stat = "identity", position = position_dodge(width = 0.6)) +
+      scale_alpha_manual(values = c("1" = 0.6, "0" = 1), guide = guide_none()) +
       scale_linetype_manual(values = c("1" = "dashed", "0" = "solid"), guide = guide_none()) +
       scale_x_discrete(guide = guide_axis(n.dodge = ceiling(length(varslist) / 4))) +
       scale_fill_hbsc(aesthetics = c("fill", "colour"), name = "",  limits = force) +
