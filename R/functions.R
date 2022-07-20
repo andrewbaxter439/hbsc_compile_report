@@ -451,29 +451,30 @@ bar_mean_multiple_vars <-
         grouping = factor(grouping, levels = c("Girls", "Boys", "S2", "S4", "1"))
       )
     
-      ggplot(clean_dat, aes(fct_inorder(labels), mean, alpha = factor(censored), linetype = factor(censored), fill = grouping, colour = grouping, group = grouping)) +
-      geom_bar_t(stat = "identity", position = position_dodge(width = 0.6)) +
       scale_alpha_manual(values = c("1" = 0.2, "0" = 1), guide = guide_none()) +
+      ggplot(clean_dat, aes(fct_inorder(labels), mean, linetype = factor(censored), fill = grouping, colour = grouping, group = grouping)) +
+      geom_bar_t(aes(alpha = factor(censored)), stat = "identity", position = position_dodge(width = 0.6)) +
       scale_linetype_manual(values = c("1" = "dashed", "0" = "solid"), guide = guide_none()) +
       scale_x_discrete(guide = guide_axis(n.dodge = ceiling(length(varslist) / 4))) +
       scale_fill_hbsc(aesthetics = c("fill", "colour"), name = "",  limits = force) +
       theme(legend.position = if_else(group == "none", "none", "bottom"),
             plot.margin = unit(c(0.5, 0.5, 0.5, 0),  "cm")) +
       scale_y_continuous(ylab) +
-      geom_text(aes(label = sprintf("%.1f", mean)),
+      geom_text(aes(label = bar_lab_main),
                 vjust = -0.5, 
                 # nudge_y = 0.05,
                 colour = "black",
                 position = position_dodge(width = 0.6),
                 size = 4) +
-        geom_text(aes(label = bar_lab_cens, y = ymax/2),
-                  # nudge_y = 0.05,
-                  vjust = 0.5,
-                  angle = 90,
-                  colour = "black",
-                  position = position_dodge(width = 0.6),
-                  size = 4) +
-        coord_cartesian(ylim = c(0, ymax), clip = "off")
+        # geom_text(aes(label = bar_lab_cens, y = ymax/2),
+        #           # nudge_y = 0.05,
+        #           vjust = 0.5,
+        #           angle = 90,
+        #           colour = "black",
+        #           position = position_dodge(width = 0.6),
+        #           size = 4) +
+        coord_cartesian(ylim = c(0, ymax), clip = "off") +
+        labs(caption = if_else(any(clean_dat$censored == 1), "* Numbers too low to show", ""))
     
   }
 
