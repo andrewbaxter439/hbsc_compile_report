@@ -35,7 +35,7 @@ params:
   school: 
     label: 'School'
     input: select
-    value: "036"
+    value: "030"
     choices: ["024","066","063","071","062","072","036"]
 
   school_name:
