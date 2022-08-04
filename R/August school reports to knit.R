@@ -44,16 +44,7 @@ theme_set(theme_minimal() +
 
 update_geom_defaults("bar", list(fill = primary_colour))
 
-# import all data
-
-schools_to_knit <- hbsc2022 |> 
-  filter(school_level == "Secondary") |> 
-  group_by(SCHOOL_number, Grade) |> 
-  tally() |> 
-  pivot_wider(names_from = Grade, values_from = n) |> 
-  mutate(total = sum(`Secondary 2`, `Secondary 4`, na.rm = FALSE)) |> 
-  filter(!is.na(total), if_all(starts_with("Secondary"), ~.x > 5)) |> 
-  arrange(total)
+# Read files for school names
 
 out_dir <- "Q:/Project Recipient Data/HBSC 2022/School ID/Report tracking/Reports for checking August 2022"
 
@@ -76,7 +67,7 @@ primaries_to_knit <-  readxl::read_excel(
          .keep = "unused")
 
 
-# function_idea -----------------------------------------------------------
+# Knit all by template type -----------------------------------------------------------
 
 
 secondaries_to_knit |> 
