@@ -697,3 +697,36 @@ common_health_complaints <- function(.data,
   #     group = "sex",
   #     .censor = params$censor
   #   )
+
+
+# write reports -----------------------------------------------------------
+
+write_reports <- function(df, template = "secondary_report_template.Rmd", out_dir, folder = "Test") {
+  
+  df |> 
+  rowwise() |>
+    group_walk(function(df, key) {
+  
+  output_file <- file.path(
+    out_dir,
+    folder,
+    paste0(
+      str_remove_all(df$LA, "[:punctuation:]"),
+      " - ",
+      str_remove_all(df$school_name, "[:punctuation:]"),
+      ".docx"
+    )
+  )
+  
+  render(
+    template,
+    params = list(
+      school = df$SCHOOL_number,
+      school_name = df$school_name,
+      censor = TRUE
+    ),
+    output_file = output_file
+  )
+    })
+}
+
