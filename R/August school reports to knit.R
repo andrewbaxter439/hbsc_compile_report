@@ -71,7 +71,9 @@ primaries_to_knit <-  readxl::read_excel(
 
 
 secondaries_to_knit |> 
-  write_reports(template = "secondary_report_template.Rmd", out_dir = out_dir, folder = "Test")
+  sample_n(3) |> 
+  write_reports(template = "secondary_report_template.Rmd", out_dir = out_dir, folder = "Test", .prefix = "[sec]")
 
 primaries_to_knit |>
-  write_reports(template = "primary_report_template.Rmd", out_dir = out_dir, folder = "Test")
+  sample_n(3) |> 
+  write_reports(template = "primary_report_template.Rmd", out_dir = out_dir, folder = "Test", .prefix = "[prim]")

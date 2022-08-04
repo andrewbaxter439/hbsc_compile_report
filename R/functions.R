@@ -701,7 +701,7 @@ common_health_complaints <- function(.data,
 
 # write reports -----------------------------------------------------------
 
-write_reports <- function(df, template = "secondary_report_template.Rmd", out_dir, folder = "Test") {
+write_reports <- function(df, template = "secondary_report_template.Rmd", out_dir, folder = "Test", .prefix = "") {
   
   df |> 
   rowwise() |>
@@ -711,6 +711,7 @@ write_reports <- function(df, template = "secondary_report_template.Rmd", out_di
     out_dir,
     folder,
     paste0(
+      .prefix,
       str_remove_all(df$LA, "[:punctuation:]"),
       " - ",
       str_remove_all(df$school_name, "[:punctuation:]"),
