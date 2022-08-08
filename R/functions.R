@@ -703,10 +703,14 @@ common_health_complaints <- function(.data,
 
 write_reports <- function(df, template = "secondary_report_template.Rmd", out_dir, folder = "Test", .prefix = "") {
   
+  all_time <- 0
+  processed <- 1
+  
   df |> 
   rowwise() |>
     group_walk(function(df, key) {
   
+  start <- Sys.time()
   output_file <- file.path(
     out_dir,
     folder,
@@ -728,6 +732,15 @@ write_reports <- function(df, template = "secondary_report_template.Rmd", out_di
     ),
     output_file = output_file
   )
+  
+  tot_time <- round(as.numeric(Sys.time() - start), 1)
+  message("Time this run: ", tot_time, " seconds\n")
+  
+  all_time <<- all_time + tot_time
+  
+  message("Average time: ", round(all_time/processed, 1), " seconds\n")
+  processed <<- processed + 1
+  
     })
 }
 
