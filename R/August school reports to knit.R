@@ -55,7 +55,16 @@ secondaries_to_knit <-
   ) |>
   select(school_name = Name, LA, id = `School iD`) |>
   mutate(SCHOOL_number = str_extract(id, "(?<=^S)\\d{3}"),
+         .keep = "unused") |> 
+bind_rows(
+  readxl::read_excel(
+    "Q:\\Project Recipient Data\\HBSC 2022\\School ID\\Report tracking\\Report overview 020822.xlsx",
+    sheet = "Pre-Easter secondary"
+  ) |>
+  select(school_name = Name, LA, id = `School iD`) |>
+  mutate(SCHOOL_number = str_extract(id, "(?<=^S)\\d{3}"),
          .keep = "unused")
+)
 
 
 primaries_to_knit <-  readxl::read_excel(
@@ -72,8 +81,8 @@ primaries_to_knit <-  readxl::read_excel(
 
 secondaries_to_knit |> 
   sample_n(3) |> 
-  write_reports(template = "secondary_report_template.Rmd", out_dir = out_dir, folder = "Test", .prefix = "[sec]")
+  write_reports(template = "secondary_report_template.Rmd", out_dir = out_dir, folder = "Secondary")
 
 primaries_to_knit |>
   sample_n(3) |> 
-  write_reports(template = "primary_report_template.Rmd", out_dir = out_dir, folder = "Test", .prefix = "[prim]")
+  write_reports(template = "primary_report_template.Rmd", out_dir = out_dir, folder = "Primary")
