@@ -88,7 +88,16 @@ primaries_to_knit |>
 # Knit all needing a new version ---------------------------------------------
 
 schools_missing_sex <- hbsc2022 |> 
-  filter(is.na(sex)) |> 
-  count(SCHOOL_number) |> 
-  arrange(desc(n))
+  count(SCHOOL_number, school_level, sex) |> 
+  pivot_wider(names_from = sex, values_from = n) |> 
+  filter(`NA` > 0) |> 
+  arrange(desc(`NA`))
 
+inner_join(secondaries_to_knit, schools_missing_sex |> filter(school_level == "Secondary"), by = "SCHOOL_number") |> select(-school_name, - LA) |>  arrange(desc(`NA`))
+inner_join(primaries_to_knit, schools_missing_sex |> filter(school_level == "Primary"), by = "SCHOOL_number") |> select(-school_name, - LA) |>  arrange(desc(`NA`))
+
+
+hbsc2022 |> 
+  count(SCHOOL_number, sex) |> 
+  pivot_wider(names_from = sex, values_from = n) |> 
+  arrange(desc(`NA`))
