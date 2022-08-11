@@ -186,8 +186,8 @@ bar_mean_by_cat <- function(.data,
     # * if there are ≤14 students, the chart should only present a single column
     #   representing all students.
     
-    p1 <- df_sex |>
-      summarise(mean_var = weighted.mean(mean_var, w = denom)) |> 
+    p1 <- .data |>
+      summarise(mean_var = mean(!!var, na.rm = TRUE)) |> 
       ggplot(aes("All pupils", mean_var)) +
       geom_bar_t(stat = "identity") +
       scale_fill_hbsc() +
