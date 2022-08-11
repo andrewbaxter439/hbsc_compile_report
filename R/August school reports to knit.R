@@ -46,7 +46,7 @@ update_geom_defaults("bar", list(fill = primary_colour))
 
 # Read files for school names
 
-out_dir <- "Q:/Project Recipient Data/HBSC 2022/School ID/Report tracking/Reports for checking August 2022"
+out_dir <- Sys.getenv("out_dir")
 
 secondaries_to_knit <-
   readxl::read_excel(
