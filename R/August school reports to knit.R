@@ -50,7 +50,7 @@ out_dir <- Sys.getenv("out_dir")
 
 secondaries_to_knit <-
   readxl::read_excel(
-    "Q:\\Project Recipient Data\\HBSC 2022\\School ID\\Report tracking\\Report overview 020822.xlsx",
+    file.path(out_dir, "Report overview 020822.xlsx"),
     sheet = "Secondary schools"
   ) |>
   select(school_name = Name, LA, id = `School iD`) |>
@@ -58,7 +58,7 @@ secondaries_to_knit <-
          .keep = "unused") |> 
 bind_rows(
   readxl::read_excel(
-    "Q:\\Project Recipient Data\\HBSC 2022\\School ID\\Report tracking\\Report overview 020822.xlsx",
+    file.path(out_dir, "Report overview 020822.xlsx"),
     sheet = "Pre-Easter secondary"
   ) |>
   select(school_name = Name, LA, id = `School iD`) |>
@@ -68,7 +68,7 @@ bind_rows(
 
 
 primaries_to_knit <-  readxl::read_excel(
-  "Q:\\Project Recipient Data\\HBSC 2022\\School ID\\Report tracking\\Report overview 020822.xlsx",
+  file.path(out_dir, "Report overview 020822.xlsx"),
   sheet = "Primary schools"
 ) |>
   select(school_name = Name, LA, id = `School iD`) |>
@@ -78,9 +78,17 @@ primaries_to_knit <-  readxl::read_excel(
 
 # Knit all by template type -----------------------------------------------------------
 
-
 secondaries_to_knit |> 
-  write_reports(template = "secondary_report_template.Rmd", out_dir = out_dir, folder = "Secondary")
+  write_reports(template = "secondary_report_template.Rmd", out_dir = file.path(out_dir, "Reports for checking August 2022"), folder = "Secondary")
 
 primaries_to_knit |>
-  write_reports(template = "primary_report_template.Rmd", out_dir = out_dir, folder = "Primary")
+  write_reports(template = "primary_report_template.Rmd", out_dir = file.path(out_dir, "Reports for checking August 2022"), folder = "Primary")
+
+
+# Knit all needing a new version ---------------------------------------------
+
+schools_missing_sex <- hbsc2022 |> 
+  filter(is.na(sex)) |> 
+  count(SCHOOL_number) |> 
+  arrange(desc(n))
+
