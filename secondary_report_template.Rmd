@@ -1161,7 +1161,7 @@ school_dat |>
       sit_browhr = "Browsing internet"
     ),
     group = "sex",
-    ymax = 6,
+    ymax = max(6, max(select(school_dat, ends_with("hr")), na.rm = TRUE)),
     ylab = "Hours",
     .censor = params$censor
   )
