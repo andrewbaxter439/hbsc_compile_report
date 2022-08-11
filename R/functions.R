@@ -53,8 +53,9 @@ bar_by_cat <- function(.data,
     # * if there are ≤14 students, the chart should only present a single column
     #   representing all students.
     
-    p1 <- df_sex |>
-      summarise(prop = sum(numerator) / sum(denom)) |>
+    p1 <- .data |>
+      mutate(success = !!var %in% success) |>
+      summarise(prop = sum(success, na.rm = TRUE)/ n()) |>
       ggplot(aes("All pupils", prop)) +
       geom_bar_t(stat = "identity") +
       scale_fill_hbsc() +
