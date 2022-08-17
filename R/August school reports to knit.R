@@ -101,3 +101,17 @@ hbsc2022 |>
   count(SCHOOL_number, sex) |> 
   pivot_wider(names_from = sex, values_from = n) |> 
   arrange(desc(`NA`))
+
+
+
+# redoing 066 -------------------------------------------------------------
+
+readxl::read_excel(
+  file.path(out_dir, "Report overview 020822.xlsx"),
+  sheet = "Reports under consideration"
+) |>
+  select(school_name = Name, LA, id = `School iD`) |> 
+  mutate(SCHOOL_number = str_extract(id, "(?<=^P7)\\d{3}"),
+         .keep = "unused") |> 
+  filter(SCHOOL_number == "066") |> 
+  write_reports(template = "primary_report_template.Rmd", out_dir = file.path(out_dir, "To send June 2022"), folder = "")
