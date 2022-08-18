@@ -141,3 +141,14 @@ readxl::read_excel(
          .keep = "unused") |> 
   filter(SCHOOL_number %in% c("095", "045")) |> 
   write_reports(template = "secondary_report_template.Rmd", out_dir = file.path(out_dir, "Reports for checking August 2022"), folder = "Rerun reports with small numbers")
+
+
+readxl::read_excel(
+  file.path(out_dir, "Report overview 020822.xlsx"),
+  sheet = "Reports under consideration"
+) |>
+  select(school_name = Name, LA, id = `School iD`) |> 
+  mutate(SCHOOL_number = str_extract(id, "(?<=^P7)\\d{3}"),
+         .keep = "unused") |> 
+  filter(SCHOOL_number != "066") |> 
+  write_reports(template = "primary_report_template.Rmd", out_dir = file.path(out_dir, "Reports for checking August 2022"), folder = "Rerun reports with small numbers")
