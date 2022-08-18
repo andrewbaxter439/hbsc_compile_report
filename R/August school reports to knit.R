@@ -44,9 +44,10 @@ theme_set(theme_minimal() +
 
 update_geom_defaults("bar", list(fill = primary_colour))
 
-# Read files for school names
-
 out_dir <- Sys.getenv("out_dir")
+
+
+# Read files for school names --------------------------------------------------
 
 secondaries_to_knit <-
   readxl::read_excel(
