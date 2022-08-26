@@ -715,11 +715,12 @@ write_reports <- function(df, template = "secondary_report_template.Rmd", out_di
   output_file <- file.path(
     out_dir,
     folder,
-    paste0(
+    paste0(str_trunc(paste0(
       .prefix,
       str_remove_all(df$LA, "[:punctuation:]"),
       " - ",
-      str_remove_all(df$school_name, "[:punctuation:]"),
+      str_remove_all(df$school_name, "[:punctuation:]")
+    ), 36, ellipsis = ""),
       ".docx"
     )
   )
