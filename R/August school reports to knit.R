@@ -152,4 +152,37 @@ readxl::read_excel(
   mutate(SCHOOL_number = str_extract(id, "(?<=^P7)\\d{3}"),
          .keep = "unused") |> 
   filter(SCHOOL_number != "066") |> 
-  write_reports(template = "primary_report_template.Rmd", out_dir = file.path(out_dir, "Reports for checking August 2022"), folder = "Rerun reports with small numbers")  write_reports(template = "primary_report_template.Rmd", out_dir = file.path(out_dir, "Reports for checking August 2022"), folder = "Rerun reports with small numbers")  write_reports(template = "primary_report_template.Rmd", out_dir = file.path(out_dir, "Reports for checking August 2022"), folder = "Rerun reports with small numbers")
+  write_reports(template = "primary_report_template.Rmd", out_dir = file.path(out_dir, "Reports for checking August 2022"), folder = "Rerun reports with small numbers")
+
+
+# rerun for no gender split -----------------------------------------------
+
+readxl::read_excel(
+  file.path(out_dir, "Report overview JULY 2022.xlsx"),
+  sheet = "Primary school"
+) |>
+  select(school_name = Name, LA, id = `School iD`) |> 
+  mutate(SCHOOL_number = str_extract(id, "(?<=^P7)\\d{3}"),
+         .keep = "unused") |> 
+  filter(SCHOOL_number %in% c("020", "042", "037", "046")) |> 
+  write_reports(template = "primary_report_template.Rmd", out_dir = file.path(out_dir, "Reports for checking August 2022"), folder = "Test")
+
+readxl::read_excel(
+  file.path(out_dir, "Report overview 020822.xlsx"),
+  sheet = "Reports under consideration"
+) |>
+  select(school_name = Name, LA, id = `School iD`) |> 
+  mutate(SCHOOL_number = str_extract(id, "(?<=^P7)\\d{3}"),
+         .keep = "unused") |> 
+  filter(SCHOOL_number %in% c("006", "073", "013", "061", "048")) |> 
+  write_reports(template = "primary_report_template.Rmd", out_dir = file.path(out_dir, "Reports for checking August 2022"), folder = "Test")
+
+readxl::read_excel(
+  file.path(out_dir, "Report overview JULY 2022.xlsx"),
+  sheet = "Secondary "
+) |>
+  select(school_name = Name, LA, id = `School iD`) |> 
+  mutate(SCHOOL_number = str_extract(id, "(?<=^S)\\d{3}"),
+         .keep = "unused") |> 
+  filter(SCHOOL_number %in% c("095", "045")) |> 
+  write_reports(template = "secondary_report_template.Rmd", out_dir = file.path(out_dir, "Reports for checking August 2022"), folder = "Test", gender_split = FALSE)

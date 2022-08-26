@@ -18,7 +18,8 @@
 bar_by_cat <- function(.data,
                        var,
                        success = "Yes",
-                       .censor = TRUE) {
+                       .censor = TRUE,
+                       .gender_split = TRUE) {
   var <- enquo(var)
   
   df_sex <- .data |>
@@ -28,7 +29,7 @@ bar_by_cat <- function(.data,
               denom = n()) |>
     filter(!is.na(sex))
   
-  if ((all(df_sex$numerator > 3) & all(df_sex$denom >= 7)) | !.censor) {
+  if (((all(df_sex$numerator > 3) & all(df_sex$denom >= 7)) | !.censor) & .gender_split) {
     # * chart should not be created if there are ≤3 students in the numerator of
     #   any variable.
     # * only separate by sex if there are ≥7 girls AND ≥7 boys in the denominator
@@ -138,6 +139,7 @@ bar_by_cat <- function(.data,
 bar_mean_by_cat <- function(.data, 
                             var,
                        .censor = TRUE,
+                       .gender_split = TRUE,
                        ymax = max(.data[[rlang::as_name(var)]], na.rm = TRUE),
                        ylab = "Mean",
                        ybreaks = NULL) {
@@ -163,7 +165,7 @@ bar_mean_by_cat <- function(.data,
   #   summarise(max_var = max(!!var)) |> 
   #   pull(max_var)
   
-  if (all(df_sex$denom >= 7) | !.censor) {
+  if ((all(df_sex$denom >= 7) | !.censor) & .gender_split) {
     # * chart should not be created if there are ≤3 students in the numerator of
     #   any variable.
     # * only separate by sex if there are ≥7 girls AND ≥7 boys in the denominator
@@ -318,9 +320,12 @@ bar_multiple_vars <-
            varslist,
            success = c("More than once a week", "About every day"),
            group = c("none", "grade", "sex"),
-           .censor = TRUE) {
+           .censor = TRUE,
+           .gender_split = TRUE) {
     
     group <- match.arg(group)
+    
+    group <- if_else(.gender_split, group, "none")
     
     clean_dat <- .data |>
     mutate(grouping = case_when(
@@ -409,6 +414,7 @@ bar_mean_multiple_vars <-
            varslist,
            group = c("none", "grade", "sex"),
            .censor = TRUE,
+           .gender_split = TRUE,
            limits = c(`Poor quality` = 1,
                       `High quality` = 6),
            ymax = limits[2],
@@ -416,6 +422,7 @@ bar_mean_multiple_vars <-
     
     require(rlang)
     group <- match.arg(group)
+    group <- if_else(.gender_split, group, "none")
     
     clean_dat <- .data |>
     mutate(grouping = case_when(
@@ -702,7 +709,7 @@ common_health_complaints <- function(.data,
 
 # write reports -----------------------------------------------------------
 
-write_reports <- function(df, template = "secondary_report_template.Rmd", out_dir, folder = "Test", .prefix = "") {
+write_reports <- function(df, template = "secondary_report_template.Rmd", out_dir, folder = "Test", .prefix = "", ...) {
   
   all_time <- 0
   processed <- 1
@@ -730,7 +737,8 @@ write_reports <- function(df, template = "secondary_report_template.Rmd", out_di
     params = list(
       school = df$SCHOOL_number,
       school_name = df$school_name,
-      censor = TRUE
+      censor = TRUE,
+      ...
     ),
     output_file = output_file
   )
