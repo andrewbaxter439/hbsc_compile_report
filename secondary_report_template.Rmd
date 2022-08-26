@@ -35,7 +35,7 @@ params:
   school: 
     label: 'School'
     input: select
-    value: "033"
+    value: "045"
     choices: ["003", "070", "075", "007", "008", "010", "013",
     "014", "017", "019", "021", "022", "024", "026", "028", "029", 
     "033", "034", "035", "040", "041", "045", "046", "047", "049", 
@@ -45,6 +45,10 @@ params:
     label: 'School name'
     input: text
     value: NA
+  gender_split: 
+    label: 'Split by gender?'
+    input: checkbox
+    value: TRUE
 
 ---
 
@@ -261,6 +265,7 @@ Pupils were asked to rate their own health. This figure shows the proportion of 
 
 school_dat |>
   bar_by_cat(health, c("Good", "Excellent"),
+  .gender_split = params$gender_split,
   .censor = params$censor)
 
 ```
@@ -285,6 +290,7 @@ school_dat |>
     irritable =   "Feeling irritable",
     sleepdificulty =   "Sleep difficulties"
   ),
+  .gender_split = params$gender_split,
   .censor = params$censor
 ) + theme(axis.text.x = element_text(size = 10))
 ```
@@ -297,7 +303,8 @@ The following figure shows the percentage of pupils who report two or more healt
 ```{r multi_health, fig.cap="% pupils who report two or more health complaints once a week or more", fig.id = "fig_multi_health"}
 
 school_dat |>
-  bar_by_cat(mhc_multi, "Yes", .censor = params$censor)
+  bar_by_cat(mhc_multi, "Yes",.gender_split = params$gender_split,
+             .censor = params$censor)
 
 ```
 
@@ -313,6 +320,7 @@ Current NHS recommendations are that children aged 12-17 years should aim for a 
 school_dat |>
   bar_mean_by_cat(
     Schooldays_sleep_hrs,
+    .gender_split = params$gender_split,
     .censor = params$censor,
     ymax = 12,
     ylab = "Hours",
@@ -324,6 +332,7 @@ school_dat |>
 school_dat |>
   bar_mean_by_cat(
     Weekend_sleep_hrs,
+    .gender_split = params$gender_split,
     .censor = params$censor,
     ymax = 13,
     ylab = "Hours",
@@ -347,6 +356,7 @@ school_dat |>
     SleepQual_RTW = "Morning wakefulness"
   ),
   group = "sex",
+  .gender_split = params$gender_split,
   .censor = params$censor,
   ymax = 6,
   ylab = "Score"
@@ -363,6 +373,7 @@ school_dat |>
     SleepQual_RTW = "Morning wakefulness"
   ),
   group = "grade",
+  .gender_split = params$gender_split,
   .censor = params$censor,
   ymax = 6,
   ylab = "Score"
@@ -421,6 +432,7 @@ Pupils were asked about their life satisfaction, using the 'Cantril Ladder'. Thi
 ```{r high_life, fig.cap="% pupils who report high life satisfaction (6 or more out of 10)"}
 school_dat |>
   bar_by_cat(lifesat, c("6", "7", "8", "9", "10 Best possible life"),
+  .gender_split = params$gender_split,
   .censor = params$censor)
 ```
 
@@ -433,7 +445,8 @@ Pupils were asked "how often do you feel left out of things?". This figure shows
 
 ```{r left_out, fig.cap="% pupils who feel often or always left out"}
 school_dat |>
-  bar_by_cat(leftout, c("Often", "Always"), .censor = params$censor)
+  bar_by_cat(leftout, c("Often", "Always"), .gender_split = params$gender_split,
+             .censor = params$censor)
 ```
 
 ### Confidence
@@ -444,7 +457,8 @@ Pupils were asked 'how often do you feel confident in yourself?'. Here we show t
 
 ```{r confident, fig.cap="% pupils who feel often or always confident"}
 school_dat |>
-  bar_by_cat(confidence, c("Often", "Always"), .censor = params$censor)
+  bar_by_cat(confidence, c("Often", "Always"),.gender_split = params$gender_split,
+             .censor = params$censor)
 ```
 
 
@@ -456,7 +470,8 @@ To gauge levels of happiness, pupils were asked "In general, how do you feel abo
 
 ```{r happy, fig.cap="% pupils who feel happy with life"}
 school_dat |>
-  bar_by_cat(happiness, c("I feel quite happy", "I feel very happy"), .censor = params$censor)
+  bar_by_cat(happiness, c("I feel quite happy", "I feel very happy"), .gender_split = params$gender_split,
+             .censor = params$censor)
 ```
 
 
@@ -469,7 +484,8 @@ Pupils were asked how often they had felt lonely in the past 12 months. Here we 
 
 ```{r feel_lonely, fig.cap="% pupils who feel lonely most or all of the time"}
 school_dat |>
-  bar_by_cat(Lonely_mostalways, "Lonely most or all of time", .censor = params$censor)
+  bar_by_cat(Lonely_mostalways, "Lonely most or all of time", .gender_split = params$gender_split,
+             .censor = params$censor)
 ```
 
 ### WHO 5 Wellbeing Index
@@ -480,7 +496,8 @@ The WHO--5 Wellbeing Index is a five-item scale which provides a measure of emot
 
 ```{r who_mood, fig.cap="% pupils with low mood (WHO 5 Index)"}
 school_dat |>
-  bar_by_cat(WHO_low, "Low mood/risk of depression", .censor = params$censor)
+  bar_by_cat(WHO_low, "Low mood/risk of depression",.gender_split = params$gender_split,
+             .censor = params$censor)
 ```
 
 
@@ -494,6 +511,7 @@ The Cohen Perceived Stress Scale asks four questions about how pupils feel they 
 school_dat |>
   bar_mean_by_cat(
     var = CohenPSS4,
+    .gender_split = params$gender_split,
     .censor = params$censor,
     ymax = 16,
     ylab = "Score",
@@ -510,7 +528,8 @@ Pupils were asked to complete the Generalised Anxiety Disorder Scale. This asks 
 
 ```{r mod_severe_anxiety, fig.cap="% of pupils reporting moderate or severe anxiety"}
 school_dat |>
-  bar_by_cat(var = gadclassification, success = "anxious", .censor = params$censor)
+  bar_by_cat(var = gadclassification, success = "anxious",.gender_split = params$gender_split,
+             .censor = params$censor)
 ```
 
 
@@ -522,7 +541,8 @@ Pupils were asked whether they thought they were underweight, overweight or neit
 
 ```{r over_underweight, fig.cap="% pupils who think they are neither over- nor underweight"}
 school_dat |>
-  bar_by_cat(var = aboutright, success = "Yes", .censor = params$censor)
+  bar_by_cat(var = aboutright, success = "Yes", .gender_split = params$gender_split,
+             .censor = params$censor)
 ```
 
 
@@ -641,6 +661,7 @@ school_dat |>
   ),
   success = c("Once a day, every day", "Every day, more than once"),
   group = "sex",
+  .gender_split = params$gender_split,
   .censor = params$censor
 )
 ```
@@ -660,6 +681,7 @@ school_dat |>
   ),
   success = c("Once a day, every day", "Every day, more than once"),
   group = "grade",
+  .gender_split = params$gender_split,
   .censor = params$censor
 )
 ```
@@ -676,7 +698,8 @@ percentage of pupils who report eating breakfast every day on weekdays.
 ```{r breakfase_wd, fig.cap="% pupils who eat breakfast every weekday"}
 
 school_dat |>
-  bar_by_cat(breakfastwd, success = "Five days", .censor = params$censor)
+  bar_by_cat(breakfastwd, success = "Five days",.gender_split = params$gender_split,
+             .censor = params$censor)
 
 ```
 
@@ -692,7 +715,8 @@ family meal most days or every day.
 ```{r family_meal, fig.cap="% pupils who eat a meal with family most days or every day"}
 
 school_dat |>
-  bar_by_cat(fmeal, c("Every day", "Most days"), .censor = params$censor)
+  bar_by_cat(fmeal, c("Every day", "Most days"),.gender_split = params$gender_split,
+             .censor = params$censor)
 
 ```
 
@@ -760,7 +784,8 @@ We present in the following figure the percentage of pupils who participated in 
 
 ```{r activity_every_day, fig.cap="% pupils who do 60 minutes of moderate-to-vigorous physical activity every day"}
 school_dat |>
-  bar_by_cat(var = MVPA7, success = "7 days of 60 mins MVPA a week", .censor = params$censor)
+  bar_by_cat(var = MVPA7, success = "7 days of 60 mins MVPA a week",.gender_split = params$gender_split,
+             .censor = params$censor)
 ```
 
 ### Leisure time physical activity 
@@ -774,7 +799,8 @@ The following figure shows the percentage of pupils who reported doing vigorous 
 
 ```{r activity_four_times, fig.cap="% pupils who do vigorous exercise at least 3 times per week in their leisure time"}
 school_dat |>
-  bar_by_cat(var = vigexfrq3, success = "3 times a week or more", .censor = params$censor)
+  bar_by_cat(var = vigexfrq3, success = "3 times a week or more", .gender_split = params$gender_split,
+             .censor = params$censor)
 ```
 
 ### Participation in organised leisure activities 
@@ -794,7 +820,8 @@ week.
 
 ```{r organised_activity, fig.cap="% pupils who do at least one organised activity a week"}
 school_dat |>
-  bar_by_cat(var = Org_act_wkly, success = " At least one activity weekly", .censor = params$censor)
+  bar_by_cat(var = Org_act_wkly, success = " At least one activity weekly", .gender_split = params$gender_split,
+             .censor = params$censor)
 ```
 
 
@@ -816,6 +843,7 @@ school_dat |>
   ),
   success = "At least weekly",
   group = "sex",
+  .gender_split = params$gender_split,
   .censor = params$censor
 )
 ```
@@ -835,6 +863,7 @@ school_dat |>
   ),
   success = "At least weekly",
   group = "grade",
+  .gender_split = params$gender_split,
   .censor = params$censor
 )
 
@@ -1009,6 +1038,7 @@ school_dat |>
     subs_use_vars,
     success = c("drunk once or more", "Tried smoking", "Tried e-cigarette"),
     group = "none",
+    .gender_split = params$gender_split,
     .censor = TRUE
   )
 ```
@@ -1020,6 +1050,7 @@ school_dat |>
     subs_use_vars,
     success = c("drunk once or more", "Tried smoking", "Tried e-cigarette"),
     group = "sex",
+    .gender_split = params$gender_split,
     .censor = TRUE
   )
 ```
@@ -1031,6 +1062,7 @@ school_dat |>
     subs_use_vars,
     success = c("drunk once or more", "Tried smoking", "Tried e-cigarette"),
     group = "grade",
+    .gender_split = params$gender_split,
     .censor = TRUE
   )
 ```
@@ -1124,13 +1156,15 @@ bedroom.
 
 ```{r sphbed, fig.cap="% of pupils with smartphone in their bedroom at night"}
 school_dat |>
-  bar_by_cat(var = smartphbed, success = " Has smartphone in bedroom", .censor = params$censor)
+  bar_by_cat(var = smartphbed, success = " Has smartphone in bedroom",.gender_split = params$gender_split,
+             .censor = params$censor)
 ```
 
 
 ```{r tv_in_room, fig.cap="% of pupils with TV in their bedroom"}
 school_dat |>
-  bar_by_cat(var = TVbed, success = " Has TV in bedroom", .censor = params$censor)
+  bar_by_cat(var = TVbed, success = " Has TV in bedroom", .gender_split = params$gender_split,
+             .censor = params$censor)
 ```
 
 
@@ -1142,7 +1176,8 @@ Pupils were asked to think about 'online contact' and 'online communication', de
 
 ```{r online_contact, fig.cap="Pupils reporting online contact with close friends several times/almost all the time during the day"}
 school_dat |>
-  bar_by_cat(var = emconhigh1, success = "Intense contact", .censor = params$censor)
+  bar_by_cat(var = emconhigh1, success = "Intense contact", .gender_split = params$gender_split,
+             .censor = params$censor)
 ```
 
 ### Screen time
@@ -1163,6 +1198,7 @@ school_dat |>
     group = "sex",
     ymax = max(6, max(select(school_dat, ends_with("hr")), na.rm = TRUE)),
     ylab = "Hours",
+    .gender_split = params$gender_split,
     .censor = params$censor
   )
 ```
@@ -1181,6 +1217,7 @@ school_dat |>
     group = "grade",
     ymax = max(6, max(select(school_dat, ends_with("hr")), na.rm = TRUE)),
     ylab = "Hours",
+    .gender_split = params$gender_split,
     .censor = params$censor
   )
 ```
@@ -1199,7 +1236,8 @@ Pupils were asked to think about all the games that they play on a smartphone, t
 
 ```{r gaming_4w, fig.cap="% pupils who played computer games at least 4 times a week"}
 school_dat |>
-  bar_by_cat(var = game_4day, success = "Gaming at least 4 days a week", .censor = params$censor)
+  bar_by_cat(var = game_4day, success = "Gaming at least 4 days a week",.gender_split = params$gender_split,
+             .censor = params$censor)
 ```
 
 
@@ -1283,13 +1321,13 @@ Young people were asked about their experiences of COVID-19 and its associated r
 The figures below show the percentage of pupils who reported either a negative (very/quite) or a positive (very/quite) impact on that aspect of their life.
 :::
 
-```{r covid_girls, fig.cap="Perceived impact of the COVID-19 pandemic on GIRLS", fig.height=4.2, fig.width=6.4}
+```{r covid_girls, fig.cap="Perceived impact of the COVID-19 pandemic on GIRLS", fig.height=4.2, fig.width=6.4, eval = params$gender_split}
 school_dat |>
   bar_diverging("Girls")
 ```
 
 
-```{r covid_boys, fig.cap="Perceived impact of the COVID-19 pandemic on BOYS", fig.height=4.2, fig.width=6.4}
+```{r covid_boys, fig.cap="Perceived impact of the COVID-19 pandemic on BOYS", fig.height=4.2, fig.width=6.4, eval = params$gender_split}
 school_dat |>
   bar_diverging("Boys")
 ```
@@ -1307,7 +1345,7 @@ school_dat |>
 ```
 
 
-```{r covid_all, fig.cap="Perceived impact of the COVID-19 pandemic on all pupils", eval=!multi_grades, fig.height=4.2, fig.width=6.4}
+```{r covid_all, fig.cap="Perceived impact of the COVID-19 pandemic on all pupils", eval=(!multi_grades|!params$gender_split), fig.height=4.2, fig.width=6.4}
 school_dat |>
   mutate(grade = "All pupils") |> 
   bar_diverging("All pupils")
@@ -1341,7 +1379,8 @@ The following figure presents the percentage of pupils who say they find it easy
 
 ```{r easy_talk_m, fig.cap="% pupils who say it's easy or very easy to speak to mother figure"}
 school_dat |>
-  bar_by_cat(var = easytalk_mfigure, success = "Easy to talk to mother or stepmother", .censor = params$censor)
+  bar_by_cat(var = easytalk_mfigure, success = "Easy to talk to mother or stepmother",.gender_split = params$gender_split,
+             .censor = params$censor)
 ```
 
 ::: {custom-style="FigDesc"}
@@ -1350,7 +1389,8 @@ The following figure presents the percentage of pupils who say they find it easy
 
 ```{r easy_talk_f, fig.cap="% pupils who say it's easy or very easy to speak to father figure"}
 school_dat |>
-  bar_by_cat(var = easytalk_Ffigure, success = "Easy to talk to father or stepfather", .censor = params$censor)
+  bar_by_cat(var = easytalk_Ffigure, success = "Easy to talk to father or stepfather",.gender_split = params$gender_split,
+             .censor = params$censor)
 ```
 
 ### Family support
@@ -1361,7 +1401,8 @@ The HBSC survey includes the Family Support Scale. This consists of four questio
 
 ```{r high_support, fig.cap="% pupils who report high family support"}
 school_dat |>
-  bar_by_cat(var = Family_support_scale_binary, success = "High family support", .censor = params$censor)
+  bar_by_cat(var = Family_support_scale_binary, success = "High family support",.gender_split = params$gender_split,
+             .censor = params$censor)
 ```
 
 
@@ -1373,7 +1414,8 @@ The Peer Support Scale include four questions about support received from friend
 
 ```{r high_peer_support, fig.cap="% pupils who report high peer support"}
 school_dat |>
-  bar_by_cat(var = Peer_support_scale_binary, success = "High Peer support", .censor = params$censor)
+  bar_by_cat(var = Peer_support_scale_binary, success = "High Peer support",.gender_split = params$gender_split,
+             .censor = params$censor)
 ```
 
 ### Trusted adult
@@ -1384,7 +1426,8 @@ Pupils were asked 'do you have an adult in your life who you can trust and talk 
 
 ```{r trusted_adult, fig.cap="% pupils who always have a trusted adult to talk to"}
 school_dat |>
-  bar_by_cat(var = Trusted_adult, success = "Yes, I always do", .censor = params$censor)
+  bar_by_cat(var = Trusted_adult, success = "Yes, I always do", .gender_split = params$gender_split,
+             .censor = params$censor)
 ```
 
 ### Who can help?
@@ -1454,7 +1497,8 @@ Pupils were asked how much they like school at present. The figure shows the per
 
 ```{r like_school, fig.cap="% pupils who like school a lot or a bit"}
 school_dat |>
-  bar_by_cat(var = likesch_bitlot, success = "Like school a bit or a lot", .censor = params$censor)
+  bar_by_cat(var = likesch_bitlot, success = "Like school a bit or a lot",.gender_split = params$gender_split,
+             .censor = params$censor)
 ```
 
 
@@ -1467,7 +1511,8 @@ Pupils were asked how pressured they feel about the schoolwork they have to do. 
 
 ```{r pressure_school, fig.cap="% pupils who feel some or a lot of pressure from schoolwork"}
 school_dat |>
-  bar_by_cat(var = school_stress, success = "some/a lot", .censor = params$censor)
+  bar_by_cat(var = school_stress, success = "some/a lot", .gender_split = params$gender_split,
+             .censor = params$censor)
 ```
 
 ### Teacher and pupil support
@@ -1478,12 +1523,14 @@ Pupils were asked to say how much they feel their teachers accept and care about
 
 ```{r high_teacher_support, fig.cap="% pupils who report high teacher support"}
 school_dat |>
-  bar_by_cat(var = Teacher_scale_cutoff, success = "High teacher support", .censor = params$censor)
+  bar_by_cat(var = Teacher_scale_cutoff, success = "High teacher support",.gender_split = params$gender_split,
+             .censor = params$censor)
 ```
 
 ```{r high_class_support, fig.cap="% pupils who report high classmate support"}
 school_dat |>
-  bar_by_cat(var = stud_support_scale_cutoff, success = "High student support", .censor = params$censor)
+  bar_by_cat(var = stud_support_scale_cutoff, success = "High student support", .gender_split = params$gender_split,
+             .censor = params$censor)
 ```
 
 
