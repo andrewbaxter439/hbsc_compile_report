@@ -152,4 +152,4 @@ readxl::read_excel(
   mutate(SCHOOL_number = str_extract(id, "(?<=^P7)\\d{3}"),
          .keep = "unused") |> 
   filter(SCHOOL_number != "066") |> 
-  write_reports(template = "primary_report_template.Rmd", out_dir = file.path(out_dir, "Reports for checking August 2022"), folder = "Rerun reports with small numbers")
+  write_reports(template = "primary_report_template.Rmd", out_dir = file.path(out_dir, "Reports for checking August 2022"), folder = "Rerun reports with small numbers")  write_reports(template = "primary_report_template.Rmd", out_dir = file.path(out_dir, "Reports for checking August 2022"), folder = "Rerun reports with small numbers")  write_reports(template = "primary_report_template.Rmd", out_dir = file.path(out_dir, "Reports for checking August 2022"), folder = "Rerun reports with small numbers")
